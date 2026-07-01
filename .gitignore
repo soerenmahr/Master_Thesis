@@ -3,6 +3,10 @@
 # Created by https://www.gitignore.io/api/linux,visualstudiocode,latex
 # Edit at https://www.gitignore.io/?templates=linux,visualstudiocode,latex
 
+# LaTeX build output
+act_thesis/build/
+main.pdf
+
 ### LaTeX ###
 ## Core latex/pdflatex auxiliary files:
 *.aux

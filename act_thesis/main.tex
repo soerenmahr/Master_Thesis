@@ -6,8 +6,8 @@
 \documentclass[
     12pt,
     a4paper,
-    twoside,          % two-sided printing; use 'oneside' for screen-only
-    openright,        % chapters start on right-hand page
+    oneside,          % two-sided printing; use 'oneside' for screen-only
+    openany,        % openright chapters start on right-hand page
     numbers=noenddot,
     bibliography=totoc,
     listof=totoc,
@@ -17,6 +17,7 @@
 %--- Configuration (packages, settings, custom commands) ------
 \input{config/preamble}
 \input{config/commands}
+\loadglsentries{frontmatter/glossary}
 
 %--- Bibliography database ------------------------------------
 \addbibresource{bibliography/references.bib}
@@ -42,6 +43,10 @@
 \listoffigures
 \cleardoublepage
 \listoftables
+\cleardoublepage
+
+\printglossary[type=\acronymtype,title={List of Abbreviations}]
+\printglossary[title={Glossary}]
 \cleardoublepage
 
 %--- Main matter (arabic page numbers) ------------------------

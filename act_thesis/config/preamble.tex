@@ -47,9 +47,10 @@
 \usepackage{scrlayer-scrpage}    % headers/footers (KOMA)
 \pagestyle{scrheadings}
 \clearpairofpagestyles
-\automark[section]{chapter}
-\ihead{\headmark}                % inner header: chapter/section mark
-\ohead{\pagemark}                % outer header: page number
+\renewcommand*{\chaptermark}[1]{\markboth{\thechapter\ #1}{}}
+\renewcommand*{\sectionmark}[1]{\markright{\thesection\ #1}}
+\ihead{\leftmark\ \textbullet\ \rightmark}   % Kapitel • Section
+\ohead{\pagemark}  
 
 %--- Cross references and links -------------------------------
 \usepackage{xcolor}
@@ -88,3 +89,8 @@
 
 %--- Misc -----------------------------------------------------
 \usepackage{lipsum}              % placeholder text; remove in final version
+
+%--- Glossary and acronyms ------------------------------------
+\usepackage[toc,acronym,nonumberlist,nopostdot]{glossaries}
+\setacronymstyle{long-short}
+\makeglossaries
