@@ -1,0 +1,35 @@
+%==============================================================
+%  Custom commands and shortcuts
+%==============================================================
+
+%--- Project-specific macros ----------------------------------
+\newcommand{\helium}{\textsuperscript{4}He}
+\newcommand{\heliumthree}{\textsuperscript{3}He}
+\newcommand{\droplet}{nanodroplet}
+
+%--- Frequently used physics notation -------------------------
+% Note: the 'physics' package already provides \expval, \abs, \norm, \ket, ...
+\newcommand{\Jrot}{J}                          % rotational quantum number
+\newcommand{\Brot}{B}                           % rotational constant
+
+%--- Units frequently used (siunitx) --------------------------
+\DeclareSIUnit{\wavenumber}{\per\centi\meter}   % cm^-1
+
+%--- Editorial helpers (remove in final version) --------------
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+%--- Textbook-style aside / info box --------------------------
+% Usage: \begin{aside}{Title} ... text ... \end{aside}
+% Indented from the left, faint background, accent left rule,
+% bold accent-coloured title line. Breaks across pages.
+\newtcolorbox{aside}[1]{%
+    enhanced, breakable, sharp corners,
+    colback = accent!4,                              % faint background tint
+    colframe = accent,
+    boxrule = 0pt, leftrule = 2pt,                   % accent bar on the left only
+    left = 1em, right = 1em, top = 0.7em, bottom = 0.7em,
+    width = \dimexpr\linewidth-1.8em\relax,          % narrower than text...
+    flush right,                                      % ...indented on the left
+    before skip = 1em, after skip = 1em,
+    before upper = {{\bfseries\color{accent}#1}\par\smallskip}
+}

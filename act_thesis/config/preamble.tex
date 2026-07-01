@@ -1,0 +1,90 @@
+%==============================================================
+%  Preamble - packages and global settings
+%==============================================================
+
+%--- Encoding and language ------------------------------------
+\usepackage[utf8]{inputenc}      % source encoding (redundant on modern TeX, harmless)
+\usepackage[T1]{fontenc}         % proper font encoding / hyphenation
+\usepackage{babel}               % language taken from documentclass option
+\usepackage{csquotes}            % context-sensitive quotation marks (needed by biblatex)
+
+%--- Fonts ----------------------------------------------------
+\usepackage{lmodern}
+\usepackage{microtype}           % improved justification and kerning
+
+%--- Mathematics ----------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{physics}             % \dv, \pdv, \ket, \bra, \abs, \norm, ...
+\usepackage{siunitx}             % \SI{}{}, \si{}, aligned units
+\sisetup{
+    separate-uncertainty = true,
+    per-mode             = symbol,
+    range-phrase         = {\text{--}}
+}
+
+%--- Graphics and tables --------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}            % \toprule, \midrule, \bottomrule
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{subcaption}          % subfigures
+\usepackage[font=small,labelfont=bf]{caption}
+
+%--- Layout ---------------------------------------------------
+\usepackage[
+    a4paper,
+    inner = 3.0cm,
+    outer = 2.5cm,
+    top   = 2.5cm,
+    bottom= 2.5cm
+]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{scrhack}             % KOMA compatibility fixes
+\usepackage{scrlayer-scrpage}    % headers/footers (KOMA)
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+\automark[section]{chapter}
+\ihead{\headmark}                % inner header: chapter/section mark
+\ohead{\pagemark}                % outer header: page number
+
+%--- Cross references and links -------------------------------
+\usepackage{xcolor}
+
+%--- Brand colours and accent ---------------------------------
+\definecolor{ubcblue}{HTML}{002145}   % UBC Blue
+\definecolor{rwthblue}{HTML}{00549F}  % RWTH Blau 100%
+\definecolor{rwthcyan}{HTML}{8EBAE5}  % RWTH Blau 50% (light)
+\colorlet{accent}{rwthblue}           % <- single switch for the accent colour
+
+%--- Coloured caption labels (Fig. 1, Table 1, ...) -----------
+\captionsetup{labelfont={bf,color=accent}}
+% To use different colours for figures and tables instead, replace the
+% line above with the two lines below:
+% \captionsetup[figure]{labelfont={bf,color=rwthblue}}
+% \captionsetup[table]{labelfont={bf,color=ubcblue}}
+
+%--- Boxed environments (textbook-style asides) ---------------
+\usepackage[most]{tcolorbox}
+
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+    pdftitle    = {Master Thesis},
+    pdfauthor   = {Your Name},
+    colorlinks  = false
+}
+\usepackage[capitalise,noabbrev]{cleveref}  % \cref, \Cref
+
+%--- Bibliography ---------------------------------------------
+\usepackage[
+    backend  = biber,
+    style    = numeric-comp,     % swap for 'phys' if biblatex-phys is installed
+    sorting  = none,             % order of appearance
+    giveninits = true
+]{biblatex}
+
+%--- Misc -----------------------------------------------------
+\usepackage{lipsum}              % placeholder text; remove in final version

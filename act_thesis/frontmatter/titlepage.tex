@@ -1,0 +1,44 @@
+%==============================================================
+%  Title page
+%==============================================================
+\begin{titlepage}
+\centering
+
+% --- Header banners: UBC left, RWTH right --------------------
+% Adjust the logo size in ONE place here:
+\newlength{\logoheight}\setlength{\logoheight}{2.4cm}   % <- Größe hier
+\noindent\hspace*{-1.2cm}%
+\makebox[\dimexpr\textwidth+2.4cm\relax]{%
+  \includegraphics[height=\logoheight]{ubc_banner.png}\hspace{0.3cm}
+  \includegraphics[height=\logoheight]{rwth_banner.pdf}}%
+\par
+\vspace{1.8cm}
+
+% --- University / department (optional, remove if redundant) -
+{\scshape\large University of British Columbia \par}
+{\scshape RWTH Aachen University \par}
+\vspace{1.5cm}
+
+% --- Title ---------------------------------------------------
+{\huge\bfseries Rotational Dynamics of Molecules in\\ Superfluid Helium Nanodroplets\\ Driven by an Optical Centrifuge \par}
+\vspace{0.5cm}
+{\large Master Thesis \par}
+\vspace{2.0cm}
+
+% --- Author --------------------------------------------------
+{\Large Sören Eike Mahr \par}
+\vspace{0.5cm}
+{\normalsize Matriculation number: 466949 \par}
+\vspace{2.0cm}
+
+% --- Supervision ---------------------------------------------
+\begin{tabular}{rl}
+First examiner:  & Prof.\ Dr.\ Markus Ternes \\
+Second examiner: & Prof.\ Dr.\ Valery Milner \\
+\end{tabular}
+
+\vfill
+% --- Date ----------------------------------------------------
+{\large Submitted on \today \par}
+
+\end{titlepage}
