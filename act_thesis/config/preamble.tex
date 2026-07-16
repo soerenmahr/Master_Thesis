@@ -33,6 +33,8 @@
 \usepackage{subcaption}          % subfigures
 \usepackage[font=small,labelfont=bf]{caption}
 
+\usepackage{wrapfig}
+
 %--- Layout ---------------------------------------------------
 \usepackage[
     a4paper,
@@ -63,6 +65,8 @@
 
 %--- Coloured caption labels (Fig. 1, Table 1, ...) -----------
 \captionsetup{labelfont={bf,color=accent}}
+\captionsetup[figure]{name=Fig.}
+\captionsetup[table]{name=Tab.}
 % To use different colours for figures and tables instead, replace the
 % line above with the two lines below:
 % \captionsetup[figure]{labelfont={bf,color=rwthblue}}
