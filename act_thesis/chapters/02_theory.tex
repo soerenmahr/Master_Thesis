@@ -6,10 +6,133 @@
 \section{Superfluid Helium}
 \label{sec:superfluidity}
 \subsection{Bulk Superfluid Helium}
-\subsubsection{Landau and Feynman: Phonons and Rotons}
+As already shortly introduced in the motivation of this work, after there was experimental evidence that something strange is happening at lower temperatures in liquid helium \cite{keesomNewMeasurementsSpecific1935a, kapitzaViscosityLiquidHelium1938, allenFlowLiquidHelium1938}, theorists like Landau and later Feynman tried explaining the unusual behavior. Based on London's proposed connection between superfluidity and bose-einstein condensation  \cite{londonLPhenomenonLiquidHelium1938}, Tisza developed the two-fluid model \cite{tiszaTransportPhenomenaHelium1938}. He stated that in liquid helium below the $\lambda$ point, "atoms in the lowest energy state do not take part in the dissipation of momentum" thus the system should consist of two quantum-statistical populations:
+\begin{itemize}
+    \item frictionless component $|$ atoms in their lowest energy state
+    \item viscous component $|$ atoms in excited states
+\end{itemize}
+A few years later Landau derives his theory of superfluidity helium II. He starts his first paper \cite{terhaar46THEORYSUPERFLUIDITY1965, landauTheorySuperfluidityHelium1941} with the statement that atoms in their ground state would scatter off excited atoms thereby dismissing Tisza's idea partially. We will later see that the macroscopic idea of two-fluids will persist. 
+Landau is convinced that a strongly interacting many-body system cannot be understood in terms of single-atom states. Instead of describing the liquid as a collection of individual particles, he adopts a field-theoretic description, passing from the particle operators $\hat{\mathbf r}_a, \hat{\mathbf p}_a$ to the field operators
+\begin{align*}
+    \mathrm{Mass-density:} \qquad &\hat\rho(\mathbf R)=\sum_a m_a\,\delta(\hat{\mathbf r}_a-\mathbf R) \\
+    \mathrm{Momentum-density:}\qquad &\hat{\mathbf j}(\mathbf R)=\frac{1}{2}\sum_a\big[\hat{\mathbf p}_a\,\delta(\hat{\mathbf r}_a-\mathbf R)+\delta(\hat{\mathbf r}_a-\mathbf R)\,\hat{\mathbf p}_a\big]\\
+    \mathrm{Velocity:} \qquad &\hat{\mathbf v}(\mathbf R)=\frac{1}{2}\big[\hat\rho^{-1}(\mathbf R)\,\hat{\mathbf j}(\mathbf R)+\hat{\mathbf j}(\mathbf R)\,\hat\rho^{-1}(\mathbf R)\big]
+\end{align*}
+with $\mathbf R$ an arbitrary point in space; the symmetrizations make $\hat{\mathbf j}$ and $\hat{\mathbf v}$ hermitian. All of the physics now follows from the commutation relations of these fields, in particular the velocity–velocity relation
+\begin{equation*}
+    [\hat v_i(\mathbf R_1),\hat v_k(\mathbf R_2)] = \frac{\hbar}{i}\,\delta(\mathbf R_1-\mathbf R_2)\;\hat\rho^{-1}(\mathbf R_1)\,(\operatorname{curl}\hat{\mathbf v})_{ik},
+\qquad (\operatorname{curl}\hat{\mathbf v})_{ik}=\frac{\partial \hat v_k}{\partial x_i}-\frac{\partial \hat v_i}{\partial x_k}
+\end{equation*}
+and the relation obtained by taking the curl of the curl-density commutator
+\begin{equation*}
+    [(\operatorname{curl}\hat{\mathbf v})(\mathbf R_1),\,\hat\rho(\mathbf R_2)]=0 .
+\end{equation*}
+So $\operatorname{curl}\hat{\mathbf v}$ always commutes with the density, but — as Landau stresses — its components commute neither with each other nor with $\hat{\mathbf v}$, and therefore $\operatorname{curl}\hat{\mathbf v}$ does not commute with the Hamiltonian and is not a conserved quantity. The single exception is the case in which $\operatorname{curl}\hat{\mathbf v}$ vanishes over the whole volume: then the right-hand side of the velocity–velocity relation vanishes, and $\operatorname{curl}\hat{\mathbf v}$ commutes with $\hat\rho$, with $\hat{\mathbf v}$, and hence with the Hamiltonian — indeed with any functional of these two fields. In Landau's words, $\operatorname{curl}\hat{\mathbf v}$ is conserved if it is zero. The content of the argument is that the condition
+\begin{equation*}
+    \mathcal H_{\mathrm{pot}}=\big\{\,|\Psi\rangle : \operatorname{curl}\hat{\mathbf v}(\mathbf R)\,|\Psi\rangle=0 \quad \forall\,\mathbf R\,\big\}
+\end{equation*}
+is preserved by the dynamics: if $|\Psi\rangle$ is irrotational, so are $\hat\rho\,|\Psi\rangle$, $\hat{\mathbf v}\,|\Psi\rangle$ and $e^{-i\hat Ht/\hbar}\,|\Psi\rangle$. Since $\hat H$ is hermitian, the orthogonal complement is invariant as well, so
+\begin{equation*}
+    \mathcal H=\mathcal H_{\mathrm{pot}}\oplus\mathcal H_{\mathrm{vort}},\qquad \mathcal H_{\mathrm{vort}}:=\mathcal H_{\mathrm{pot}}^{\perp},
+\end{equation*}
+and the two sectors do not combine: a liquid started in potential flow could never develop a vortex.
+
+Landau then argues, by analogy with angular momentum — whose components also commute only when they all vanish, and whose spectrum is therefore discrete rather than continuous down to zero — that no states exist with $\operatorname{curl}\hat{\mathbf v}$ non-zero but arbitrarily small. There is thus no continuous transition between potential and vortex motion, and the spectrum must consist of two superimposed continua, the vortex one beginning a finite interval $\Delta$ above the potential ground state.  The elementary excitations of the potential spectrum are the phonons, $\varepsilon = cp$; those of the vortex spectrum he names *rotons*, $\varepsilon = \Delta + p^2/2\mu$.
+
+Landau's theory is phenomenological, and remarkably successful as such. Given the spectrum, everything  (specific heat, normal density, second sound, the critical velocity) follows from the single idea that a strongly interacting quantum liquid must be described by the collective excitations of the whole system rather than by the states of its individual atoms. That idea is correct, and it has outlived every technical detail of the paper that introduced it.
+
+But the spectrum itself is put in by hand. $\Delta$ and $\mu$ are fitted to the measured specific heat, not derived. The model breaks down if one asks what the liquid actually does. Starting in the ground state of $\hat H_\mathrm{pot}$, a liquid in potential flow can never acquire a roton. Yet the thermodynamics presupposes an equilibrium population $e^{(-\Delta/k_BT)}$, which can only establish itself if rotons are freely created and destroyed at the walls. Landau abandoned the two-branch picture in 1947, on the ground that two intersecting curves are unsatisfactory plus new experimental data, and replaced them by a single curve, linear at first, then through a maximum and dipping through a minimum. 
+
+What is missing is a route from the helium atoms themselves to the curve $\varepsilon(p)$. Feynman supplies it, and does so by rehabilitating the very hypothesis Landau's opening paragraph dismisses: London's proposal that superfluidity is a consequence of Bose statistics. In his 1954 paper \cite{feynmanAtomicTheoryTwoFluid1954} he derives Landaus physics from ground up. The start is the excited state wave function
+\begin{equation*}
+    \Psi = \big[\sum_i{f(\mathbf r_i)\big] \phi}
+\end{equation*}
+where $f(\mathbf r_i)$ is some function of position and $\phi$ is the ground-state wave function of the system obeying Bose statistics. For two atoms as $\mathbf r_i \rightarrow \mathbf r_j$ the factor $\phi$ becomes small. This implements the physical behavior of the liquid. $\sum_i{f(\mathbf r_i)}$ is a spatial modulation pattern acting on the ground state. Additionally $<\Psi | \phi> = 0$ is a requirement for the excited state which imposes some conditions on $f$. Feynman inserts this trial wavefunction $\Psi$ into the variational principle and minimizes the energy with respect to $f$ at fixed momentum. The variational estimate becomes the dispersion relation
+\begin{equation*}
+    E(k) = \frac{\hbar^2k^2}{2m S(k)}
+\end{equation*}
+where $S(k)$ is the structure factor of the liquid, a quantity that can be measured directly (neutron or x-ray scattering).  The numerator is just the kinetic energy of a free atom of momentum $\hbar k$; all the many-body physics is contained in the factor $1/S(k)$, which reduces to $1$ for an uncorrelated system, so that $E(k) \rightarrow \hbar^2k^2/2m$. In the liquid, however, he finds $S(k) = \hbar k / 2m c$ for small $k$ which gives the same phonon dispersion relation that Landau had found too ($E(k) = \hbar k c$ with $c$ being the velocity of sound). For intermediate $k \approx 2\pi / a$, around the interatomic spacing, the structure factor possesses a maximum and the excitation energy is correspondingly suppressed there, producing the roton minimum where $E(k) \approx \Delta + \hbar^2(k-k_0)^2/2\mu$. Although this closely resembles Landau's phenomenological result, in Feynman's treatment the roton is built from the same density-modulation ansatz as the phonon and carries no intrinsic angular momentum, so — despite the name inherited from Landau — it is not, at this level, identified with vortex motion. That is to say, that Feynman gives an upper bound on the energy $E(k)$ for every momentum i.e. for the energy gap $\Delta$. Most importantly it automatically explains the one branch picture -> phonons and rotons are quasiparticles of the same spectrum. In his original paper the estimated energy gap $\Delta \approx 18 \mathrm{K}$ turned out to be way higher than Landaus fitted $9.6\mathrm{K}$. In a later paper \cite{feynmanEnergySpectrumExcitations1956} Feynman and Cohen brought this number closer ($~ 11.5 \mathrm{K}$) by introducing backflow.
+
+The liquid at $T = 0\, \mathrm{K}$ occupies the ground state $\hat H |0\rangle = E_0 |0\rangle$ with no quasi particle excitations thermally populated. To excite a quasiparticle in the superfluid an external pertubation has to add energy and momentum $E_{\mathrm{excited}} = E_0 + \varepsilon(p)$. Now imagine an object of mass $M$ moving through the liquid with velocity $V$. If it creates an excitation with $\varepsilon(p)$ afterwards it moves with $V'$ so
+\begin{equation*}
+    MV = M\mathbf V' + \mathbf p \Rightarrow \mathbf V' = \mathbf V -\frac{\mathbf p}{M}
+\end{equation*}
+and the energy
+\begin{equation*}
+    \frac{1}{2}MV^2 = \frac{1}{2}MV'^2 + \varepsilon(p) \Rightarrow \varepsilon(p) = \mathbf V\mathbf p - \frac{p^2}{2M}.
+\end{equation*}
+So an excitation can be created only if 
+\begin{equation*}
+    V \ge \frac{\varepsilon(p)+ p^2/2M}{p}
+\end{equation*}
+which for macroscopic objects ($M \rightarrow \infty$ ) gives this gives an energy loss of $\varepsilon (p) = V p$ for a given $p$. the criterion for the Landau velocity
+\begin{equation*}
+    V_c = \min_{p} \frac{\varepsilon(p)}{p}.
+\end{equation*}
+He formulated that there is no viscosity for objects moving slower than $V_c$ because for an object moving at velocity $V < V_c$ supplying some momentum $p$ there will never be enough energy $\varepsilon (p)$ to create an elementary excitation.
+
+\begin{figure}
+    \centering
+
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{02_theory/dispersion_relation.png}
+        \caption{Measured dispersion relation of superfluid helium around $1K$ (values taken from \cite{donnellyObservedPropertiesLiquid1998}) }
+        \label{fig:dispersion_relation}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{02_theory/dos.png}
+        \caption{For simplicity, the graph of the DOS is calculated by looking at finite intervals $[q_i, q_{i+1}]$ that spare us the pain of calculating the singularities.}
+        \label{fig:dos}
+    \end{minipage}
+
+\end{figure}
+Lets now calculate the density of states of the superfluid. Lets start by assuming the liquid is an a cubic box of volume $V = L^3$. The volume of a state in three dimensional momentum space is then
+\begin{equation*}
+    \left(\frac{2\pi}{L}\right)^3  = \frac{(2\pi)^3}{V}
+\end{equation*}
+Because liquid helium is isotropic the excitation energy only depends on the magnitude $q = | \mathbf q |$ and the number of states inside a small volume shell can be written as
+\begin{equation*}
+    dN = \frac{4\pi q^2 dq}{(2\pi)^3 / V} = V\frac{q^2}{2 \pi ^2}dq
+\end{equation*}
+The density of states $g_E(E)$ is defined by 
+\begin{equation*}
+    \frac{dN}{V} = \frac{g_E(E)}{V} dE \qquad \mathrm{with} \quad dE = \frac{dE}{dq}dq \Rightarrow dq = \frac{dE}{dE / dq}
+\end{equation*}
+putting everything together yields
+\begin{equation*}
+    \frac{g_E(E)}{V} = \frac{1}{2\pi^2} \frac{q(E)^2}{|\frac{dE}{dq}|}.
+\end{equation*}
+Mind the absolute value here. Because the dispersion can decrease with q this is necessary and also forces us to take a closer look at the density of states. For example, an energy between the roton minimum and the maxon maximum satisfies $E(q_1) = E(q_2) = E(q_3)$. Therefore, all contributions must be added
+\begin{equation*}
+    \frac{g_E(E)}{V}
+=
+\frac{1}{2\pi^2}
+\sum_{q_i:\,E(q_i)=E}
+\frac{q_i^2}
+{\left|\dfrac{dE}{dq}\right|_{q_i}}
+\end{equation*}
+Another special feature of the superfluid density of states is the behavior at the roton minimum and maxon maximum where $dE/dq = 0$. At these energies $g_E(E)$ diverges, which in condensed matter physics is commonly known as Van Hove singularities. 
+
+In order to establish the first connection to the main topic of this work, i.e. spinning molecules, we display the DOS in units of GHz (Fig. \ref{fig:dos}).
+
 \subsubsection{Why there is Dissipation before the Landau velocity}
+The excitation spectrum accounts well for the equilibrium behavior of the superfluid: the specific heat, the normal-fluid density, the entropy and the two-fluid thermodynamics all follow from counting the thermally excited phonons and rotons, and the agreement with experiment is good. This is the regime our density of states describes. The picture is more limited, however, once the fluid is set in motion. The critical velocity is not an equilibrium property but a question of how flowing superfluid sheds momentum, and here the spectrum is no longer the whole story.
+
+Whether the Landau velocity is actually reached turns out to depend on the size of the moving object. For microscopic probes, depending on the system, dissipation does set in close to $V_L$, since roton emission is the only channel available. The ion experiments of Allum, McClintock, Phillips and Bowley confirmed this roton-limited threshold and remain the cleanest experimental test of Landau's criterion in \helium \cite{allumBreakdownSuperfluidityLiquid1977}. For macroscopic objects dissipation and viscosity are commonly observed to develop earlier, below $v_L \approx 60\,\mathrm{m/s}$.\cite{mullerCriticalVelocityVortex2022} Feynman himself notes that resistance can set in at velocities a few hundred times smaller than the roton estimate \cite{feynmanChapterIIApplication1955}. Thus there has to be some cheaper mechanism dissipating energy well before $V_L$ is reached.
+
+That cheaper mechanism is the nucleation of quantized vortices, for which Feynman gives an order-of-magnitude estimate in his jet picture \cite{feynmanChapterIIApplication1955}. He considers superfluid issuing from a slot of width $d$ into a reservoir at rest: the jet carries velocity $v$ inside and zero outside, and this discontinuity is a circulation the fluid can only support as discrete quantized vortex lines. Forming them costs energy that must be drawn from the flow's kinetic energy, and equating the two gives a critical velocity of order $v_c \approx 1\,\mathrm{m/s}$  (for a given set of parameters), almost two orders of magnitude below the roton limit.
 
 \subsection{Finite Size Effects}
+The physics laid out so far is that of bulk helium, but the following experiments in this theses are performed in nanodroplets, where the finite number of atoms in the system alters the picture. The most important point is that in a droplet the excitation spectrum is not a fixed input. The phonon-maxon-roton curve that we have leaned on throughout emerges only as the system size grows: theoretical calculations find no roton minimum at all in the smallest clusters, only a weak dip near $N \approx 70$, and a curve approaching its bulk depth and position only once a few hundred atoms are present \cite{ramakrishnaCollectiveExcitationsHelium1990, guardiolaExcitedStates4He2001}. The density of states we constructed from that curve is therefore a bulk idealisation that a finite droplet only approaches, and quantities read off it inherit the same size dependence. The Landau velocity is the clearest example: taken as $\min(\epsilon/p)$ over the computed $N = 240$ spectrum it already comes out at $V_L \approx 49\,\mathrm{m/s}$, below the bulk value even at a size where the dispersion otherwise looks nearly bulk \cite{ramakrishnaCollectiveExcitationsHelium1990}. 
+
+Infrared spectroscopy of free rotating molecules in helium droplets consisting of about $10^4$ atoms showed superfluid behavior \cite{grebenevSuperfluiditySmallHelium41998}. A genuine Landau-type critical velocity has since been measured in droplets of only $\sim\!10^3$ atoms \cite{brauerCriticalLandauVelocity2013}. Finite size does not abolish the superfluid behavior our spectrum describes; it sets the scale on which that behavior appears and rescales the quantities that follow from it.
+
+Finite size also governs the cheaper dissipation channel. The quantized vortices that let bulk superfluid shed momentum well below $V_L$ are observed in droplets too. Whether and how this cheaper channel operates in a droplet is an open question. Quantized vortices are not forbidden in small droplets — theory finds stable vortex solutions down to droplets of order $10^2$ atoms \cite{lehmannEnergeticsPossibleFormation2003}, experimentally they have been imaged only in large ones. Gomez and co-workers traced vortices by decorating the cores with silver atoms and found them present only in droplets of  $>300 \, \mathrm{nm}$ diameter \cite{gomezTracesVorticesSuperfluid2012} and the x-ray diffraction images of vortex lattices were likewise taken in droplets of $10^8 -10^{11}$ atoms \cite{gomezShapesVorticitiesSuperfluid2014}. 
+All of these lie far above the size regime of the work presented in this thesis. System size in our setup ranges from $10^3-10^4$ helium atoms per droplet.  Which does not directly imply that dissipation in our system can't come from vortex nucleation. 
+
 
 \section{The Optical Centrifuge}
 \label{sec:centrifuge}
