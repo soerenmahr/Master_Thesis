@@ -62,8 +62,9 @@ OUTPUT
 The script saves:
 
     ocs_gaussian_fan.png
-        3-D fan: time, instantaneous centrifuge frequency, and <J>.
-        The translucent ribbon is the actual standard deviation sigma_J.
+        3-D fan: time, instantaneous centrifuge frequency, and <J>, drawn as
+        one connected surface mesh across every final-frequency sweep.
+        Surface color is the actual standard deviation sigma_J.
 
     ocs_gaussian_final_map.png
         Final field-free populations P_J versus final centrifuge frequency.
@@ -93,7 +94,6 @@ import time as wall_time
 
 import matplotlib.pyplot as plt
 import numpy as np
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from sympy.physics.wigner import wigner_3j
 
 
@@ -165,8 +165,10 @@ SAVED_TIME_STEP_PS = 0.5
 PROPAGATION_SUBSTEPS = 10
 
 # --- Plot/output controls -----------------------------------------------------
-N_FAN_RAYS = 13
-RIBBON_SIGMA_SCALE = 1.0
+# The fan mesh connects every propagated final frequency into one surface.
+# FAN_TIME_STRIDE only thins the time axis (to keep rendering fast); the
+# frequency axis always keeps every requested sweep connected.
+FAN_TIME_STRIDE = 4
 OUTPUT_PREFIX = "ocs_gaussian"
 SHOW_PLOTS = False
 
@@ -800,68 +802,70 @@ def plot_single_trajectory(result: SimulationResult, output: Path) -> None:
 
 
 def plot_fan(results: list[SimulationResult], output: Path) -> None:
-    r"""Plot the numerical analogue of the original centrifuge fan.
+    r"""Plot every propagated final frequency as one connected 3-D surface.
 
-    For every selected final frequency:
+    Rather than drawing a handful of representative rays, this builds a
+    single mesh:
       x = physical pulse time,
       y = instantaneous centrifuge frequency,
       z = actual TDSE expectation value <J>.
 
-    The ribbon is not an assumed pulse-width shape. Its half-width is the
-    calculated standard deviation sigma_J of the instantaneous state.
+    Every result shares the same time grid, so neighboring final
+    frequencies at neighboring times form genuine mesh quads -- all
+    requested sweeps are connected into one surface, not drawn as
+    independent lines. The surface is colored by the actual standard
+    deviation sigma_J of the instantaneous state, which previously was
+    shown as a ribbon around each ray.
     """
     fig = plt.figure(figsize=(10.2, 7.6))
     ax = fig.add_subplot(111, projection="3d")
 
-    selected_indices = np.unique(
-        np.round(
-            np.linspace(
-                0,
-                len(results) - 1,
-                min(N_FAN_RAYS, len(results)),
-            )
-        ).astype(int)
+    # The full propagation extends farther into the Gaussian tails. For the
+    # fan, keep only the user-requested -250 ... +250 ps display window. All
+    # results share the same time grid, so this mask applies to every case.
+    visible = (
+        (results[0].time_ps >= PLOT_TIME_MIN_PS)
+        & (results[0].time_ps <= PLOT_TIME_MAX_PS)
+    )
+    time_visible = results[0].time_ps[visible]
+
+    n_cases = len(results)
+    n_time = int(np.sum(visible))
+
+    x = np.tile(time_visible, (n_cases, 1))
+    y = np.empty((n_cases, n_time))
+    z = np.empty((n_cases, n_time))
+    sigma = np.empty((n_cases, n_time))
+    for row, result in enumerate(results):
+        y[row] = result.drive_frequency_ghz[visible]
+        z[row] = result.mean_j[visible]
+        sigma[row] = result.sigma_j[visible]
+
+    norm = plt.Normalize(vmin=float(sigma.min()), vmax=float(sigma.max()))
+    face_colors = plt.cm.viridis(norm(sigma))
+
+    # rstride=1 keeps every final-frequency sweep connected to its neighbors.
+    # cstride only thins the time axis, purely to keep the polygon count
+    # (and therefore render time) manageable.
+    ax.plot_surface(
+        x,
+        y,
+        z,
+        rstride=1,
+        cstride=FAN_TIME_STRIDE,
+        facecolors=face_colors,
+        linewidth=0.0,
+        antialiased=False,
+        shade=False,
     )
 
-    for index in selected_indices:
-        result = results[index]
-
-        # The full propagation extends farther into the Gaussian tails. For the
-        # fan, keep only the user-requested -250 ... +250 ps display window.
-        visible = (
-            (result.time_ps >= PLOT_TIME_MIN_PS)
-            & (result.time_ps <= PLOT_TIME_MAX_PS)
-        )
-        x = result.time_ps[visible]
-        y = result.drive_frequency_ghz[visible]
-        z = result.mean_j[visible]
-        sigma = RIBBON_SIGMA_SCALE * result.sigma_j[visible]
-
-        line = ax.plot(x, y, z, lw=1.4)[0]
-        line_color = line.get_color()
-
-        upper_edge = list(zip(x, y, z + sigma))
-        lower_edge = list(zip(x[::-1], y[::-1], (z - sigma)[::-1]))
-        ribbon = Poly3DCollection(
-            [upper_edge + lower_edge],
-            facecolor=line_color,
-            edgecolor=line_color,
-            alpha=0.10,
-            linewidths=0.25,
-        )
-        ax.add_collection3d(ribbon)
-        ax.scatter(
-            [x[-1]],
-            [y[-1]],
-            [z[-1]],
-            color=line_color,
-            s=13,
-            depthshade=False,
-        )
+    mappable = plt.cm.ScalarMappable(norm=norm, cmap="viridis")
+    mappable.set_array(sigma)
+    fig.colorbar(mappable, ax=ax, shrink=0.6, pad=0.08, label=r"$\sigma_J$")
 
     ax.set_xlabel("pulse time (ps)")
     ax.set_ylabel("instantaneous centrifuge frequency (GHz)")
-    ax.set_zlabel(r"$\langle J\rangle$  (ribbon: $\pm\sigma_J$)")
+    ax.set_zlabel(r"$\langle J\rangle$")
     ax.set_title("OCS optical centrifuge: Gaussian FWHM 300 ps")
     ax.view_init(elev=21, azim=-127)
     ax.set_box_aspect((1.0, 1.05, 0.75))
