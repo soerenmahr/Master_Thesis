@@ -36,26 +36,27 @@ WHAT IS INCLUDED
 
        Q_x = sin^2(theta) cos^2(phi).
 
-4. A Gaussian *intensity* envelope with 300 ps FWHM:
+4. A Gaussian *intensity* envelope with 320 ps FWHM, centered at t=0:
 
        U(t)/h = (U0/h) exp[-4 ln(2) (t/FWHM)^2].
 
-   The linear centrifuge chirp is applied across the FWHM interval:
+   The linear centrifuge chirp is applied across the FWHM interval, also
+   centered at t=0:
 
        t <= -FWHM/2:          f_d(t) = 0
        -FWHM/2 < t < FWHM/2: f_d(t) rises linearly from 0 to f_final
        t >= FWHM/2:           f_d(t) = f_final.
 
-   The figures show 100 ps before and after the FWHM interval, i.e. the
-   requested window from -250 ps to +250 ps. A Gaussian is still 14.6% of its
-   peak at these boundaries, so the TDSE is internally propagated farther into
-   both tails. This avoids starting in a nonzero field and gives an almost
-   field-free final state for the end-state map.
+   The figures show 200 ps before and after the FWHM interval, i.e. the
+   requested window from -360 ps to +360 ps. A Gaussian is still about 3.0%
+   of its peak at these boundaries, so the TDSE is internally propagated
+   farther into both tails. This avoids starting in a nonzero field and
+   gives an almost field-free final state for the end-state map.
 
 5. Many independent centrifuge calculations are propagated simultaneously.
    Every calculation has the same Gaussian envelope and chirp interval, but a
    different final centrifuge frequency. Therefore each case has a different
-   constant acceleration during the 300 ps chirp.
+   constant acceleration during the 320 ps chirp.
 
 OUTPUT
 ------
@@ -116,26 +117,27 @@ DELTA_ALPHA_VOLUME_A3 = 5.34
 
 # --- Peak laser intensity -----------------------------------------------------
 # This is the cycle-averaged optical intensity.
-# 1e11 W/cm^2 is intentionally strong so that a 300 ps sweep can be close to
+# 1e11 W/cm^2 is intentionally strong so that a 320 ps sweep can be close to
 # adiabatic. Decrease it to resolve more isolated ladder-climbing steps;
 # increase it if the molecule fails to follow the desired branch.
 PEAK_INTENSITY_W_CM2 = 1.0e11
 
 # --- Gaussian pulse timing ---------------------------------------------------
 # This is the FWHM of the *intensity* envelope and therefore also of U(t).
-GAUSSIAN_FWHM_PS = 300.0
+# The envelope and the chirp are both centered at t=0.
+GAUSSIAN_FWHM_PS = 320.0
 
-# The requested plots show 100 ps before the leading half-maximum point and
-# 100 ps after the trailing half-maximum point. With a 300 ps FWHM this means
-# the visible plot window is -250 ... +250 ps.
-PLOT_EXTRA_TIME_PS = 100.0
+# The requested plots show 200 ps before the leading half-maximum point and
+# 200 ps after the trailing half-maximum point. With a 320 ps FWHM this means
+# the visible plot window is -360 ... +360 ps.
+PLOT_EXTRA_TIME_PS = 200.0
 
 # A Gaussian never becomes exactly zero. If we initialized the molecule at the
-# visible left edge (-250 ps), the interaction would already be 14.6% of its
-# maximum and the initial |0,0> state would be suddenly quenched into a strong
-# field. To avoid that artifact, propagation begins earlier and ends later, at
-# times where U/U0 equals this small number. The plots still show only the
-# requested -250 ... +250 ps window.
+# visible left edge (-360 ps), the interaction would already be about 3% of
+# its maximum and the initial |0,0> state would be suddenly quenched into a
+# strong field. To avoid that artifact, propagation begins earlier and ends
+# later, at times where U/U0 equals this small number. The plots still show
+# only the requested -360 ... +360 ps window.
 PROPAGATION_EDGE_FRACTION = 1.0e-4
 
 # --- Map of final centrifuge frequencies -------------------------------------
@@ -169,8 +171,18 @@ PROPAGATION_SUBSTEPS = 10
 # FAN_TIME_STRIDE only thins the time axis (to keep rendering fast); the
 # frequency axis always keeps every requested sweep connected.
 FAN_TIME_STRIDE = 4
+
+# Before the chirp starts, every sweep's instantaneous drive frequency is
+# exactly 0, so the mesh has zero width there and disappears. Purely for
+# rendering, the fan gives each row a minimum visual y-floor of this
+# fraction of its own final frequency, so the (physically identical)
+# pre-ramp pendular dynamics are visible as a thin sheet instead of a
+# degenerate line. It has no effect once the real chirp fraction exceeds it.
+FAN_PRERAMP_VISUAL_FLOOR = 0.02
 OUTPUT_PREFIX = "ocs_gaussian"
-SHOW_PLOTS = False
+# Opens an interactive window (mouse-draggable 3-D view) for every figure
+# after saving. Set back to False for headless/batch runs.
+SHOW_PLOTS = True
 
 
 # =============================================================================
@@ -372,7 +384,7 @@ def chirp_fraction(t_ps: float | np.ndarray) -> np.ndarray:
     r"""Return the fraction of the requested final rotation frequency.
 
     The frequency is held at zero before the leading half-maximum point,
-    increases linearly across the 300 ps FWHM interval, and is held at the
+    increases linearly across the FWHM interval, and is held at the
     requested final value after the trailing half-maximum point.
 
     For a calculation with final frequency f_final,
@@ -431,7 +443,8 @@ def gaussian_cutoff_time_ps(edge_fraction: float) -> float:
     )
 
 
-# Visible interval requested by the user: 100 ps outside each FWHM edge.
+# Visible interval requested by the user: PLOT_EXTRA_TIME_PS outside each
+# FWHM edge, centered on t=0.
 PLOT_TIME_MIN_PS = -0.5 * GAUSSIAN_FWHM_PS - PLOT_EXTRA_TIME_PS
 PLOT_TIME_MAX_PS = +0.5 * GAUSSIAN_FWHM_PS + PLOT_EXTRA_TIME_PS
 
@@ -735,7 +748,8 @@ def plot_final_map(results: list[SimulationResult], output: Path) -> None:
     ax.legend(loc="upper left")
     fig.tight_layout()
     fig.savefig(output, dpi=220)
-    plt.close(fig)
+    if not SHOW_PLOTS:
+        plt.close(fig)
 
 
 def plot_single_trajectory(result: SimulationResult, output: Path) -> None:
@@ -761,8 +775,8 @@ def plot_single_trajectory(result: SimulationResult, output: Path) -> None:
         f"{result.final_frequency_ghz:.1f} GHz"
     )
 
-    # Show exactly the requested interval: 100 ps before and after the FWHM
-    # interval. The TDSE itself was propagated farther into the Gaussian tails.
+    # Show exactly the requested interval: PLOT_EXTRA_TIME_PS before and after
+    # the FWHM interval. The TDSE itself was propagated farther into the tails.
     ax.set_xlim(PLOT_TIME_MIN_PS, PLOT_TIME_MAX_PS)
     half_fwhm = 0.5 * GAUSSIAN_FWHM_PS
     ax.axvline(-half_fwhm, lw=0.8, ls=":", alpha=0.5)
@@ -798,7 +812,8 @@ def plot_single_trajectory(result: SimulationResult, output: Path) -> None:
 
     fig.tight_layout()
     fig.savefig(output, dpi=220)
-    plt.close(fig)
+    if not SHOW_PLOTS:
+        plt.close(fig)
 
 
 def plot_fan(results: list[SimulationResult], output: Path) -> None:
@@ -816,12 +831,19 @@ def plot_fan(results: list[SimulationResult], output: Path) -> None:
     independent lines. The surface is colored by the actual standard
     deviation sigma_J of the instantaneous state, which previously was
     shown as a ribbon around each ray.
+
+    Before the chirp starts, the true instantaneous drive frequency is 0 for
+    every sweep, so the mesh would otherwise collapse to a zero-width line
+    there (all rows genuinely share the same dynamics pre-ramp). A small
+    per-row visual floor (FAN_PRERAMP_VISUAL_FLOOR) is added to y so that
+    interval is still visible as a thin sheet; it never changes z, and it
+    fades out the instant the real chirp fraction takes over.
     """
     fig = plt.figure(figsize=(10.2, 7.6))
     ax = fig.add_subplot(111, projection="3d")
 
     # The full propagation extends farther into the Gaussian tails. For the
-    # fan, keep only the user-requested -250 ... +250 ps display window. All
+    # fan, keep only the user-requested display window. All
     # results share the same time grid, so this mask applies to every case.
     visible = (
         (results[0].time_ps >= PLOT_TIME_MIN_PS)
@@ -832,12 +854,19 @@ def plot_fan(results: list[SimulationResult], output: Path) -> None:
     n_cases = len(results)
     n_time = int(np.sum(visible))
 
+    # The true sweep fraction is common to every case; only its scale (each
+    # case's final frequency) differs. Flooring it before scaling keeps the
+    # visual offset proportional to each row's own final frequency.
+    visual_fraction = np.maximum(
+        chirp_fraction(time_visible), FAN_PRERAMP_VISUAL_FLOOR
+    )
+
     x = np.tile(time_visible, (n_cases, 1))
     y = np.empty((n_cases, n_time))
     z = np.empty((n_cases, n_time))
     sigma = np.empty((n_cases, n_time))
     for row, result in enumerate(results):
-        y[row] = result.drive_frequency_ghz[visible]
+        y[row] = result.final_frequency_ghz * visual_fraction
         z[row] = result.mean_j[visible]
         sigma[row] = result.sigma_j[visible]
 
@@ -866,13 +895,14 @@ def plot_fan(results: list[SimulationResult], output: Path) -> None:
     ax.set_xlabel("pulse time (ps)")
     ax.set_ylabel("instantaneous centrifuge frequency (GHz)")
     ax.set_zlabel(r"$\langle J\rangle$")
-    ax.set_title("OCS optical centrifuge: Gaussian FWHM 300 ps")
+    ax.set_title(f"OCS optical centrifuge: Gaussian FWHM {GAUSSIAN_FWHM_PS:.0f} ps")
     ax.view_init(elev=21, azim=-127)
     ax.set_box_aspect((1.0, 1.05, 0.75))
 
     fig.tight_layout()
     fig.savefig(output, dpi=220)
-    plt.close(fig)
+    if not SHOW_PLOTS:
+        plt.close(fig)
 
 
 # =============================================================================
