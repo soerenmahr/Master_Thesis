@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -oP '\\(?<=@\\)\\\\w+\\\\{[^,]*' act_thesis/bibliography/references.bib)",
+      "Bash(xargs -I{} echo {})"
+    ]
+  }
+}

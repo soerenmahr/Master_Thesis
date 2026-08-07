@@ -137,26 +137,443 @@ All of these lie far above the size regime of the work presented in this thesis.
 
 \section{Molecule Interactions}
 \label{sec:molecule_interaction}
-% Rigid-rotor model, rotational energy levels E(J) = B J(J+1),
-% rotational constant, and the concept of the rotational ladder.
 
-\todo{Angular momentum, selection rules, gas phase vs.\ in-droplet rotation.}
+A complete quantum-mechanical description of a molecule is generally very complex because it must account for the coupled motion of all electrons and nuclei. This problem can be much simplified using the Born-Oppenheimer approximation. Based on the nuclei being much heavier than the electrons, in a given system, coordinates of the nuclei remain fixed while the wave function is governed by the dynamic electron positions. This makes it possible to handle the total energy as a sum of non interacting terms
+\begin{equation}
+    E_{\mathrm{total}} = E_{\mathrm{electronic}} + E_{\mathrm{vibrational}} + E_{\mathrm{rotational}} + E_{\mathrm{nuclear\ spin}}.
+    \label{eq:energy_sum}
+\end{equation}
+Because the characteristic level spacing scales like
+\begin{equation}
+    \Delta E_{\mathrm{rot}} \ll \Delta E_{\mathrm{vib}} \ll \Delta E_{\mathrm{el}},
+    \label{eq:level_spacing}
+\end{equation}
+in further approximation for diatomic molecules we can use the rigid rotor model. This model assumes that the system is well enough described by looking at the rotational energy of the molecule
+\begin{equation}
+    \hat{H}_{\mathrm{rot}} \lvert \psi \rangle = E_{\mathrm{rot}} \lvert \psi \rangle
+    \label{eq:rigid_rotor_se}
+\end{equation}
+whit $\hat{H}_{\mathrm{rot}} = \hat J^2 / 2I$ where $\hat J$ is the total angular momentum operator and $I$ the moment of intertia. In the basis of spherical harmonics $Y_J^{M_J}(\theta, \Phi)$ with the total angular momentum quantum number $J = 0, 1, 2,3,..$ and the projection onto the quantization axis $M_J = 0, \pm 1, \pm 2, .., \pm J$ the $2J+1$ degenerate eigenvalues of the rigid rotor are
+\begin{equation}
+    E_{rot}(J) = BJ(J+1).
+    \label{eq:rigid_rotor_energy}
+\end{equation}
+The constant in that expression is called rotational constant
+\begin{equation}
+    B = \frac{\hbar^2}{2I}
+    \label{eq:rotational_constant}
+\end{equation}
+and provides the measure for level spacing depending on the moment of inertia of the molecule.
+
+\begin{aside}{Centrifugal Distortion}
+In the rigid-rotor approximation, the distances between the atoms are assumed to remain constant during molecular rotation. Real molecules, however, are not perfectly rigid. As the rotational angular momentum increases, the effective centrifugal force slightly stretches the molecular bonds. This increases the moment of inertia and consequently lowers the rotational energy relative to the rigid-rotor prediction \cite{mcnabRotationalSpectroscopyTheory2017}.
+
+The rotational energies can be represented as an expansion in powers of $J(J+1)$, corresponding to the rotational part of the Dunham expansion. Retaining only the leading centrifugal-distortion correction gives
+\begin{equation}
+    E_J = B J(J+1) - D\left[J(J+1)\right]^2
+    \label{eq:centrifugal_distortion}
+\end{equation}
+where $B$ is the rotational constant and $D$ is the centrifugal-distortion constant.
+\end{aside}
+
 \subsection{Molecules in Helium Nanodroplets}
+
+A molecule embedded in a superfluid helium nanodroplet is not an isolated rotor. The attractive van der Waals interaction between the dopant and the surrounding helium creates a local density enhancement, a solvation shell, in the first few atomic layers around the molecule. For a sufficiently anisotropic potential energy surface, part of this shell is rigidly bound to the molecular frame and follows the molecular orientation adiabatically during rotation \cite{grebenevRotationalSpectrumSingle2000, choiInfraredSpectroscopyHelium2006a}. The rotating object is therefore the molecule \emph{plus} a fraction of the helium it drags along, which increases the effective moment of inertia and correspondingly reduces the rotational constant.
+
+Rotational spectroscopy of different molecules in 4He droplets, showed that the spectrum remains that of a free rotor, sharp resolvable lines with the same symmetry, but with rescaled $B$ constant. Typical reductions are a factor of $2 - 4$ relative to the gas phase value \cite{toenniesSuperfluidHeliumDroplets2004a}. ``Kicking'' the molecules and observing dynamics of higher rotational states confirmed the spectroscopy values including the rescaling of the centrifugal-distortion constant $D$. Instead of $D$ describing the bond stretching of a free rotating molecule, in this case it is connected to the attached helium shell spreading out and increasing the moment of inertia \cite{chatterleyRotationalCoherenceSpectroscopy2020}. The already in section \ref{intro} mentioned experiments by the Stapelfeldt group showed, that for example for OCS $D_\mathrm{He} \approx 6.5 \times 10^3 \, D_\mathrm{gas}$. Plotting the transition frequency $\Delta E_{J \rightarrow J+2}$ as a function of $J$ reveals a striking consequence of the enhanced distortion constant: the frequency does not increase monotonically but reaches a maximum and then decreases (see Fig. X), so that beyond this point a state of higher angular momentum is connected by a transition of \emph{lower} frequency., even though the rotational energy itself still increases. In this thesis the turning point is referred to as the \emph{centrifugal wall}. Further, with the kick experiments it was not possible to resolve what actually happens when approaching the centrifugal wall. Accordingly the maximum energy for CS2 was $E(J=10) \approx 66 \, \mathrm{GHz}$ and for OCS $E(J=5) \approx 57 \, \mathrm{GHz}$, both way below the roton energy.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260720163800.png}
+    \caption{}
+    \label{fig:centrifugal_wall}
+\end{figure}
+
+This raises some important questions:
+Is it possible to shed the helium shell and recover the gas phase rotational constants? Can we even bring the molecules closer to the energy regime of roton creation ($\approx 180 \, \mathrm{GHz}$)?
+
+All these previous experiments observe field free dynamics of the molecules. Intuitively, if I have a strong enough rotating laser field that holds my molecule, I should be able to spin to higher angular momentum states.
+
 \subsection{Molecules in an Electric Field}
 \label{sec:molecules}
+
+With these questions raised, let's look at what happens to a molecule when it is acted upon by an electric field. First we need to define the interaction between the laser field and the molecule. In the limit of large photon number, treating the field quantum mechanically yields the same dynamics as in the classical case \cite{kremsMoleculesElectromagneticFields2019} chapter 4.8.3. This lets us write the Hamiltonian of the system within the electric dipole approximation as
+\begin{equation}
+    \hat H = \hat H^{(0)} + \hat H^{(1)}
+    \label{eq:hamiltonian_split}
+\end{equation}
+where $\hat H^{(0)}$ describes the unperturbed dynamics and $\hat H^{(1)} = -\hat{\vec\mu}\cdot\vec\varepsilon$ with the electric dipole moment operator $\hat{\vec\mu} = \sum_a q_a \hat{\vec r}_a$ and the electric field vector $\vec\varepsilon$ implements the classical perturbation. Note that this coupling is \emph{exactly} linear in the field: the Hamiltonian contains no term of higher order in $\vec\varepsilon$. Nonlinear dependency of the energy on the field must therefore come from the wavefunction dependence on the electric field. The energy of the system can be expanded in a Taylor series about the field-free case, where summation over repeated Cartesian indices $i,j,k \in \{x,y,z\}$ is implied:
+\begin{equation}
+    E(\vec\varepsilon) = E(0) + \left(\frac{\partial E}{\partial\varepsilon_i}\right)_{\!0}\varepsilon_i + \frac{1}{2}\left(\frac{\partial^2 E}{\partial\varepsilon_i\,\partial\varepsilon_j}\right)_{\!0}\varepsilon_i\varepsilon_j + \frac{1}{6}\left(\frac{\partial^3 E}{\partial\varepsilon_i\,\partial\varepsilon_j\,\partial\varepsilon_k}\right)_{\!0}\varepsilon_i\varepsilon_j\varepsilon_k + \cdots
+    \label{eq:energy_expansion}
+\end{equation}
+Subscript $0$ denotes evaluation at zero field. Following \cite{atkinsMolecularQuantum}, because of the Hellmann--Feynman theorem, the variation of the energy takes the form
+\begin{equation}
+    \frac{\partial E}{\partial\varepsilon_i} = \left\langle \Psi(\vec\varepsilon)\left|\frac{\partial \hat H}{\partial\varepsilon_i}\right|\Psi(\vec\varepsilon)\right\rangle = -\langle\hat\mu_i\rangle
+    \label{eq:hellmann_feynman}
+\end{equation}
+where $\Psi(\vec\varepsilon)$ is an eigenstate of the perturbed system. This now implies that the derivatives actually have physical meaning. Identifying
+\begin{equation}
+    \mu_{0i} \equiv -\left(\frac{\partial E}{\partial\varepsilon_i}\right)_{\!0}, \qquad \alpha_{ij} \equiv -\left(\frac{\partial^2 E}{\partial\varepsilon_i\,\partial\varepsilon_j}\right)_{\!0}, \qquad \beta_{ijk} \equiv -\left(\frac{\partial^3 E}{\partial\varepsilon_i\,\partial\varepsilon_j\,\partial\varepsilon_k}\right)_{\!0}
+    \label{eq:moment_definitions}
+\end{equation}
+gives rise to the dipole expression
+\begin{equation}
+    \langle\hat\mu_i\rangle = \mu_{0i} + \alpha_{ij}\varepsilon_j + \tfrac{1}{2}\beta_{ijk}\varepsilon_j\varepsilon_k + \cdots
+    \label{eq:dipole_expansion}
+\end{equation}
+with the permanent dipole moment $\mu_{0i}$, the polarizability $\alpha_{ij}$ and the hyperpolarizability $\beta_{ijk}$, of rank one, two and three respectively.
+
+All of these factors can be calculated by perturbation theory with the Hamiltonian in eq \ldots . Normally each state (labeled by rotational, vibrational and electronic quantum number) has its own energy shift; given the energy of optical photons, the electronic contribution is the main drive for the energy shift, therefore the polarizability \cite{kremsMoleculesElectromagneticFields2019} chapter 4.6. Consequently, the molecule frame properties $\alpha_\perp$ and $\alpha_\parallel$ (with respect to the molecules axis) are constant for all the rotational levels that we are interested in. The dependence of the interaction on the rotational state enters not through $\alpha$ itself, but through the orientation of the molecular axis relative to the field.
+
+For the next steps we disregard $\mathcal{O}(\varepsilon^4)$ in $E$. The effective potential energy surface induced by the electric field can be written as
+\begin{equation}
+    U(\vec\varepsilon) = E(\vec\varepsilon) - E(0) = -\mu_{0i}\varepsilon_i - \tfrac{1}{2}\alpha_{ij}\varepsilon_i\varepsilon_j - \tfrac{1}{6}\beta_{ijk}\varepsilon_i\varepsilon_j\varepsilon_k
+    \label{eq:potential_static}
+\end{equation}
+The expressions above were obtained for a static field. For a monochromatic non-resonant field, time-dependent perturbation theory yields an energy shift of the same functional form, with the coefficients evaluated at the driving frequency. For a linearly polarized pulse with a slowly varying envelope, we insert $\vec\varepsilon(t) = \varepsilon_0(t)\cos(\omega t)\,\hat e_{\mathrm{pol}}$. Since the optical frequency also greatly exceeds both the rotational frequencies and the inverse pulse duration, $\omega\gg\omega_{\mathrm{rot}},\tau^{-1}$, the rotational motion experiences only the potential averaged over one carrier period. Averaging, knowing that $\langle\cos^{2n+1}(\omega t)\rangle = 0$ for $n \in \mathbb{N}_0$ and $\langle\cos^{2}(\omega t)\rangle = \tfrac12$, removes all terms of odd order in the field --- an off-resonant field can therefore align a molecule, but never orient it --- and leaves
+\begin{equation}
+    U(t) = -\frac{1}{4}\varepsilon_0^2(t)\;\hat e_{\mathrm{pol}}\cdot\boldsymbol\alpha\cdot\hat e_{\mathrm{pol}}
+    \label{eq:potential_cycle_averaged}
+\end{equation}
+In the molecule-fixed frame the polarizability tensor for a linear molecule is diagonal and can be written as $\boldsymbol\alpha^{\mathrm{mol}} = \mathrm{diag}(\alpha_\perp, \alpha_\perp, \alpha_\parallel)$ with $\alpha_\parallel$ being the polarizability along the axis of the molecule. The orientation of the molecule axis in the laboratory frame, where $\theta$ is the polar angle measured from the laboratory $z$-axis and $\varphi$ the azimuth angle in the $x$--$y$ plane, is given by
+\begin{equation}
+    \vec n = \begin{pmatrix} \sin\theta\cos\varphi \\ \sin\theta\sin\varphi \\ \cos\theta \end{pmatrix}
+    \label{eq:molecular_axis}
+\end{equation}
+and with $\Delta\alpha = \alpha_\parallel - \alpha_\perp$, the polarizability tensor can be written as
+\begin{equation}
+    \boldsymbol{\alpha}^{\mathrm{lab}} = \alpha_{\perp}\mathbf{I} + \Delta\alpha\, \vec{n}\left(\vec{n}\right)^{\mathrm{T}}
+    \label{eq:polarizability_lab}
+\end{equation}
+Using the effective polarizability, i.e. the projection of the tensor onto the polarization axis $\hat e_{\mathrm{pol}}$, we end up with the following expression for the potential
+\begin{equation}
+    U(t) = -\frac{1}{4}{\varepsilon}_0(t)^2 \left[ \alpha_{\perp} + \Delta\alpha\,(\vec n\cdot \hat e_{\mathrm{pol}})^2 \right].
+    \label{eq:potential_effective}
+\end{equation}
+Note that $U$ depends only on the angle between the molecular axis and the \emph{instantaneous} polarization direction. The choice of quantization axis is therefore free and is made purely for convenience. Since the experiments described in this work use a polarization that rotates in a plane, it is natural to take $\vec e_z$ along the rotation axis and let the polarization lie in the $x$--$y$ plane at azimuth $\Phi$,
+\begin{equation}
+    \hat e_{\mathrm{pol}}(t) = \begin{pmatrix} \cos\Phi(t) \\ \sin\Phi(t) \\ 0 \end{pmatrix},
+    \label{eq:polarization_vector}
+\end{equation}
+which gives
+\begin{equation}
+    U(\theta,\varphi,t) = -\frac{1}{4}\varepsilon_{0}^{2}(t)\left[ \alpha_{\perp} + \Delta\alpha\, \sin^{2}\theta\, \cos^{2}\!\left(\varphi-\Phi(t)\right) \right]
+    \label{eq:potential_rotating}
+\end{equation}
+and we can define $U_0 = \frac{\varepsilon_0^2 \Delta \alpha}{4}$.
+
 \subsubsection{Pendular States}
+
+Now that we have the interaction potential for a linear molecule in a non-resonant electric field, the part missing is the description of the rotor. As shown in sec. \ldots we can use the rigid rotor Hamiltonian $\hat H_{\mathrm{rot}}$ to describe free rotation. The in-field system follows the time-dependent Schrödinger equation with $\hat{H}_{\mathrm{field\,dressed}} = \hat{H}_{\mathrm{rot}} + U$,
+\begin{equation}
+    i\hbar \frac{\partial \Psi_{\mathrm{rot}}(t)}{\partial t} = \left( B\hat{J}^{2} - \frac{\varepsilon_{0}^{2}(t)}{4}\left[ \alpha_{\perp} + \Delta\alpha\,\sin^{2}\theta\,\cos^{2}(\varphi - \Phi) \right] \right) \Psi_{\mathrm{rot}}(t).
+    \label{eq:tdse_field_dressed}
+\end{equation}
+Taking a closer look at the Hamiltonian, the only part that is not diagonal in the basis of spherical harmonics is the angular factor of the polarizability term. Rewriting it gives (similar to \cite{larsenLaserInducedAlignment})
+\begin{equation}
+    \sin^{2}\theta\,\cos^{2}(\varphi-\Phi) = \sqrt{\frac{4\pi}{9}}\,Y_{00} \;-\; \frac{1}{2}\sqrt{\frac{16\pi}{45}}\,Y_{20} \;+\; \frac{1}{4}\sqrt{\frac{32\pi}{15}}\left[ Y_{22}\,e^{-2i\Phi} + Y_{2,-2}\,e^{+2i\Phi} \right].
+    \label{eq:angular_factor_expansion}
+\end{equation}
+Using this to calculate the coupling $\langle J'M' \rvert \sin^2\theta\cos^2(\varphi-\Phi) \lvert JM\rangle$ imposes the selection rules $\Delta J = 0, \pm2$ and $\Delta M = 0, \pm2$. These are exactly the selection rules of a two-photon Raman transition, which is no coincidence, since the interaction is second order in the field. Though it is to say, that imagining the pendular states as a two photon process is not trivial.
+
+The current eigenbasis of the Hamiltonian $\Psi_{\mathrm{rot}}(t) = \sum_n c_n(t)\,|n(t)\rangle$, can either change adiabatically or non-adiabatically. Under a slowly varying Hamiltonian, the population of the instantaneous states will not change in time $|c_n(t)|^2 = |c_n(-\infty)|^2$. Either way, the eigenstates can be written in the field-free rotor basis so that (following \cite{nielsenLaserInducedAlignmentMolecules2022}
+\begin{equation}
+    \Psi_{\mathrm{rot}}(t) = \sum_n c_n(t)\,\sum_{J,M} d^{(n)}_{JM}(t)\,\lvert J M\rangle .
+    \label{eq:eigenstate_expansion}
+\end{equation}
+For a molecule initially in a single rotational state $\lvert J=0, M=0\rangle$ and adiabatic dynamics $|c_0(t)|^2 = 1$, the system will follow one instantanous branch.
+Put into words, the field creates a superposition of different angular momentum states. Classically one could imagine the molecules axis librating around the field vector.
+Writing the density matrix as
+\begin{equation}
+    \hat{\rho}(t) = \sum_{JM,\,J'M'} d_{JM}(t)\, d^{*}_{J'M'}(t)\, \lvert J M\rangle \langle J' M'\rvert ,
+    \label{eq:density_matrix}
+\end{equation}
+the diagonal elements yield the population/ probabilities of measuring angular momentum $J$ and the off-diagonal elements display the coherence between different states. These coherences, or in other words the time-dependent relative phases, can provide angular confinement, i.e. molecule alignment to the polarization axis.
+
+Whether the evolution follows a single branch is decided by comparing the rate of change of the Hamiltonian to the energy gaps it must bridge. Transitions between field-dressed states are suppressed as long as \cite{omisteTheoreticalDescriptionAdiabatic2011}
+\begin{equation}
+    \eta = \frac{\left|\langle m \left| \partial \hat H/\partial t \right| n\rangle\right|}{(E_m - E_n)^2} = \frac{\Delta\alpha}{4}\,\left|\dot\varepsilon_0^2(t)\right|\, \frac{ \left|\langle m|\sin^2\theta\,\cos^2(\varphi-\Phi)|n\rangle\right| }{ \left(E_m-E_n\right)^2 } \ll 1,
+    \label{eq:adiabaticity_criterion}
+\end{equation}
+so the adiabaticity scales with the polarizability anisotropy, the intensity slope and the moment of intertia which enters through the energy difference.
+
+Ortigoso et al. quantified this by solving the pendular problem numerically for a Gaussian envelope, identifying two limiting regimes. In the short-pulse limit, $\sigma\lesssim\hbar/B$, the interaction is non-adiabatic and the pulse leaves behind a rotational wave packet that realigns in field-free revivals. In the long-pulse limit, $\sigma\gtrsim10\,\hbar/B$, the evolution is truly adiabatic, the alignment follows the pulse envelope, and the initial state is recovered after the pulse.
+With the effective in-droplet rotational constants for OCS and CS2, one finds $\hbar/B=73\ \mathrm{ps}$ and $218\ \mathrm{ps}$. Adiabatic behaviour would thus require $\sigma\gtrsim0.7\ \mathrm{ns}$ for OCS and $\sigma\gtrsim2.2\ \mathrm{ns}$ for CS$_2$. Our pulse, $\tau_{\mathrm{FWHM}}=320\ \mathrm{ps}$ ($\sigma\approx192\ \mathrm{ps}$), falls well short of both. In addition, their calculations only demonstrated adiabatic following up to $\Delta\omega=\Delta\alpha\,\varepsilon_{0}^{2}/2B=900$, whereas at a peak intensity of $1\times10^{12}\ \mathrm{W/cm^{2}}$ we reach $\Delta\omega\approx1.1\times10^{3}$ for OCS and $\approx7.9\times10^{3}$ for CS$_2$.
+
+We should therefore not expect our system to behave perfectly adiabatically.
+
 \subsubsection{Rotational Ladder climbing}
-\label{sec:rot_ladder}
+
+As stated in the paragraph above, a long linear polarized alignment pulse doesn't transfer angular momentum to the molecule, causing effectively no excitation of rotational states after the field. Since the goal is to have controlled excitation of molecules to measure state lifetimes and the dissipation into superfluid helium, this is where the optical centrifuge comes into play. The rotating linear polarization makes it possible to ``grab'' the molecule and spin it up to higher frequencies. For a field rotating in the x-y-plane and its azimuth angle $\Phi(t)$, the instantaneous polarization direction is
+\begin{equation}
+    \vec e_{\mathrm{pol}}(t) =\begin{pmatrix} \cos\Phi(t) \\ \sin\Phi (t) \\ 0 \end{pmatrix}
+    \label{eq:polarization_rotating}
+\end{equation}
+and with eq. \ldots
+\begin{equation}
+    U(\theta,\varphi,t) = -\frac{1}{4}\varepsilon_{0}^{2}(t) \left[ \alpha_{\perp} + \Delta\alpha\, \sin^{2}\theta\, \cos^{2}\left(\varphi-\Phi(t)\right) \right]
+    \label{eq:potential_centrifuge}
+\end{equation}
+Transforming into the frame co-rotating with the polarization, gives the rotating-frame Hamiltonian \todo{citation missing}
+\begin{equation}
+    \hat{\tilde H}(t) = B\hat J^{2} - \hbar\Omega(t)\hat J_{z} - \frac{\varepsilon_0^2(t)}{4}\left[\alpha_\perp + \Delta\alpha,\sin^2\theta\cos^2\varphi\right], \qquad \Omega=\dot\Phi .
+    \label{eq:rotating_frame_hamiltonian}
+\end{equation}
+The polarization is now static, at the price of the inertial term $-\hbar\Omega\hat J_z$. For constant $\Omega$ the Hamiltonian is time-independent, so its eigenstates are the rotating analogues of the pendular states.
+With no rotation the in-field Hamiltonian was diagonal in the pendular state basis. The term $-\hbar\Omega\hat J_z$ now generates coupling of the different branches. As $\Omega$ grows, states of large $M$ are pulled down linearly and sweep through the manifold. The diabatic energies of $|J,M\rangle$ and $|J{+}2,M{+}2\rangle$ become degenerate at
+\begin{equation}
+    \hbar\Omega_{J,J+2} = B(2J+3),
+    \label{eq:crossing_condition}
+\end{equation}
+i.e. at $t_{J,J+2}=B(2J+3)/\hbar\beta$ for a linear chirp $\Omega=\beta t$ (explained in detail in sec. \ldots). The coupling $V_{J,J+2}\propto\Delta\alpha\varepsilon_0^2$ turns each degeneracy into an avoided crossing. The rotational excitation is thus a chain of real two-photon Raman crossings encountered one after another \cite{vitanovAdiabaticExcitationRotational2004}. Only here does the adiabatic branch change character: following it means climbing the ladder $|0,0\rangle\to|2,2\rangle\to|4,4\rangle\to\dots$. Simulating the dynamics of the hamiltonian in eq\ldots yields a good insight into the ladder climbing mechanism, mainly showing that population transfer only happens if the cfg frequency exceeds a level crossing.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260805095511.png}
+    \caption{}
+    \label{fig:ladder_climbing_simulation}
+\end{figure}
+
+Once the intensity has reached its plateau, the rate of change of $\hat{\tilde H}$ is dominated by the chirp, $\partial\hat{\tilde H}/\partial t \simeq -\hbar\dot\Omega\hat J_z$, and the criterion of eq. (\ldots) becomes
+\begin{equation}
+    \eta = \frac{\hbar|\dot\Omega|\left|\langle m|\hat J_z|n\rangle\right|}{\left(E_m-E_n\right)^2} \ll 1 .
+    \label{eq:adiabaticity_chirp}
+\end{equation}
+This is noticable in the simulation, where for higher accelerations the rippels on the surface get more pronounced, displaying the branch hopping/ non-adiabaticity.
+
+Whether the excitation really proceeds as the step-by-step ladder and if the criterion in eq \ldots is a valid measure, depends on how well the individual crossings are separated. Armon and Friedland
+\cite{armonQuantumClassicalDynamics2017} cast this into two dimensionless parameters built from the sweep time $t_s=1/\sqrt{\beta}$, the drive time $t_d=\hbar/\epsilon$ (with $\epsilon=\Delta\alpha\,\varepsilon_0^2/4$) and the rotational time $t_c=I/\hbar$:
+\begin{equation}
+    P_1=\frac{\epsilon}{\hbar\sqrt{\beta}},\qquad
+    P_2=\frac{2B}{\hbar\sqrt{\beta}} .
+    \label{eq:armon_parameters}
+\end{equation}
+Successive steps are only resolved if $P_2\gg\tfrac14+\tfrac{P_1}{16}$. Below, several states are coupled
+at once, the ladder structure washes out, and the dynamics is better described classically as
+autoresonance: the molecular axis stays phase-locked in the rotating well and follows $\Omega(t)$.
+Capture into autoresonance requires $P_1P_2>1/2$, i.e.
+\begin{equation}
+    \frac{I\beta}{\epsilon}<2 ,
+    \label{eq:autoresonance_condition}
+\end{equation}
+the torque of the well must exceed what is needed to keep up with the accelerating trap (same scaling as Karczmarek's $I\beta<\epsilon/2\pi$ \cite{karczmarekOpticalCentrifugeMolecules1999}).
 
 
 \section{The Optical Centrifuge}
-\label{sec:centrifuge}
-% Two counter-rotating, oppositely chirped laser fields forming a
-% linearly polarised field whose polarisation axis accelerates in rotation,
-% trapping molecules in an angular potential and driving them up the
-% rotational ladder.
-\todo{Field construction, accelerating polarisation, angular trapping,
-adiabatic climbing of the rotational ladder.}
-\subsection{Definition and Setup}
-\subsection{Stabilization}
+\label{sec:optical_centrifuge}
+
+The optical centrifuge was proposed theoretically in 1999 by Karczmarek, Wright, Corkum and Ivanov \cite{karczmarekOpticalCentrifugeMolecules1999} and the first experimental realization followed one year later, in 2000, by Villeneuve, Aseyev, Dietrich, Spanner, Ivanov and Corkum \cite{villeneuveForcedMolecularRotation2000}. Conceptually it is described by an intense linear polarized laser pulse, where the polarization vector is rotating in the plane perpendicular to the propagation direction. The field behavior is realized by superimposing two circular polarized chirped pulses with opposite handedness.
+
+\begin{aside}{Chirped pulses}
+An ultrashort laser pulse has a finite spectral bandwidth $\Delta\omega$. For a given spectral amplitude, the pulse is called transform limited when its spectral phase contains no nonlinear frequency dependence. In the time domain, this means that all frequency components have the same group delay and therefore overlap optimally in time. The spectral phase can be expanded in a Taylor series around the central frequency $\omega_0$:
+\begin{equation}
+    \phi(\omega) = \phi_0 + \phi_1(\omega-\omega_0) + \frac{\phi_2}{2}(\omega-\omega_0)^2 + \frac{\phi_3}{6}(\omega-\omega_0)^3 +\cdots .
+    \label{eq:spectral_phase_taylor}
+\end{equation}
+Here, $\phi_0$ is the constant phase, $\phi_1$ is the group delay at the central frequency, and $\phi_2$ is the group-delay dispersion, or GDD. The linear phase term $\phi_1$ shifts the entire pulse in time without changing its temporal shape. The quadratic phase term $\phi_2$, however, makes the group delay frequency dependent:
+\begin{equation}
+    \tau_g(\omega) = \frac{d\phi}{d\omega} \approx \phi_1+\phi_2(\omega-\omega_0).
+    \label{eq:group_delay}
+\end{equation}
+Consequently, different frequency components are localized at different times. This produces a linear chirp and broadens the pulse relative to its transform-limited duration.
+\end{aside}
+
+We can label the two pulses by $j\in\{R,L\}$, with propagation distances $z_R$ and $z_L$. Instead of introducing a separate time delay, propagation is included directly through the retarded time
+\begin{equation}
+    u_j(t,z_j)=t-\frac{z_j}{c}.
+    \label{eq:retarded_time}
+\end{equation}
+At the detection plane, the phase of each chirped pulse can be written as
+\begin{equation}
+    \Phi_j(t,z_j) = \omega_{j0}u_j(t,z_j) + \frac{1}{2}\beta_j u_j^2(t,z_j) + \varphi_{j0}.
+    \label{eq:time_phase}
+\end{equation}
+where $\beta_j$ is now the temporal chirp and $\omega_{j} = d\Phi_j/d t$ the instantaneous optical frequency. Assuming a Gaussian envelope in the form of
+\begin{equation}
+    A_j(t,z_j) = A_0 \exp\left[ -\frac{u_j^2(t,z_j)}{2T_j^2} \right],
+    \label{eq:gaussian_envelope}
+\end{equation}
+the two circular pulses can be written as
+\begin{equation}
+    \vec E_R(t,z_R) = \frac{A_R(t,z_R)}{\sqrt{2}} \begin{pmatrix} 1\\ i \end{pmatrix} e^{i\Phi_R(t,z_R)} \qquad
+    \vec E_L(t,z_L) = \frac{A_L(t,z_L)}{\sqrt{2}} \begin{pmatrix} 1\\ -i \end{pmatrix} e^{i\Phi_L(t,z_L)},
+    \label{eq:circular_fields}
+\end{equation}
+giving $\vec E(t, z_R, z_L) = \vec E_R + \vec E_L$, the linear polarized field vector. This vector is rotating with frequency of
+\begin{equation}
+    2\pi f_{\mathrm{cfg}} = \frac{1}{2}[\omega_{R}(t) - \omega_{L}(t)].
+    \label{eq:fcfg}
+\end{equation}
+
+\subsection{Different centrifuge types}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260731172118.png}
+    \caption{}
+    \label{fig:centrifuge_types}
+\end{figure}
+
+With the prerequisite of using oppositely circular polarized, chirped pulses one now can think of various designs. The three most most useful variations are shown in figure \ldots, where a) resembles the initial design of the optical centrifuge \cite{karczmarekOpticalCentrifugeMolecules1999} with $\beta_R = -\beta_L$. For our research, the interesting regime is around $0-180\, \mathrm{GHz}$. A centrifuge of type a), depending on the laser used, commonly has a frequency range up to terahertz \cite{korobenkoThesis}, therefore our region of interest occupies only a small portion of the pulse. Decreasing the acceleration in the original centrifuge design is solely possible by decreasing the chirp. This entails, that because of the longer pulse duration, the peak intensity also drops, giving a shallower potential and less alignment to the field, causing the signal to noise ratio to drop. Additionally, the physical implementation is restricted by optical components like gratings \cite{macphail-bartleyLaserControlMolecular2020}. Therefore, the Milner research group came up with a new centrifuge design. Take a streched pulse and use a $50/50$ polarizing beam splitter to send the vertical and horizantal polarized parts into two michelson interferometer arms. Delay one of them and you will get the constant frequency centrifuge with zero rotational acceleration (described in detail in \cite{wangOpticalCentrifugeZero2025a}). If you now add a mechanism to slightly change the chirp of one arm, you can tweak the starting and end frequency almost completely independent of the intensity profile. The rotation dynamics of this ultraslow centrifuge (describe in the paper \cite{wangUltraslowOpticalCentrifuge2026} and later in section \ldots), with the initial chirp $\beta_0$, the additional chirp $\Delta \beta$ and the delay between the two arms $\Delta t$, is described by $f_{\mathrm{cfg}}(t) = f_0 + \Delta \beta t / 4 \pi$ with the central frequency $f_0= \beta_0 \Delta t / 4 \pi$.
+
+\subsection{Characterizing the centrifuge}
+
+There are multiple ways to characterize the field alignment behavoir of sid optical tool. The most common way, is cross-correlation. For cross- or x-correlation one first has to project the field, that is rotation in the x-y-plane, onto a fixed axis, take the x-axis for example. Using a linear and also x-polarized reference pulse, with a way shorter puls duration and focussing both on a type-I nonlinear crystal (in our case barium borat, BBO), gives sum-frequency generation (SFG) (setup explained in \cite{wangUltraslowOpticalCentrifuge2026}). The signal intensity scales with the square of the centrifuge field.
+Similar to our actual experimental pump-probe setup, which will be explaint later in sec. \ldots, we scan the delay of the short reference pulse to gain information about the field orientation in time. The measured signal oscillates with twice $f_{\mathrm{cfg}}$ due to the indistinguishable nature of the two x-aligned positions of the field vector per roation periode.
+
+A second, new way to characterize the pulse was developed within the scope of this work. Later we use this method to phase-stabilize the centrifuge (explained in sec. \ldots). Here, the math is presented to underline what can be done using a spectrometer signal of an also x-projected centrifuge. For each arm, the projected field is
+\begin{equation}
+    E_j(t,z_j) = \frac{A_0}{\sqrt{2}} \exp\left[ -\frac{u_j^2(t,z_j)}{2T_j^2} \right] e^{i\Phi_j(t,z_j)}.
+    \label{eq:projected_field}
+\end{equation}
+Its Fourier transform is evaluated by shifting the integration variable to the retarded time $u_j$. This separates vacuum propagation as a spectral phase factor,
+\begin{equation}
+    \tilde E_j(\omega,z_j) = e^{-i\omega z_j/c}\tilde E_j(\omega,0).
+    \label{eq:propagation_phase}
+\end{equation}
+The remaining integral is the Fourier transform of a chirped Gaussian. Combining the Gaussian envelope and the quadratic temporal phase gives the complex width
+\begin{equation}
+    q_j=\frac{1}{T_j^2}-i\beta_j.
+    \label{eq:complex_width}
+\end{equation}
+After completing the square, the integration contour is shifted by a complex constant. This is allowed because $\mathrm{Re}(q_j)=1/T_j^2>0$, so the integrand is exponentially damped, and because the Gaussian integrand is entire. By Cauchy's theorem, the contour can be displaced back to the real axis. The remaining integral is the standard complex Gaussian integral. This gives
+\begin{equation}
+    \tilde E_j(\omega,z_j) = \frac{A_0}{\sqrt{2}} e^{i\varphi_{j0}} e^{-i\omega z_j/c} \sqrt{\frac{2\pi}{q_j}} \exp\left[ -\frac{(\omega-\omega_{j0})^2}{2q_j} \right].
+    \label{eq:spectral_field}
+\end{equation}
+With the horizontal spectral field being $\tilde E_x(\omega)=\tilde E_R(\omega,z_R)+\tilde E_L(\omega,z_L)$ the spectrometer measures the intensity
+\begin{equation}
+    I_x(\omega) \propto |\tilde E_R|^2 + |\tilde E_L|^2 + 2\mathrm{Re} \left[ \tilde E_R\tilde E_L^* \right].
+    \label{eq:spectrometer_intensity}
+\end{equation}
+By writing each spectral field as an amplitude and a phase the cross term becomes
+\begin{equation}
+    2\mathrm{Re} \left[ \tilde E_R\tilde E_L^* \right] = 2|\tilde E_R||\tilde E_L| \cos\Theta(\omega),
+    \label{eq:cross_term_spectral}
+\end{equation}
+which is the origin of the modulation observed on the spectrometer. The phase of the modulation can be written as
+\begin{equation}
+    \Theta(\omega) = \Theta_0+\Theta_1\omega+\Theta_2\omega^2.
+    \label{eq:spectrum_phase}
+\end{equation}
+Defining $D_j=\frac{1}{T_j^4}+\beta_j^2$ lets us write the constant, linear, and quadratic coefficients as
+\begin{equation}
+    \Theta_0 = \varphi_{R0}-\varphi_{L0} -\frac{1}{2}\arg(q_Rq_L^*) -\frac{\beta_R\omega_{R0}^2}{2D_R} +\frac{\beta_L\omega_{L0}^2}{2D_L},
+    \label{eq:theta0}
+\end{equation}
+\begin{equation}
+    \Theta_1 = \frac{z_L-z_R}{c} + \frac{\beta_R\omega_{R0}}{D_R} - \frac{\beta_L\omega_{L0}}{D_L},
+    \label{eq:theta1}
+\end{equation}
+\begin{equation}
+    \Theta_2 = -\frac{\beta_R}{2D_R} + \frac{\beta_L}{2D_L}.
+    \label{eq:theta2}
+\end{equation}
+
+\subsubsection{Common transform-limited pulse}
+
+In our case both arms originate from the same transform-limited Gaussian pulse with carrier frequency $\omega_{R0}=\omega_{L0}=\omega_0$ and bandwidth $\Delta\lambda_\mathrm{FWHM}$. Group delay dispersion (GDD) only alters the spectral phase and not the amplitude, so both arms share the same Gaussian envelope $|\tilde E(\Omega)|$ and differ at most by an overall scale set by the beam-splitter ratio. Writing $|\tilde E_R|^2=R\,|\tilde E|^2$ and $|\tilde E_L|^2=L\,|\tilde E|^2$, the spectral intensity becomes
+\begin{equation}
+    I_x(\Omega)=(R+L)\,|\tilde E(\Omega)|^2\big[\,1+V\cos\Theta(\Omega)\,\big],
+    \label{eq:spectral_intensity_common}
+\end{equation}
+with the fringe visibility $V$
+\begin{equation}
+    V=\frac{2\sqrt{RL}}{R+L}\le 1.
+    \label{eq:visibility}
+\end{equation}
+For balanced arms ($R=L$, i.e. $V=1$) this reduces to $4|\tilde E|^2\cos^2(\Theta/2)$; an imbalance lowers $V$, so the fringe minima no longer reach the background but instead follow a second, lower Gaussian envelope $(R+L)(1-V)|\tilde E|^2$.
+With a common carrier frequency, the three coefficients of Eq.~\eqref{eq:spectrum_phase} combine, so that with the detuning $\Omega\equiv\omega-\omega_0$, the spectral phase reduces to
+\begin{equation}
+    \Theta(\Omega) = \Theta_0' - \tau\,\Omega + \frac{1}{2}(\phi''_R - \phi''_L)\,\Omega^2 ,
+    \label{eq:spectrum_phase_common}
+\end{equation}
+where we use the condensed constant $\Theta_0'=\varphi_{R0}-\varphi_{L0}-\tfrac12\arg(q_Rq_L^*)-\tau\omega_0$, the relative arm delay $\tau=(z_R-z_L)/c$ and GDD $\phi''_j = -\beta_j/D_j$.
+
+\subsubsection{Reconstructing the pulse in time}
+
+We start from the inverse $q$-parameter, whose real part is the transform-limited bandwidth and whose imaginary part is the GDD,
+\begin{equation}
+    \frac{1}{q_j} = a - i\,\phi''_j , \qquad a \equiv \mathrm{Re}\frac{1}{q_j} = \frac{4\ln 2}{\Delta\omega_\mathrm{FWHM}^2}.
+    \label{eq:inverse_q}
+\end{equation}
+Inverting and identifying real and imaginary parts with $q_j = 1/T_j^2 - i\beta_j$,
+\begin{equation}
+    q_j = \frac{1}{a - i\phi''_j} = \frac{a + i\,\phi''_j}{a^2 + \phi''^2_j},
+    \label{eq:q_inverted}
+\end{equation}
+gives the stretched duration and the temporal chirp rate,
+\begin{equation}
+    \frac{1}{T_j^2} = \mathrm{Re}(q_j) = \frac{a}{a^2+\phi''^2_j},
+    \label{eq:duration}
+\end{equation}
+\begin{equation}
+    \beta_j = -\,\mathrm{Im}(q_j) = -\frac{\phi''_j}{a^2+\phi''^2_j}.
+    \label{eq:beta_gdd}
+\end{equation}
+Converting Eq.~\eqref{eq:duration} to an intensity FWHM via $T_{j,\mathrm{FWHM}}^2 = 4\ln 2\,T_j^2 = 4\ln 2\,(a^2+\phi''^2_j)/a$ and using $4\ln 2/a = \Delta\omega_\mathrm{FWHM}^2$,
+\begin{equation}
+    T_{j,\mathrm{FWHM}}^2 = \Delta\omega_\mathrm{FWHM}^2\,(a^2 + \phi''^2_j) = T_{0,\mathrm{FWHM}}^2 + \big(\phi''_j\,\Delta\omega_\mathrm{FWHM}\big)^2,
+    \label{eq:B}
+\end{equation}
+with the transform-limited duration $T_{\mathrm{TL},\mathrm{FWHM}} = 4\ln 2/\Delta\omega_\mathrm{FWHM}$. Equation~\eqref{eq:B} solved for the dispersion reads
+\begin{equation}
+    |\phi''_j| = \frac{\sqrt{T_{j,\mathrm{FWHM}}^2 - T_{\mathrm{TL},\mathrm{FWHM}}^2}}{\Delta\omega_\mathrm{FWHM}}.
+    \label{eq:phi}
+\end{equation}
+Equation~\eqref{eq:B} also yields the denominator of Eq.~\eqref{eq:beta_gdd} directly, $a^2 + \phi''^2_j = T_{j,\mathrm{FWHM}}^2/\Delta\omega_\mathrm{FWHM}^2$, so that inserting Eq.~\eqref{eq:phi} into Eq.~\eqref{eq:beta_gdd} gives the chirp rate purely in terms of the two measured widths,
+\begin{equation}
+    |\beta_j| = \Delta\omega_\mathrm{FWHM}\, \frac{\sqrt{T_{j,\mathrm{FWHM}}^2 - T_{\mathrm{TL},\mathrm{FWHM}}^2}}{T_{j,\mathrm{FWHM}}^2}
+    \label{eq:chirp_from_widths}
+\end{equation}
+where $\Delta\omega_\mathrm{FWHM}$ follows from the spectrum and $T_{j,\mathrm{FWHM}}$ from the cross-correlation of arm $j$.
+As already seen the chirp rates and arm delay fixes the rotation frequency $f_{\mathrm{cfg}}(t)$. Furthermore, reconstructing this depends on the centrifuge type (see Table. \ldots)
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260806115957.png}
+    \caption{}
+    \label{fig:centrifuge_reconstruction_table}
+\end{figure}
+
+\subsubsection{FWHM frequency range of the centrifuge}
+
+The chirp rates and Eq.~\eqref{eq:fcfg} fix the instantaneous rotation frequency for all times, but the centrifuge only acts on the molecules while its field is present. The relevant temporal window is not that of the full projected intensity: only the rotating, aligning part contributes. Writing the time-domain projected intensity from the two arm fields $E_j$,
+\begin{equation}
+    |E_x(t)|^2 = |E_R|^2+|E_L|^2 +2\,\mathrm{Re}\!\left[E_R E_L^*\right],
+    \label{eq:projected_intensity_time}
+\end{equation}
+the first two terms form a non-rotating background, and only the cross term carries the rotating linear polarization. With the real Gaussian amplitudes $A_j(t,z_j)$ it reads
+\begin{equation}
+    2\,\mathrm{Re}\!\left[E_R E_L^*\right] = 2A_R A_L\,\cos\!\big(\Phi_R-\Phi_L\big),
+    \label{eq:cross_term_time}
+\end{equation}
+with the phase difference taken from Eq.~\eqref{eq:time_phase}. The centrifuge is thus active only where both arms overlap, i.e.\ where the envelope $A_R A_L$ is appreciable.
+The product of two Gaussians is again a Gaussian. With $t_j=z_j/c$ and the arm delay $\tau=t_R-t_L$, completing the square gives
+\begin{equation}
+    A_R A_L = \frac{A_0^2}{2} \underbrace{\exp\!\left[-\frac{\tau^2}{2\left(T_R^2+T_L^2\right)}\right]}_{\text{overlap factor}} \exp\!\left[-\frac{(t-t_c)^2}{2T_\mathrm{eff}^2}\right],
+    \label{eq:gaussian_product}
+\end{equation}
+with the effective width and the envelope center
+\begin{equation}
+    T_\mathrm{eff}=\frac{T_R T_L}{\sqrt{T_R^2+T_L^2}}, \qquad t_c=\frac{T_L^2\,t_R+T_R^2\,t_L}{T_R^2+T_L^2}.
+    \label{eq:teff_tc}
+\end{equation}
+The delay enters only through the center $t_c$ and the overlap factor, which lowers the amplitude and hence the fringe visibility; it does not affect the width. The centrifuge width is therefore set by $T_\mathrm{eff}$ alone. This envelope is a meaningful centrifuge duration only as long as $|\tau|\lesssim\sqrt{T_R^2+T_L^2}$; beyond that the overlap factor suppresses the amplitude and no centrifuge is present.
+Since $A_R A_L$ is an intensity-like quantity, its FWHM is the temporal centrifuge duration
+\begin{equation}
+    T_\mathrm{FWHM}^\mathrm{cfg} = 2\sqrt{2\ln 2}\;T_\mathrm{eff},
+    \label{eq:centrifuge_duration}
+\end{equation}
+reached at the half-maximum times $t_\pm=t_c\pm\sqrt{2\ln 2}\,T_\mathrm{eff}$. The two frequencies bounding the FWHM window are then given by
+\begin{equation}
+    f_\pm = f_\mathrm{cfg}(t_c) \pm \frac{\beta_R-\beta_L}{4\pi}\,\sqrt{2\ln 2}\;T_\mathrm{eff},
+    \label{eq:frequency_bounds}
+\end{equation}
+where the center frequency is obtained by inserting $t_c$ into Eq.~\eqref{eq:fcfg},
+\begin{equation}
+    f_\mathrm{cfg}(t_c) = -\frac{\tau\left(\beta_R T_R^2+\beta_L T_L^2\right)}{4\pi\left(T_R^2+T_L^2\right)}.
+    \label{eq:center_frequency}
+\end{equation}
 

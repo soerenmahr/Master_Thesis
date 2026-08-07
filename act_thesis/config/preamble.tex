@@ -35,6 +35,27 @@
 
 \usepackage{wrapfig}
 
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{array}
+
+% fixed-width, left-aligned paragraph column
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% small grey label (incl. citation) top-left, value centered below
+\newcommand{\lab}[1]{{\footnotesize\color{gray}#1}}
+\newcommand{\pcell}[2]{%
+  \lab{#1}\par\vspace{2pt}%
+  {\centering #2\par}\vspace{1pt}%
+}
+
+% base grid: 6 equal columns; spans absorb the intervening rules/padding
+\newlength{\basecol}\setlength{\basecol}{1.75cm}
+\newlength{\spanII}  \setlength{\spanII} {\dimexpr 2\basecol + 2\tabcolsep +  \arrayrulewidth\relax}
+\newlength{\spanIII} \setlength{\spanIII}{\dimexpr 3\basecol + 4\tabcolsep + 2\arrayrulewidth\relax}
+\newlength{\spanVI}  \setlength{\spanVI} {\dimexpr 6\basecol +10\tabcolsep + 5\arrayrulewidth\relax}
+
+\setlength{\extrarowheight}{2pt}
 %--- Layout ---------------------------------------------------
 \usepackage[
     a4paper,
@@ -54,8 +75,6 @@
 \ihead{\leftmark\ \textbullet\ \rightmark}   % Kapitel • Section
 \ohead{\pagemark}  
 
-%--- Cross references and links -------------------------------
-\usepackage{xcolor}
 
 %--- Brand colours and accent ---------------------------------
 \definecolor{ubcblue}{HTML}{002145}   % UBC Blue
