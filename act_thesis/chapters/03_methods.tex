@@ -4,6 +4,32 @@
 %==============================================================
 \section{Ultrafast Pulse Shaping}
 \subsection{Ultraslow Centrifuge Design}
+
+\begin{figure}[ht]
+    \centering
+    \input{figures/03_methods/ultraslow_centrifuge.tex}
+    \caption{Schematic of the optical setup.}
+    \label{fig:usCFG}
+\end{figure}
+
+As already stated in section \ref{sec:different_centrifuge_types} our new concept of the slow accelerating centrifuge is based on a Michelson interferometer.
+
+To create the linear polarization rotating and accelerating in time, we use the uncompressed output of our chirped pulse amplifier (Spectra-Physics Spitfire Ace). Knowing the pulse dimensions  $\Delta \omega_{\mathrm{FWHM}} \approx 8.2 \, \mathrm{nm}$, central wavelength of $\lambda_0 = 802\, \mathrm{nm}$ and the duration $T_{\mathrm{FWHM}} \approx 320 \, \mathrm{ps}$, one can equate the temporal chirp with formula \ref{eq:chirp_from_widths} to $\left|\beta_0 \right| \approx 7.4 \times 10^{-2} \, \mathrm{rad}/\mathrm{ps}^2$. In our case positively chirped, meaning an increase of optical frequency with time. 
+
+Looking at fig. \ref{fig:usCFG}, the input pulse first has its linear polarization rotated by a half-wave plate (HWP), so that the polarizing beam splitter (PBS) splits it into a horizontally and a vertically polarized arm of the interferometer. The HWP angle is not set to give an exact $50/50$ split at the PBS, but rather to balance the intensities of the two arms after the interferometer, compensating for the diffraction losses of the compressor arm. Unequal amplitudes at recombination would render the centrifuge field elliptical rather than linear, reducing its spinning efficiency.
+
+The transmitted beam (compressor arm, green in fig. \ref{fig:usCFG}) hits the first grating, which angularly disperses the spectral components. The second grating removes this angular dispersion, leaving a collimated but spatially chirped beam, and the retro-reflector sends it back through the pair at a different height, cancelling the spatial chirp. Since the red components are diffracted at larger angles, they traverse a longer optical path than the blue ones, so the grating pair adds negative group delay dispersion to the already positively chirped pulse. This shortens the pulse and thereby increases its chirp rate $\beta$. For a small difference in chirp, $|\Delta\beta| \ll |\beta_0|$, one can use the following approximation \footnote{Sign and factor conventions Ref. \cite{wangUltraslowOpticalCentrifuge2026} defines the temporal phase as $\varphi(t,\beta_0) = \varphi_0 + \omega_0 t + \beta_0 t^2$, i.e. their chirp coefficient is half of ours, which accounts for the different prefactor (8 instead of 16).} \cite{wangUltraslowOpticalCentrifuge2026}:
+\begin{equation}
+     \Delta\beta(L) \approx \frac{8\beta_0^2\pi^2 c}{d^2\omega_0^3\cos^2\theta_0},L 
+\end{equation}
+where $1/d = 1500,\mathrm{grooves/mm}$ is the groove density of the gratings, $\theta_0$ is the grating orientation angle as defined in the inset of fig. \ref{fig:usCFG}, and $L$ is the grating separation along the path of the light beam at the carrier frequency $\omega_0$. $L$ is varied with a translation stage carrying the second grating; the geometry of the compressor arm is such that this leaves the optical path length at $\omega_0$ unchanged.
+
+The translation stage in the delay arm (cyan in fig. \ref{fig:usCFG}) introduces the path length difference $\Delta t$ between the two pulses. After recombining the two beams at the second PBS, a quarter-wave plate (QWP) with its fast axis at $45^\circ$ to the polarization axes of the PBS converts the two orthogonal linear polarizations into circular polarizations of opposite handedness. Their superposition is a linearly polarized field whose polarization vector rotates at half the instantaneous frequency difference between the two arms.
+
+Because changing $L$ in theory does not affect $\Delta t$, the two stages act as independent knobs: $\Delta t$ sets the central rotation frequency $f_0$ and $\Delta\beta(L)$ sets the angular acceleration, so that $f_{\mathrm{cfg}}(t)$ eq. \ref{eq:f_cfg} is fully controlled.
+
+\subsubsection{Restrictions to the current setup}
+
 \subsection{Phase Control and Stabilization}
 
 \section{Creating the Probing Environment}

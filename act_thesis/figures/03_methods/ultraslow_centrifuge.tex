@@ -1,0 +1,138 @@
+% ======================================================================
+%  Ultraslow optical centrifuge pulse shaper (compressor arm + delay arm)
+%  Included from chapters/03_methods.tex via \input.
+% ======================================================================
+\begin{tikzpicture}[line cap=butt,line join=round,>=Stealth,
+  every node/.append style={font=\large\bfseries\boldmath}]
+
+% =============================== nodes ================================
+\coordinate (IN)   at (1.15,8.70);
+\coordinate (HWP)  at (3.30,8.70);
+\coordinate (PBSA) at (4.90,8.70);
+\coordinate (IM)   at (7.465,8.70);
+\coordinate (GRa)  at (4.36,12.02);
+\coordinate (GRb)  at (10.75,12.05);
+\coordinate (FM)   at (8.17,13.62);
+\coordinate (RR)   at (12.65,13.62);
+\coordinate (RRin) at (12.42,13.62);
+\coordinate (OM)   at (9.85,6.15);
+\coordinate (MG)   at (6.60,6.15);
+\coordinate (PBSB) at (6.60,4.85);
+\coordinate (QWP)  at (6.60,4.05);
+\coordinate (MC)   at (4.90,5.70);
+\coordinate (DA)   at (1.70,5.70);
+\coordinate (DB)   at (1.70,4.85);
+
+% ========================= translation stages =========================
+\fill[stagegreen] (7.15,11.25) rectangle (11.55,14.45);
+\fill[stageblue]  (0.95,4.20)  rectangle (3.15,6.35);
+
+% =============================== beams ================================
+% input pulse (purple)
+\draw[cpurple,line width=3pt] (IN) -- (PBSA);
+\fill[cpurple] (1.15,9.12) -- (1.15,8.28) -- (1.80,8.70) -- cycle;
+
+% compressor arm (green)
+\draw[cgreen,line width=3pt] (PBSA) -- (IM);
+\draw[cgreen,line width=3pt] (GRa) -- (OM) -- (MG) -- (PBSB);
+
+% delay arm (cyan)
+\draw[ccyan,line width=3pt] (PBSA) -- (MC) -- (DA) -- (DB) -- (PBSB);
+
+% output (purple)
+\draw[cpurple,line width=3pt] (PBSB) -- (6.60,3.95);
+
+% dispersed beams inside the compressor
+% GR1 -> GR2 : angularly dispersed fan (red diffracted at the smaller angle, as in the inset)
+\optbeam{GRa}{GRb}{0.05}{0.30}{cred}{cblue}
+% GR2 -> FM  : collimated, spectrum spread transversally (order flipped by GR2)
+\optbeam{GRb}{FM}{0.30}{0.30}{cblue}{cred}
+% FM  -> RR  : order flipped again by FM
+\optbeam{FM}{RRin}{0.30}{0.30}{cred}{cblue}
+
+% ============================ components ==============================
+% gratings: second argument = direction of the grating normal
+\optgrating{GRa}{15}{1.25}    % Normale 15 deg  -> theta_0 = 15 deg zum Strahl GR1->GR2
+\optgrating{GRb}{195}{1.25}   % Normale 195 deg -> GR2 exakt parallel zu GR1
+% mirrors: second argument = direction of the mirror normal
+\optmirror{FM}{-15.8}{1.00}   % 148.4 deg -> 0 deg
+\optmirror{IM}{156.6}{1.00}   % 0 deg -> 133.1 deg (auf der Achse GR1--OM)
+\optmirror{OM}{157}{1.00}     % -46.9 deg -> 180 deg
+\optmirror{MG}{315}{0.90}     % 180 deg -> 270 deg
+\optmirror{MC}{135}{0.90}     % 270 deg -> 180 deg
+\optmirror{DA}{315}{0.90}     % 180 deg -> 270 deg
+\optmirror{DB}{45}{0.90}      % 270 deg -> 0 deg
+
+% retro-reflector (roof mirror, displaces the beam out of the drawing plane)
+\begin{scope}[shift={(RR)}]
+  \fill[black] (-0.22,0.46) -- (0.07,0) -- (-0.22,-0.46) --
+               (0.22,-0.46) -- (0.22,0.46) -- cycle;
+\end{scope}
+
+% beam splitters and wave plates
+\optpbs{PBSA}{0.72}
+\optpbs{PBSB}{0.72}
+\filldraw[fill=plateA,draw=black,line width=0.3pt] (3.21,8.28) rectangle (3.39,9.12);
+\filldraw[fill=plateB,draw=black,line width=0.3pt] (6.18,3.96) rectangle (7.02,4.14);
+
+% ========================== centrifuge field ==========================
+% rotating linear polarisation (corkscrew), drawn as a twisted ribbon
+% with a slight perspective tilt of the transverse axis
+\foreach \i in {0,...,199}{%
+  \pgfmathsetmacro{\sa}{\i/200}
+  \pgfmathsetmacro{\sb}{(\i+1)/200}
+  \pgfmathsetmacro{\pha}{760*pow(\sa,1.45)}
+  \pgfmathsetmacro{\phb}{760*pow(\sb,1.45)}
+  \pgfmathsetmacro{\Aa}{0.05+0.47*pow(\sa,1.15)}
+  \pgfmathsetmacro{\Ab}{0.05+0.47*pow(\sb,1.15)}
+  \pgfmathsetmacro{\ya}{3.95-3.15*\sa}
+  \pgfmathsetmacro{\yb}{3.95-3.15*\sb}
+  \pgfmathsetmacro{\xa}{6.60+\Aa*cos(\pha)}   \pgfmathsetmacro{\za}{\ya+0.30*\Aa*sin(\pha)}
+  \pgfmathsetmacro{\xb}{6.60+\Ab*cos(\phb)}   \pgfmathsetmacro{\zb}{\yb+0.30*\Ab*sin(\phb)}
+  \pgfmathsetmacro{\xc}{6.60-\Ab*cos(\phb)}   \pgfmathsetmacro{\zc}{\yb-0.30*\Ab*sin(\phb)}
+  \pgfmathsetmacro{\xd}{6.60-\Aa*cos(\pha)}   \pgfmathsetmacro{\zd}{\ya-0.30*\Aa*sin(\pha)}
+  \pgfmathsetmacro{\tone}{50+45*abs(sin(\pha))}
+  \pgfmathsetmacro{\front}{sin(\pha)}
+  \ifdim\front pt>0pt
+    \filldraw[cpink!\tone!cviolet,line width=0.2pt]
+      (\xa,\za) -- (\xb,\zb) -- (\xc,\zc) -- (\xd,\zd) -- cycle;
+  \else
+    \filldraw[cblue!\tone!cviolet,line width=0.2pt]
+      (\xa,\za) -- (\xb,\zb) -- (\xc,\zc) -- (\xd,\zd) -- cycle;
+  \fi}
+
+% ========================= dimensions & labels ========================
+\draw[<->,line width=0.9pt] (4.36,14.95) -- (10.75,14.95)
+  node[midway,above=1pt]{$L$};
+\draw[<->,line width=0.9pt] (1.90,7.15) -- (4.90,7.15)
+  node[midway,above=1pt]{$\Delta t$};
+
+\node at (3.95,13.00) {$\mathrm{GR}_1$};
+\node at (10.95,10.85) {$\mathrm{GR}_2$};
+\node at (12.65,12.70) {$\mathrm{RR}$};
+\node[anchor=west] at (7.75,9.05) {$\mathrm{IM}$};
+\node[anchor=west] at (10.35,6.55) {$\mathrm{OM}$};
+\node[anchor=south west] at (5.20,9.15) {$\mathrm{PBS}$};
+\node[anchor=west] at (7.05,4.85) {$\mathrm{PBS}$};
+\node[plateA,anchor=south] at (3.30,9.22) {$\lambda/2$};
+\node[plateB,anchor=east]  at (6.06,4.05) {$\lambda/4$};
+
+% ============================== inset =================================
+% definition of the grating orientation angle theta_0
+\begin{scope}
+  \fill[white] (8.60,0.55) rectangle (13.55,4.55);
+  \draw[black,line width=1pt] (8.60,0.55) rectangle (13.55,4.55);
+  \coordinate (GI) at (10.05,3.55);            % grating
+  \coordinate (HI) at (13.25,3.55);            % direction of the outgoing beam
+  \coordinate (NI) at ($(GI)+(-55:1.95)$);     % grating normal
+  \coordinate (SI) at (13.05,4.28);            % source of the incident beam
+  \draw[cgreen,line width=2.6pt] (SI) -- (GI);
+  \optbeam{GI}{HI}{0.03}{0.34}{cblue}{cred}
+  \draw[dashed,line width=0.7pt] (GI) -- (HI);
+  \draw[dashed,line width=0.7pt] (GI) -- (NI);
+  \draw[line width=0.6pt] ($(GI)+(0:0.80)$) arc (0:-55:0.80);
+  \node at ($(GI)+(-28:1.10)$) {$\theta_0$};
+  \optgrating{GI}{-55}{1.30}
+\end{scope}
+
+\end{tikzpicture}

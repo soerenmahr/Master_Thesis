@@ -407,7 +407,7 @@ giving $\vec E(t, z_R, z_L) = \vec E_R + \vec E_L$, the linear polarized field v
 \end{equation}
 
 \subsection{Different centrifuge types}
-
+\label{sec:different_centrifuge_types}
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260731172118.png}
@@ -415,7 +415,12 @@ giving $\vec E(t, z_R, z_L) = \vec E_R + \vec E_L$, the linear polarized field v
     \label{fig:centrifuge_types}
 \end{figure}
 
-With the prerequisite of using oppositely circular polarized, chirped pulses one now can think of various designs. The three most most useful variations are shown in figure \ldots, where a) resembles the initial design of the optical centrifuge \cite{karczmarekOpticalCentrifugeMolecules1999} with $\beta_R = -\beta_L$. For our research, the interesting regime is around $0-180\, \mathrm{GHz}$. A centrifuge of type a), depending on the laser used, commonly has a frequency range up to terahertz \cite{korobenkoThesis}, therefore our region of interest occupies only a small portion of the pulse. Decreasing the acceleration in the original centrifuge design is solely possible by decreasing the chirp. This entails, that because of the longer pulse duration, the peak intensity also drops, giving a shallower potential and less alignment to the field, causing the signal to noise ratio to drop. Additionally, the physical implementation is restricted by optical components like gratings \cite{macphail-bartleyLaserControlMolecular2020}. Therefore, the Milner research group came up with a new centrifuge design. Take a streched pulse and use a $50/50$ polarizing beam splitter to send the vertical and horizantal polarized parts into two michelson interferometer arms. Delay one of them and you will get the constant frequency centrifuge with zero rotational acceleration (described in detail in \cite{wangOpticalCentrifugeZero2025a}). If you now add a mechanism to slightly change the chirp of one arm, you can tweak the starting and end frequency almost completely independent of the intensity profile. The rotation dynamics of this ultraslow centrifuge (describe in the paper \cite{wangUltraslowOpticalCentrifuge2026} and later in section \ldots), with the initial chirp $\beta_0$, the additional chirp $\Delta \beta$ and the delay between the two arms $\Delta t$, is described by $f_{\mathrm{cfg}}(t) = f_0 + \Delta \beta t / 4 \pi$ with the central frequency $f_0= \beta_0 \Delta t / 4 \pi$.
+With the prerequisite of using oppositely circular polarized, chirped pulses one now can think of various designs. The three most most useful variations are shown in figure \ldots, where a) resembles the initial design of the optical centrifuge \cite{karczmarekOpticalCentrifugeMolecules1999} with $\beta_R = -\beta_L$. For our research, the interesting regime is around $0-180\, \mathrm{GHz}$. A centrifuge of type a), depending on the laser used, commonly has a frequency range up to terahertz \cite{korobenkoThesis}, therefore our region of interest occupies only a small portion of the pulse. Decreasing the acceleration in the original centrifuge design is solely possible by decreasing the chirp. This entails, that because of the longer pulse duration, the peak intensity also drops, giving a shallower potential and less alignment to the field, causing the signal to noise ratio to drop. Additionally, the physical implementation is restricted by optical components like gratings \cite{macphail-bartleyLaserControlMolecular2020}. Therefore, the Milner research group came up with a new centrifuge design. Take a streched pulse and use a $50/50$ polarizing beam splitter to send the vertical and horizantal polarized parts into two michelson interferometer arms. Delay one of them and you will get the constant frequency centrifuge with zero rotational acceleration (described in detail in \cite{wangOpticalCentrifugeZero2025a}). If you now add a mechanism to slightly change the chirp of one arm, you can tweak the starting and end frequency almost completely independent of the intensity profile. The rotation dynamics of this ultraslow centrifuge (describe in the paper \cite{wangUltraslowOpticalCentrifuge2026} and later in section \ldots), with the initial chirp $\beta_0$, the additional chirp $\Delta \beta$ and the delay between the two arms $\Delta t$, is described by 
+
+\begin{equation}f_{\mathrm{cfg}}(t) = f_0 + \Delta \beta t / 4 \pi
+    \label{eq:f_cfg}
+\end{equation}
+with the central frequency $f_0= \beta_0 \Delta t / 4 \pi$.
 
 \subsection{Characterizing the centrifuge}
 

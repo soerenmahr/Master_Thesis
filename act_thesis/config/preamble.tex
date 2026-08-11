@@ -33,6 +33,61 @@
 \usepackage{subcaption}          % subfigures
 \usepackage[font=small,labelfont=bf]{caption}
 
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,shadings}
+
+% ------------------------------- colours ------------------------------
+% Ultraslow centrifuge pulse-shaper diagram (Methods chapter)
+\definecolor{cred}{RGB}{227,30,36}
+\definecolor{cblue}{RGB}{40,50,150}
+\definecolor{cviolet}{RGB}{145,40,145}
+\definecolor{cgreen}{RGB}{140,200,80}
+\definecolor{ccyan}{RGB}{40,175,225}
+\definecolor{cpurple}{RGB}{150,35,145}
+\definecolor{cpink}{RGB}{237,20,150}
+\definecolor{stagegreen}{RGB}{0,166,81}
+\definecolor{stageblue}{RGB}{63,72,204}
+\definecolor{plateA}{RGB}{237,60,40}
+\definecolor{plateB}{RGB}{247,160,30}
+
+% ---------------------------- optics macros ---------------------------
+% \optmirror{coordinate}{direction of surface NORMAL in deg}{length}
+\newcommand{\optmirror}[3]{%
+  \begin{scope}[shift={(#1)},rotate={#2-90}]
+    \fill[black] ({-#3/2-0.035},-0.155) rectangle ({#3/2+0.035},0.010);
+    \shade[draw=black,line width=0.3pt,bottom color=black!70,top color=black!3]
+      ({-#3/2},-0.015) rectangle ({#3/2},0.075);
+  \end{scope}}
+
+% \optgrating{coordinate}{direction of surface NORMAL in deg}{length}
+\newcommand{\optgrating}[3]{%
+  \begin{scope}[shift={(#1)},rotate={#2-90}]
+    \fill[black] ({-#3/2-0.04},-0.20) rectangle ({#3/2+0.04},0.015);
+    \foreach \k in {0,...,6}{%
+      \shade[draw=black,line width=0.25pt,left color=black!8,right color=black!45]
+        ({-#3/2+\k*#3/7},0.0) rectangle ({-#3/2+\k*#3/7+0.5*#3/7},0.105);}
+  \end{scope}}
+
+% \optpbs{coordinate}{edge length}
+\newcommand{\optpbs}[2]{%
+  \begin{scope}[shift={(#1)}]
+    \shade[draw=black,line width=0.4pt,left color=black!6,right color=black!40]
+      ({-#2/2},{-#2/2}) rectangle ({#2/2},{#2/2});
+    \draw[black,line width=0.4pt] ({-#2/2},{#2/2}) -- ({#2/2},{-#2/2});
+  \end{scope}}
+
+% \optbeam{A}{B}{half width at A}{half width at B}{colour on the -90 side}{colour on the +90 side}
+% The gradient is perpendicular to the propagation direction (spectrally dispersed beam).
+\newcommand{\optbeam}[6]{%
+  \pgfmathanglebetweenpoints{\pgfpointanchor{#1}{center}}{\pgfpointanchor{#2}{center}}%
+  \edef\beamangle{\pgfmathresult}%
+  \begin{scope}
+    \pgfsetadditionalshadetransform{\pgftransformrotate{\beamangle}}%
+    \shade[bottom color=#5,top color=#6,middle color=cviolet]
+      ($(#1)!#3cm!90:(#2)$) -- ($(#2)!#4cm!-90:(#1)$) --
+      ($(#2)!#4cm!90:(#1)$) -- ($(#1)!#3cm!-90:(#2)$) -- cycle;
+  \end{scope}}
+
 \usepackage{wrapfig}
 
 \usepackage{booktabs}
