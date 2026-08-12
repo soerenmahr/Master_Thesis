@@ -37,7 +37,15 @@ Even though it sounds like we can basically set any acceleration, in reality one
 
 
 \section{Creating the Probing Environment}
-The experiments are carried out in a four-chamber vacuum apparatus designed and built by Ian MacPhail-Bartley and shown in Figure. .... Most of the information in this chapter is taken from his PhD thesis  and for a more in depth description see [[ianThesis]].  There are four different chambers labeled source, doping, differential, and detection, separated by skimmers and apertures and pumped individually, so that the pressure drops from $\SI{e-4}{\torr}$ in the source chamber to below \SI{e-8}{\torr} in the detection chamber during operation.
+\begin{figure}[htbp]
+  \centering
+    \input{figures/03_methods/droplet_machine.tex}
+  \caption{Schematic of the experimental setup. Helium nanodroplets are formed in the supersonic expansion from the cryogenically cooled nozzle and skimmed before entering the doping chamber, where they pick up dopant molecules admitted through a leak valve. A pulsed valve mounted on the differential chamber can be lowered onto the beam axis to provide a supersonic jet of gas-phase molecules instead. Ions produced by
+  the laser pulse in the detection chamber are projected onto an MCP and phosphor screen assembly by the electrostatic lens and recorded with a camera. Gate valves allow the droplet beam to be blocked for background measurements. Each chamber is evacuated by its own turbomolecular pump (TMP).}
+  \label{fig:setup}
+\end{figure}
+
+The experiments are carried out in a four-chamber vacuum apparatus designed and built by Ian MacPhail-Bartley and shown in figure \ref{fig:setup}. Most of the information in this chapter is taken from his PhD thesis  and for a more in depth description see \cite{ianThesis}.  There are four different chambers labeled source, doping, differential, and detection, separated by skimmers and apertures and pumped individually, so that the pressure drops from $\SI{e-4}{\torr}$ in the source chamber to below \SI{e-8}{\torr} in the detection chamber during operation.
 
 \textbf{Source Chamber:} The source chamber is where helium nanodroplets are formed in a supersonic expansion from a cryogenically cooled nozzle (details in section ...). Only a small fraction of the expanding gas condenses into droplets, so a turbomolecular pump with a high pumping speed is attached to keep the chamber at $\sim\SI{2e-4}{\torr}$, corresponding to a mean free path of roughly \SI{50}{\centi\metre}. This ensures that droplets are not destroyed by collisions with background gas before they leave the chamber. A skimmer separates the source chamber from the doping chamber: it maintains the pressure difference between the two stages, removes the excess helium that has not condensed, and transmits only the central part of the expansion. Since condensation continues downstream of the nozzle for approximately 1000 nozzle diameters, the skimmer must be placed beyond this distance. If the gas density at the skimmer tip becomes too high, the skimmer itself begins to interfere with the beam. Incoming droplets are scattered by orifice clogging and helium atoms reflected from the inner walls.
 
@@ -45,10 +53,10 @@ The experiments are carried out in a four-chamber vacuum apparatus designed and 
 
 \textbf{Differential Chamber:} The doped beam then passes into the differential pumping stage. Since the beam is no longer a supersonic expansion at this point, no shock structure forms in front of the entrance and a flat aperture is sufficient to provide the additional pressure drop. A second gate valve is installed after the doping chamber, which makes it possible to distinguish between two contributions to the dopant background in the detection chamber: effusive molecules travelling along the beam axis through the apertures, and molecules back streaming through the turbo molecular pumps (only the case because the pumps are all backed through the source chamber pump). The pulsed valve for supersonic jet experiments is also mounted in this chamber and can be lowered onto the beam axis, allowing convenient switching between droplet and jet measurements. The skimmer at the exit of this chamber is retained, as it is required to form the jet gas stream from the pulsed nozzle.
 
-\textbf{VMI Chamber:} Last but not least the beam enters the chamber where the actual experiment is conducted. Here the laser pulses act on the probes and information is extracted by the time of flight velocity map imaging setup which will be explained in detail in sec ...
+\textbf{Detection Chamber:} Last but not least the beam enters the chamber where the actual experiment is conducted. Here the laser pulses act on the probes and information is extracted by the time of flight velocity map imaging setup which will be explained in detail in sec ...
 
 \subsection{Supersonic Gas Jet}
-A pulsed supersonic jet is used to provide an environment for a reference measurement on isolated molecules. The molecules are seeded at a few percent in helium, which both improves the cooling and suppresses the formation of clusters (van der Waals complexes) of the probe molecule itself. The valve is a Parker Series 9, \SI{200}{\micro\meter} orifice operated at \SIrange{5}{10}{\hertz} with a backing pressure of \SIrange{50}{120}{\psi}. Under these conditions the temperature of the molecules is estimated to be around $\SI{10}{\kelvin}$. Because the molecules in the jet are collision-free at the interaction region and free of any surrounding medium, their rotational dynamics solely depend on the temperature distribution. Measurements under the centrifuge field can be compared directly against the corresponding measurement in helium droplets. Differences between the two are then attributable to the unequal initial rotational state distribution and the interaction with the superfluid.
+A pulsed supersonic jet is used to provide an environment for a reference measurement on isolated molecules. The molecules are seeded at a few percent in helium, which both improves the cooling and suppresses the formation of clusters (van der Waals complexes) of the probe molecule itself. The valve is a Parker Series 9, \SI{200}{\micro\meter} orifice operated at \SIrange{5}{10}{\hertz} with a backing pressure of \SIrange{50}{120}{\ppsi}. Under these conditions the temperature of the molecules is estimated to be around $\SI{10}{\kelvin}$. Because the molecules in the jet are collision-free at the interaction region and free of any surrounding medium, their rotational dynamics solely depend on the temperature distribution. Measurements under the centrifuge field can be compared directly against the corresponding measurement in helium droplets. Differences between the two are then attributable to the unequal initial rotational state distribution and the interaction with the superfluid.
 \begin{aside}{Molecular beams and supersonic cooling}
 A molecular beam is produced by expanding gas from a reservoir at stagnation conditions $(p_0,  T_0)$ through an orifice of diameter $D$ into vacuum. The character of the beam depends on the ratio of the mean free path $\lambda_0$ in the reservoir to $D$. For $\lambda_0 \gg D$ the molecules leave essentially without colliding and an effusive beam is obtained, with a velocity distribution corresponding to $T_0$. For $D \gg \lambda_0$ the molecules collide many times during the expansion, and since no heat is exchanged with the walls, the gas can only accelerate at the expense of its own enthalpy. The result is that random thermal motion is converted into a common forward velocity and since the temperature is set by the mean kinetic energy of the residual random motion in the co-moving frame, and this random component is progressively transferred into the directed flow, the beam becomes very cold while moving very fast. 
 Unlike translational cooling, which results from binary collisions, condensation into clusters requires three-body collisions, since a third partner is needed to carry away the binding energy released when two monomers combine. This clustering is later crucial to create the helium nanodroplets. \cite{morse2SupersonicBeam1996}
@@ -62,14 +70,68 @@ The clustering process introduced above becomes the dominant effect when helium 
     \label{fig:droplets}
 \end{figure}
 The droplets used here are produced in the gas-condensation regime, by a continuous expansion of \SI{30}{\bar} helium through a \SI{5}{\micro\meter} aperture at a nozzle temperature of \SIrange{16}{18}{\kelvin}, giving $\langle N_{\mathrm{He}} \rangle \approx \num{3000}$ atoms \cite{ianThesis}.
-Once formed, the droplets cool further in vacuum by evaporation of individual helium atoms, each removing approximately \SI{5}{\per\centi\meter} (\SI{7}{\kelvin}) of internal energy. The initial cooling rate is of order $\SI{e10}{\kelvin\per\second}$ and decays exponentially as the droplet cools, since the evaporation rate depends exponentially on temperature. After roughly $\SI{e-4}{\second}$ — far shorter than the millisecond flight time through the apparatus — evaporation becomes negligible and the temperature stabilises at $\SI{0.37}{\kelvin}$. The droplets therefore arrive at the interaction region well below the bulk λ-point of $\SI{2.17}{\kelvin}$ and in the superfluid state.
+Once formed, the droplets cool further in vacuum by evaporation of individual helium atoms, each removing approximately \SI{5}{\per\centi\meter} (\SI{7}{\kelvin}) of internal energy. The initial cooling rate is of order $\SI{e10}{\kelvin\per\second}$ and decays exponentially as the droplet cools, since the evaporation rate depends exponentially on temperature. After roughly $\SI{e-4}{\second}$ — far shorter than the millisecond flight time through the apparatus — evaporation becomes negligible and the temperature stabilizes at $\SI{0.37}{\kelvin}$. The droplets therefore arrive at the interaction region well below the bulk λ-point of $\SI{2.17}{\kelvin}$ and in the superfluid state.
 
 \subsubsection{Doping Nanodroplets with Molecules}
+Molecules are embedded by passing the droplet beam through a pick-up cell filled with the vapour of the dopant at a low partial pressure. Because most molecules of interest condense far above the nozzle temperature, premixing them with the helium before the expansion is not an option, as they would clog and potentially destroy the nozzle.
+A droplet that collides with a molecule captures it with near-unit probability. The kinetic and internal energy of the molecule has to be dissipated. This happens via the same mechanism as the initial cooling down of the droplet, i.e. evaporating of helium atoms. Toennies \cite{toenniesSuperfluidHeliumDroplets2004a} states a loss of around $600$ atoms for picking up $\mathrm{SF}_6$, which in combination with the onset of superfluidity (section ...) gives the lower limit of $\sim 10^2$ helium atoms for the initial droplet.
+Whether the dopant is solvated in the interior or resides on the surface is governed by the balance between the dopant–helium attraction and the energy cost of opening a cavity in the liquid. Closed-shell atoms and molecules are heliophilic, thus found inside the droplet, whereas alkali atoms and their small clusters are heliophobic and remain in a surface dimple. The molecules studied in this work belong to the former class and are located in the droplet interior.
+
+Since the capture events are independent and the cross section is essentially the geometric one, the number $k$ of molecules captured by a given droplet follows a Poisson distribution,
+
+\begin{equation}
+P(k) = \frac{\lambda^k}{k!}\,e^{-\lambda},
+\qquad
+\lambda = \sigma_\mathrm{pu}\,\frac{p_\mathrm{d}}{k_\mathrm{B}T}\,L ,
+\end{equation}
+
+with the pick-up cross section
+
+\begin{equation}
+\sigma_\mathrm{pu} = 15.5\,\si{\angstrom\squared} \,\langle N_\mathrm{He}\rangle^{2/3},
+\end{equation}
+
+the dopant partial pressure $p_\mathrm{d}$ in the cell, and the length $L$ of the doping region \cite{ianThesis,toenniesSpectroscopyAtomsMolecules1998}. The prefactor is simply $\pi R_0^2$ expressed through the droplet radius $R_0 = 2.22\,\langle N_\mathrm{He}\rangle^{1/3}\,\si{\angstrom}$, i.e. the projected area of the droplet. The mean $\lambda$ is thus tuned experimentally through the cell pressure alone, since $\langle N_\mathrm{He}\rangle$ and $L$ are fixed by the source and by the geometry of the apparatus.
+An important consequence of the superfluid environment is that multiply doped droplets do not contain independent monomers. The embedded species move essentially without friction and coagulate within roughly \SIrange{e-10}{e-8}{\second} into a single complex \cite{toenniesSuperfluidHeliumDroplets2004a}. A droplet with $k = 2$ therefore carries a dimer, $k = 3$ a trimer, and so on, with the additional binding energy again dissipated by evaporation.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{03_methods/pickup_poisson_N3000.pdf}
+    \caption{}
+    \label{fig:poisson_doping}
+\end{figure}
+
+Since the branches of $P(k)$ overlap at all pressures, no choice of cell pressure yields a purely monomeric sample; a residual population of dimers and larger complexes is always present. As shown in Sec. \ref{sec:coulomb}, however, these species are distinguishable in the detection.
+
 
 \section{Detection and Data Acquisition}
 \label{sec:detection}
-\todo{}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=\textwidth]{03_methods/data_aquisition.png}
+    \caption{}
+    \label{fig:data_aquisition}
+\end{figure}
+Now that we know how the probing environment is being created, we can focus on the actual experiment. As a quick reminder, the purpose of this research is to spin molecules and track their alignment with the help of ultra-fast laser pulses. In section ... it is displayed, how an optical centrifuge pulse can be created and how it interacts with the polarizability of the molecule, to align the molecules' axis to the field vector. 
+The experiment consists of a pump-probe setup, meaning we have the centrifuge pulse as the "pump" with the purpose of roating and spinning up the molecule, and a short, high intensity probe pulse to Coulomb explode the molecule. 
 
+\begin{aside}{Coulomb explosion}
+If the intensity of the laser pulse is high enough to remove several electrons from the molecule, the bond energy is not sufficient to hold the parent ions together. The Coulomb repulsion is too great and the molecule "explodes", in other words the ion fragments repel and gain momentum. In the axial recoil approximation the emission direction of these ions reproduces the instantaneous axis alignment. This approximation holds best, when the explosion is fast compared to the rotational period and the molecules are linear and heavy.
+A more severe deviation arises from scattering of helium atoms in the nanodroplets. This effect, as one can imagine, grows with the droplet size., therefore, for light molecule it is best to use as small droplets as possible. 
+\end{aside}
+
+The fragment ions are created between the repeller and extractor electrodes of a time-of-flight velocity map imaging (TOFVMI) \cite{eppinkVelocityMapImaging1997} spectrometer. The electrode voltages are chosen such that the electrostatic field acts as a lens which maps the velocity component parallel to the detector plane onto a radial position on the detector, largely independent of where within the focal volume the ion was created.
+After a field-free flight tube the ions strike a microchannel plate, where each ion hit is amplified into an electron shower. The electrons are accelerated onto a phosphor screen, producing a localized flash of light. Two detectors read this out in parallel: a photomultiplier tube records the total light yield as a function of flight time, giving the mass spectrum used to identify and calibrate the fragment channels and a camera images the phosphor screen. The MCP gain is gated in time so (using the trigger signal from the laser and a Iota One delay generator) that only ions within a narrow flight-time window, i.e. one mass-to-charge ratio, are amplified. The camera therefore does not record an image of the molecule or of the droplet. It records the positions of individual ion hits. 
+
+The pump-probe delay is set by the optical path length of the probe. A retroreflector mounted on a motorized translation stage changes this path by $2\Delta x$ for a stage displacement $\Delta x$, so that $\Delta t = 2\Delta x/c$. A measurement consists of stepping the stage through the delay range while accumulating ion images at each position. Each scan is repeated many times, with the stage returning to the earliest delay after reaching the last one, so that slow drifts of laser power, beam overlap or droplet doping affect early and late delays equally.
+Given one delay position, for each detected ion we define $\theta_{\mathrm{2D}}$ as the angle between its projected recoil direction and the x-axis (intersection line of the detector plane with the plane of molecule rotation, see figure ...). The observable of the experiment is the ensemble average
+\begin{equation}
+   \langle\cos^2\theta_\mathrm{2D}\rangle,
+\end{equation}
+taken over all ions within a radial gate and over all laser shots recorded at a given delay, with the standard error of the mean giving the confidence interval. The radial gate helps suppresses low-energy background ions from residual gas and from ionization of pure helium.
+\begin{itemize}
+    \item  An isotropic ensemble, i.e. molecules not acted upon by any pulse besides the probe, gives $\langle\cos^2\theta_\mathrm{2D}\rangle = 0.5$
+    \item For molecules following the centrifuge field the observable oscillates as displayed in the insert in figure .... When the molecule's axis is perfectly parallel to the detector one would expect $\langle\cos^2\theta_\mathrm{2D}\rangle = 1$, however, due to the finite angular width of the quantum mechanical state, this tends to be lower. Additionally, non-axial recoil and molecules outside the centrifuge impact further reduces the maximum value. Positions where the field is perpendicular to the detector, recover the isotropic value of $0.5$.
+\end{itemize}
 \section{Rotating Molecules: In-Field vs Field-free}
 \label{sec:rotating_molecules}
 \todo{spinnability? }
