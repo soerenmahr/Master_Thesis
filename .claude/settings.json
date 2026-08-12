@@ -2,7 +2,15 @@
   "permissions": {
     "allow": [
       "Bash(grep -oP '\\(?<=@\\)\\\\w+\\\\{[^,]*' act_thesis/bibliography/references.bib)",
-      "Bash(xargs -I{} echo {})"
+      "Bash(xargs -I{} echo {})",
+      "Bash(grep -rn '\\\\\\\\bar}\\\\|\\\\\\\\\\\\\\\\psi}\\\\|\\\\\\\\\\\\\\\\torr}' /usr/share/texlive/texmf-dist/tex/latex/siunitx/ 2>/dev/null | head -30 *)",
+      "Read(//usr/share/texlive/texmf-dist/tex/latex/siunitx/**)",
+      "Bash(grep -n 'bar\\\\|psi\\\\|torr' /usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx-abbreviations.cfg)",
+      "Bash(grep -n 'DeclareSIUnit' /usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty | grep -iE 'bar|psi|torr|mmhg|atm')",
+      "Bash(grep -n 'DeclareSIUnit' /usr/share/texlive/texmf-dist/tex/latex/siunitx/siunitx.sty | wc -l *)",
+      "Bash(grep -o '.\\\\{20\\\\}\\\\$\\\\.\\\\{0,5\\\\}')",
+      "Bash(python3 -c ' *)",
+      "Bash(latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex)"
     ]
   }
 }

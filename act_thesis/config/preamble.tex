@@ -5,6 +5,7 @@
 %--- Encoding and language ------------------------------------
 \usepackage[utf8]{inputenc}      % source encoding (redundant on modern TeX, harmless)
 \usepackage[T1]{fontenc}         % proper font encoding / hyphenation
+\DeclareUnicodeCharacter{03BB}{\ensuremath{\lambda}}  % allow raw "λ" in text (e.g. λ-point)
 \usepackage{babel}               % language taken from documentclass option
 \usepackage{csquotes}            % context-sensitive quotation marks (needed by biblatex)
 
@@ -24,6 +25,8 @@
     range-phrase         = {\text{--}}
 }
 \DeclareSIUnit{\torr}{Torr}      % not a built-in siunitx unit
+\DeclareSIUnit{\groove}{grooves} % not a built-in siunitx unit
+\DeclareSIUnit{\bar}{bar}        % re-declare to silence siunitx deprecation warning
 
 %--- Graphics and tables --------------------------------------
 \usepackage{graphicx}
