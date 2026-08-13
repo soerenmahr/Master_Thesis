@@ -33,9 +33,48 @@ Even though it sounds like we can basically set any acceleration, in reality one
 \todo{add typical frequency ranges, say that decelerating is also possible by tuning central frequency}
 
 
-\subsection{Phase Control and Stabilization}
+\subsection{Phase Control and real-time Stabilization}
+Monitoring the projected centrifuge spectrum and fitting to eq. \ref{eq:spectral_intensity_common} lends itself to several feedback loops: one could use the visibility $V$ to stabilize the arm powers by rotating a quarter-wave plate, or tuning the centrifuge automatically to a chosen setpoint by using the reconstructed FWHM of $f_\mathrm{cfg}$  and translating stages that set the chirp and the delay. The largest benefit, however, is that the same fit lets us actively stabilize the centrifuge phase.
 
+Thermal expansion and vibrations change the phase of the centrifuge and thus the phase of the spectrum oscillations (eq. \ref{eq:spectrum_phase}). Compensating for latter is not possible with our setup, due to limitations set by the reaction time of the components. Phase drift that occurs on a minute timescale however can easily be compensated. In theory thermal expansion can alter the constant, linear and quadratic coefficient in eq. \ref{eq:spectrum_phase} all at once. Because the path length and chirp difference introduced by any reasonable expansion does not significantly change $\Theta_1$ and $\Theta_2$, it's enough to correct for a constant phase. When fitting the recorded spectrum to eq. \ref{eq:spectral_intensity_common} with $\Theta_0$ being the only free variable one can calculate the change
+\begin{equation}
+    \delta\Theta_0
+=
+\Theta_0-\Theta_{0,\mathrm{set}}
+\end{equation}
+which is used as the error signal for active phase correction.
 
+The correction is applied by rotating a half-wave plate (see fig. \ref{setup_fig} component 2). In the circular polarization basis, a rotation of the half-wave plate by an angle \(\delta\theta\) adds opposite optical phases to the two circular components,
+\begin{equation}
+    \varphi_{R0}\rightarrow \varphi_{R0}+2\delta\gamma,
+\qquad
+\varphi_{L0}\rightarrow \varphi_{L0}-2\delta\gamma,
+\end{equation}
+up to an overall sign convention. Hence, the relative phase entering the interference term changes by
+\begin{equation}
+    \delta\Theta_0
+=
+\delta(\varphi_{R0}-\varphi_{L0})
+=
+4\delta\gamma.
+\end{equation}
+The required wave-plate correction is therefore
+\begin{equation}
+    \delta\gamma
+=
+-\frac{\delta\Theta_0}{4},
+\end{equation}
+where the sign is chosen according to the experimentally calibrated response.
+
+In addition to actively correcting the phase, one could also save the fitted spectra and connect them to the raw data of the experiment. This allows for disregarding of bad data in post-processing. 
+
+\subsubsection{Setup of the active phase stabilization}
+\begin{figure}
+    \includegraphics[width=\linewidth]{03_methods/stabilization_setup.png}
+\caption{1. QWP, 2. controllable HWP, 3. beam splitter, 4. polarizing beam cube, 5. spectrometer detector with example plot of the spectrum. CFG beam in blue, probe beam in red and combined paths in purple.}
+\label{setup_fig}
+\end{figure}
+On the optical side the experiment consists of a pump pulse - probe pulse setup, where delay is introduced to scan through former one. Two separately shaped pulses pass through the quarter wave plate (component 1 fig. \ref{setup_fig}) to become oppositely circular polarized and form the CFG beam (pump). At the beam splitter (component 3 fig. \ref{setup_fig}) a short vertically polarized probe pulse gets combined with the optical path of the CFG beam. The high intensity part travels to the vacuum chamber and is used for data collection, the low intensity part (reflection of the CFG and transmitted portion of the probe) is used as the signal for phase stabilization. Latter hits the polarizing beam splitter (component 4 fig. \ref{setup_fig}) from where the horizontally polarized part is directed to the detector. 
 \section{Creating the Probing Environment}
 \begin{figure}[htbp]
   \centering
@@ -134,4 +173,4 @@ taken over all ions within a radial gate and over all laser shots recorded at a 
 \end{itemize}
 \section{Rotating Molecules: In-Field vs Field-free}
 \label{sec:rotating_molecules}
-\todo{spinnability? }
+
