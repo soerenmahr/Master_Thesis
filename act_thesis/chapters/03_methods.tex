@@ -29,8 +29,7 @@ The translation stage in the delay arm (cyan in fig. \ref{fig:usCFG}) introduces
 Because changing $L$ in theory does not affect $\Delta t$, the two stages act as independent knobs: $\Delta t$ sets the central rotation frequency $f_0$ and $\Delta\beta(L)$ sets the angular acceleration, so that $f_{\mathrm{cfg}}(t)$ eq. \ref{eq:f_cfg} is fully controlled. Even though figure \ref{fig:centrifuge_types} c) makes it look like the centrifuge is only accelerating, it is absolutely possible to decelerate the rotation of the field. For example setting $\Delta t = 0$ would give a cfg that is decelerating first, then changes its rotation direction and accelerates the other way around.
 
 \subsubsection{Restrictions to the current setup}
-Even though it sounds like we can basically set any acceleration, in reality one is restricted among other things by the movement range of the translation stages. 
-\todo{add typical frequency ranges, say that decelerating is also possible by tuning central frequency}
+Even though it sounds like we can basically set any acceleration, in reality one is restricted among other things by the movement range of the translation stages. The build setup allows for a centrifuge bandwidth range of $\Delta f_{\mathrm{FWHM}} \approx 30-50 \mathrm{GHz}$.
 
 
 \subsection{Phase Control and real-time Stabilization}
@@ -169,8 +168,25 @@ Given one delay position, for each detected ion we define $\theta_{\mathrm{2D}}$
 taken over all ions within a radial gate and over all laser shots recorded at a given delay, with the standard error of the mean giving the confidence interval. The radial gate helps suppresses low-energy background ions from residual gas and from ionization of pure helium.
 \begin{itemize}
     \item  An isotropic ensemble, i.e. molecules not acted upon by any pulse besides the probe, gives $\langle\cos^2\theta_\mathrm{2D}\rangle = 0.5$
-    \item For molecules following the centrifuge field the observable oscillates as displayed in the insert in figure .... When the molecule's axis is perfectly parallel to the detector one would expect $\langle\cos^2\theta_\mathrm{2D}\rangle = 1$, however, due to the finite angular width of the quantum mechanical state, this tends to be lower. Additionally, non-axial recoil and molecules outside the centrifuge impact further reduces the maximum value. Positions where the field is perpendicular to the detector, recover the isotropic value of $0.5$.
+    \item For molecules following the centrifuge field the observable oscillates with twice $f_cfg(t)$ (displayed in the insert in figure ....). When the molecule's axis is perfectly parallel to the detector one would expect $\langle\cos^2\theta_\mathrm{2D}\rangle = 1$, however, due to the finite angular width of the quantum mechanical state, this tends to be lower. Additionally, non-axial recoil and molecules outside the centrifuge impact further reduces the maximum value. Positions where the field is perpendicular to the detector, recover the isotropic value of $0.5$.
 \end{itemize}
 \section{Rotating Molecules: In-Field vs Field-free}
 \label{sec:rotating_molecules}
+Previously, the Milner research group conducted experiments with a constant frequency centrifuge \cite{macphail-bartleyControlMolecularRotation2026a}. The goal was to prove, that spinning molecules in nanodroplets with a centrifuge is possible over all. Attempts in the past were unsuccessful because of increased moment of inertia in helium paired with the high acceleration of the normal centrifuge. 
 
+\begin{aside}{Asymmetric tops}
+Equation ... holds well for molecules consisting of two atoms and triatomic linear molecules. If the structure becomes more complex, one has to take three distinct rotational constants into account: $B_x$, $B_y$, $B_z$. In the special case of a prolated symmetric top, where $B_x > B_y \approx B_z$, one can approximate the energy levels with
+\begin{equation}
+B_{yz} = \frac{B_y + B_z}{2},
+\qquad
+E(J,K) = B_{yz}J(J+1) + (B_x - B_{yz})K^2
+\end{equation}
+where $K = 0, \pm 1, \dots, \pm J$. \cite{ianThesis}
+\end{aside}
+They showed, that it is possible to have dimers of nitric oxide $(NO)_2$ following the instantaneous field direction. This forced behavior, when the centrifuge field is present, is further referred to as in-field dynamics. As long as the molecule is following the field, our observable $\langle\cos^2\theta_\mathrm{2D}\rangle$ clearly shows oscillations with twice the frequency of the centrifuge rotation. Additionally, the rotation frequency was set to the Raman frequency of the first transition ($J=0 \rightarrow J=2$) and it was shown, that long-lasting alignment persists. The decay of the alignment is a direct measure of the excited state lifetime. 
+
+Taking a quick look back at the introduction of this thesis, we reckon that measuring the state lifetimes of higher rotational states is the initial goal. To make this possible, one has to make use of the rotational ladder climbing, i.e. accelerating the molecules. With the constant frequency centrifuge, it is only possible to excite the molecules one allowed state away from their initial state, reasoning the build of the ultra-slow centrifuge. 
+
+As stated earlier, to understand the field-free behavior of the molecules after the centrifuge pulse, one needs to know what happens in-field, during the acceleration. Initially it was thought, that information about the dissipation of energy into the superfluid has to be revealed by measuring the field-free decay. However, this research provides an interesting new way of exploiting the in-field dynamics, in order to gain insight into a new energy regime.
+
+With the ultra-slow centrifuge setup presented in section ..., it is not possible to measure field-free decay of rotational states. Due to the Gaussian intensity envelope of the accelerating field, molecules drop out of the centrifuge potential at unknown times, yielding an ensemble with undetermined rotational frequencies and phases. Additionally, the lifetimes for high rotational states are expected to be way shorter than the turn-off duration of the field, making it impossible to measure decay of the $\langle\cos^2\theta_\mathrm{2D}\rangle$ signal. This already motivates the build of a new optical setup with the possibility of truncating the optical pulses.  
