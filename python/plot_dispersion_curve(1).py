@@ -33,6 +33,17 @@ OUTPUT_PDF = Path(__file__).resolve().parent / "dispersion_curve.pdf"
 K_B = 1.380649e-23       # Boltzmann constant [J/K]
 HBAR = 1.054571817e-34   # reduced Planck constant [J s]
 
+# Shared styling with the density-of-states plot, so the two figures
+# match when placed side by side in a minipage.
+FIGSIZE = (5.0, 4.0)
+plt.rcParams.update({
+    "font.size": 14,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 13,
+    "ytick.labelsize": 13,
+    "legend.fontsize": 12,
+})
+
 
 def load_two_columns(path: Path) -> tuple[np.ndarray, np.ndarray]:
     """Read the first two numeric columns and sort the rows by q."""
@@ -122,17 +133,20 @@ def main() -> None:
     q_angstrom = q_si / 1.0e10
     energy_kelvin = energy_si / K_B
 
-    fig, ax = plt.subplots(figsize=(7.0, 4.8))
+    fig, ax = plt.subplots(figsize=FIGSIZE)
 
     # Plot the actual data. No spline and no manually invented anchor points.
     marker_spacing = max(q_angstrom.size // 80, 1)
     ax.plot(
         q_angstrom,
         energy_kelvin,
+        color="black",
         linewidth=1.6,
         marker="o",
         markersize=2.8,
         markevery=marker_spacing,
+        markerfacecolor="red",
+        markeredgecolor="red",
         label="data",
     )
 
@@ -161,11 +175,12 @@ def main() -> None:
             ax.plot(
                 tangent_q,
                 tangent_energy,
+                color="tab:orange",
                 linestyle="--",
                 linewidth=1.2,
                 label=rf"Landau tangent: $v_c={critical_velocity:.1f}\,\mathrm{{m/s}}$",
             )
-            ax.plot(q_tangent, energy_tangent, "o", markersize=5.0)
+            ax.plot(q_tangent, energy_tangent, "o", color="tab:orange", markersize=5.0)
 
             print(f"Landau minimum at q = {q_tangent:.6g} A^-1")
             print(f"Energy there       = {energy_tangent:.6g} K")
@@ -173,9 +188,36 @@ def main() -> None:
         else:
             print("Landau tangent skipped: no valid q > 0 data points.")
 
+    # Label the phonon (linear, low-q) branch and the roton (local
+    # minimum) branch with arrows pointing at the curve.
+    phonon_q = 0.09 * q_angstrom.max()
+    phonon_energy = np.interp(phonon_q, q_angstrom, energy_kelvin)
+    ax.annotate(
+        "phonons",
+        xy=(phonon_q, phonon_energy),
+        xytext=(phonon_q + 0.45, phonon_energy + 0.3),
+        ha="left",
+        va="center",
+        arrowprops=dict(arrowstyle="->", color="black", lw=1.0),
+    )
+
+    maxon_region = q_angstrom < 0.5 * q_angstrom.max()
+    maxon_q = q_angstrom[maxon_region][np.argmax(energy_kelvin[maxon_region])]
+    after_maxon = q_angstrom > maxon_q
+    roton_idx = np.argmin(energy_kelvin[after_maxon])
+    roton_q = q_angstrom[after_maxon][roton_idx]
+    roton_energy = energy_kelvin[after_maxon][roton_idx]
+    ax.annotate(
+        "rotons",
+        xy=(roton_q, roton_energy),
+        xytext=(roton_q + 0.35, roton_energy + 0.8),
+        ha="left",
+        va="center",
+        arrowprops=dict(arrowstyle="->", color="black", lw=1.0),
+    )
+
     ax.set_xlabel(r"Wave number $q$ ($\mathrm{\AA}^{-1}$)")
     ax.set_ylabel(r"Excitation energy $\varepsilon(q)/k_B$ (K)")
-    ax.set_title("Dispersion relation of superfluid helium")
     ax.grid(alpha=0.25)
     ax.legend()
     ax.set_xlim(left=0.0)

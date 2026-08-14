@@ -3,6 +3,7 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.interpolate import PchipInterpolator
+from scipy.signal import find_peaks
 
 
 # ============================================================
@@ -27,6 +28,17 @@ SAVE_PLOTS = True
 # ============================================================
 
 PLANCK_CONSTANT = 6.62607015e-34  # J s, exact
+
+# Shared styling with the dispersion-curve plot, so the two figures
+# match when placed side by side in a minipage.
+FIGSIZE = (5.0, 4.0)
+plt.rcParams.update({
+    "font.size": 14,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 13,
+    "ytick.labelsize": 13,
+    "legend.fontsize": 12,
+})
 
 
 def load_dispersion_data(file_path: Path) -> tuple[np.ndarray, np.ndarray]:
@@ -180,8 +192,8 @@ def main() -> None:
     (
         dos_frequency_ghz,
         dos_per_ghz,
-        q_dense,
-        frequency_dense_ghz,
+        _q_dense,
+        _frequency_dense_ghz,
     ) = calculate_density_of_states(
         q_nm_inverse,
         frequency_ghz,
@@ -223,61 +235,54 @@ def main() -> None:
     )
 
     # --------------------------------------------------------
-    # Plot the dispersion relation in GHz
-    # --------------------------------------------------------
-    dispersion_figure, dispersion_axis = plt.subplots(
-        figsize=(7.0, 4.8)
-    )
-
-    dispersion_axis.plot(
-        q_nm_inverse,
-        frequency_ghz,
-        "o",
-        markersize=3,
-        label="measured data",
-    )
-
-    dispersion_axis.plot(
-        q_dense,
-        frequency_dense_ghz,
-        linewidth=1.5,
-        label="PCHIP interpolation",
-    )
-
-    dispersion_axis.set_xlabel(
-        r"Wavevector $q$ [$\mathrm{nm}^{-1}$]"
-    )
-    dispersion_axis.set_ylabel(
-        r"Equivalent excitation frequency $f=E/h$ [GHz]"
-    )
-    dispersion_axis.set_title(
-        "Superfluid-helium dispersion relation"
-    )
-    dispersion_axis.grid(alpha=0.25)
-    dispersion_axis.legend()
-    dispersion_figure.tight_layout()
-
-    # --------------------------------------------------------
     # Plot the DOS against excitation frequency
     # --------------------------------------------------------
-    dos_figure, dos_axis = plt.subplots(figsize=(7.0, 4.8))
+    dos_figure, dos_axis = plt.subplots(figsize=FIGSIZE)
 
     dos_axis.plot(
         dos_frequency_ghz,
         dos_per_ghz,
+        color="black",
         linewidth=1.5,
     )
 
     dos_axis.set_xlabel(
-        r"Equivalent excitation frequency $f=E/h$ [GHz]"
+        r"Excitation frequency $f=E/h$ [GHz]"
     )
     dos_axis.set_ylabel(
-        r"$g(f)/V$ "
-        r"[$\mathrm{nm}^{-3}\,\mathrm{GHz}^{-1}$]"
+        r"$g_E(E)$ (arbitrary units)"
     )
-    dos_axis.set_title(
-        "Three-dimensional excitation density of states"
+    dos_axis.set_xlim(0.0, 350.0)
+
+    # Scale the y-axis to what is actually visible in [0, 350] GHz,
+    # instead of the full data range (which is dominated by a much
+    # taller van Hove spike further out).
+    visible = (dos_frequency_ghz >= 0.0) & (dos_frequency_ghz <= 350.0)
+    visible_max = dos_per_ghz[visible].max()
+
+    # Label the roton peak: the first (lowest-frequency) van Hove
+    # singularity in the visible range. Extra headroom is added above
+    # the peak so the label fits inside the axes.
+    dos_axis.set_ylim(0.0, 1.3 * visible_max)
+
+    visible_frequency = dos_frequency_ghz[visible]
+    visible_dos = dos_per_ghz[visible]
+    peak_indices, _ = find_peaks(
+        visible_dos, prominence=0.5 * visible_dos.max()
     )
+    if peak_indices.size > 0:
+        roton_peak_index = peak_indices[0]
+        roton_peak_frequency = visible_frequency[roton_peak_index]
+        roton_peak_dos = visible_dos[roton_peak_index]
+        dos_axis.annotate(
+            rf"rotons ({roton_peak_frequency:.0f} GHz)",
+            xy=(roton_peak_frequency, roton_peak_dos),
+            xytext=(roton_peak_frequency, 1.2 * visible_max),
+            ha="center",
+            va="bottom",
+            arrowprops=dict(arrowstyle="->", color="black", lw=1.0),
+        )
+
     dos_axis.grid(alpha=0.25)
     dos_figure.tight_layout()
 
@@ -285,27 +290,26 @@ def main() -> None:
     # Save plots
     # --------------------------------------------------------
     if SAVE_PLOTS:
-        dispersion_output = (
-            DATA_FILE.parent / "helium_dispersion_GHz.png"
-        )
         dos_output = (
             DATA_FILE.parent / "helium_density_of_states_GHz.png"
         )
-
-        dispersion_figure.savefig(
-            dispersion_output,
-            dpi=250,
-            bbox_inches="tight",
+        dos_output_pdf = (
+            DATA_FILE.parent / "helium_density_of_states_GHz.pdf"
         )
+
         dos_figure.savefig(
             dos_output,
             dpi=250,
             bbox_inches="tight",
         )
+        dos_figure.savefig(
+            dos_output_pdf,
+            bbox_inches="tight",
+        )
 
         print()
-        print(f"Saved dispersion plot to: {dispersion_output}")
-        print(f"Saved DOS plot to:        {dos_output}")
+        print(f"Saved DOS plot to: {dos_output}")
+        print(f"Saved DOS plot to: {dos_output_pdf}")
 
     if SHOW_PLOTS:
         plt.show()
