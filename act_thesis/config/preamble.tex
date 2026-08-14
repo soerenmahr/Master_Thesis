@@ -139,7 +139,7 @@
 %--- Brand colours and accent ---------------------------------
 \definecolor{ubcblue}{HTML}{002145}   % UBC Blue
 \definecolor{rwthblue}{HTML}{00549F}  % RWTH Blau 100%
-\definecolor{rwthcyan}{HTML}{8EBAE5}  % RWTH Blau 50% (light)
+\definecolor{rwthcyan}{HTML}{6788aa}  % RWTH Blau 50% (light)
 \colorlet{accent}{rwthblue}           % <- single switch for the accent colour
 \colorlet{accent2}{rwthcyan}
 %--- Coloured caption labels (Fig. 1, Table 1, ...) -----------
@@ -150,7 +150,28 @@
 % line above with the two lines below:
 % \captionsetup[figure]{labelfont={bf,color=rwthblue}}
 % \captionsetup[table]{labelfont={bf,color=ubcblue}}
+%--- Coloured references --------------------------------------
 
+% Figures: Fig. 1
+\newcommand{\figref}[1]{%
+  \hyperref[#1]{\textcolor{accent}{Fig.~\ref*{#1}}}%
+}
+
+% Tables: Tab. 1
+\newcommand{\tabref}[1]{%
+  \hyperref[#1]{\textcolor{accent}{Tab.~\ref*{#1}}}%
+}
+
+% Equations: (1)
+\newcommand{\eqnref}[1]{%
+  \hyperref[#1]{\textcolor{accent2}{(\ref*{#1})}}%
+}
+%--- Coloured equation numbers --------------------------------
+\makeatletter
+\renewcommand{\tagform@}[1]{%
+  \maketag@@@{\color{accent2}(\ignorespaces#1\unskip\@@italiccorr)}%
+}
+\makeatother
 %--- Boxed environments (textbook-style asides) ---------------
 \usepackage[most]{tcolorbox}
 
