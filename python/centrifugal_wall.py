@@ -20,6 +20,17 @@ E_ROTON = 179.9          # GHz  (6 cm^-1)
 JMAX_PLOT = 18
 STEP = 2                 # Raman selection rule: J -> J+2; only the even-J ladder is shown
 
+# Same styling as the dispersion-curve / density-of-states plots. This figure
+# spans the full text width, so it is wider than tall rather than square.
+FIGSIZE = (9.0, 4.8)
+plt.rcParams.update({
+    "font.size": 14,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 13,
+    "ytick.labelsize": 13,
+    "legend.fontsize": 12,
+})
+
 # CS2 (S=C=S, centrosymmetric, I=0 for 32S) only populates even J.
 # OCS is not centrosymmetric and populates all J, but only the even-J ladder
 # (0 -> 2 -> 4 -> ...) is shown here.
@@ -40,7 +51,7 @@ def E(J, B, D):
     return B*x - D*x**2
 
 
-fig, axL = plt.subplots(figsize=(6.8, 4.8))
+fig, axL = plt.subplots(figsize=FIGSIZE)
 axR = axL.twinx()
 
 for name, p in MOLECULES.items():
@@ -57,24 +68,18 @@ for name, p in MOLECULES.items():
     iw = int(np.argmax(f))
     axL.plot(J[iw] + STEP/2, f[iw], "o", color=p["color"], ms=7,
              mec="white", mew=1.3, zorder=5)
-    axL.annotate(rf"wall: $J={J[iw]}\rightarrow{J[iw]+2}$, {f[iw]:.1f} GHz"
-                 "\n" rf"$f_\mathrm{{CFG}}={f[iw]/2:.1f}$ GHz",
-                 xy=(J[iw] + STEP/2, f[iw]), xytext=(J[iw] + 1.8, f[iw] + 3),
-                 color=p["color"], fontsize=8.5,
-                 arrowprops=dict(arrowstyle="->", color=p["color"], lw=1))
 
     # ---- right axis: total rotational energy ----------------------------
     axR.plot(J, e, "--", color=p["color"], lw=1.3, alpha=0.75, zorder=2)
     axR.plot(J, e, "o", color="white", mec=p["color"], mew=1.3, ms=4.5, zorder=2)
 
-    axL.plot([], [], color=p["color"], lw=1.9,
-             label=rf"{name}:  $B={p['B']*1000:.0f}$ MHz,  $D={p['D']*1000:.1f}$ MHz")
+    axL.plot([], [], color=p["color"], lw=1.9, label=name)
 
 # ---- roton energy -----------------------------------------------------------
-axR.axhline(E_ROTON, color="0.25", ls=":", lw=1.4, zorder=1)
+axR.hlines(E_ROTON, 8, JMAX_PLOT, color="0.25", ls=":", lw=1.4, zorder=1)
 axR.text(JMAX_PLOT - 0.3, E_ROTON + 4,
-         r"roton energy, $\approx 180$ GHz ($6\ \mathrm{cm^{-1}}$)",
-         ha="right", va="bottom", fontsize=9, color="0.25")
+         r"roton energy, $\approx 180$ GHz",
+         ha="right", va="bottom", color="0.25")
 
 # ---- cosmetics --------------------------------------------------------------
 axL.set_xlabel(r"$J$")
@@ -82,13 +87,13 @@ axL.set_ylabel(r"$\Delta E_{J\rightarrow J+2}$  (GHz)")
 axR.set_ylabel(r"$E(J)$  (GHz)")
 
 axL.set_xlim(0, JMAX_PLOT)
-axL.set_ylim(0, 45)
+axL.set_ylim(0, 47)
 axR.set_ylim(0, 225)
 axL.set_xticks(np.arange(0, JMAX_PLOT + 1, 2))
 
 axL.plot([], [], "--o", color="0.45", mfc="white", ms=4.5, lw=1.3,
          label=r"$E(J)$, right axis")
-axL.legend(frameon=False, loc="upper left", fontsize=8.5)
+axL.legend(loc="upper left")
 axL.grid(alpha=0.22, lw=0.5)
 
 fig.tight_layout()
