@@ -19,7 +19,10 @@
       "Read(//usr/share/texlive/texmf-dist/tex/latex/base/**)",
       "Bash(pdflatex -interaction=nonstopmode t.tex)",
       "Bash(pdflatex -interaction=nonstopmode b3.tex)",
-      "Bash(biber b3 *)"
+      "Bash(biber b3 *)",
+      "Bash(timeout 100 pdflatex -interaction=nonstopmode -halt-on-error main.tex)",
+      "Read(//tmp/**)",
+      "Bash(timeout 180 latexmk -pdf -interaction=nonstopmode main.tex)"
     ]
   }
 }

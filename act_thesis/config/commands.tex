@@ -2,15 +2,17 @@
 %  Custom commands and shortcuts
 %==============================================================
 
-%--- Project-specific macros ----------------------------------
-\newcommand{\helium}{\textsuperscript{4}He}
-\newcommand{\heliumthree}{\textsuperscript{3}He}
-\newcommand{\droplet}{nanodroplet}
 
 %--- Frequently used physics notation -------------------------
 % Note: the 'physics' package already provides \expval, \abs, \norm, \ket, ...
 \newcommand{\Jrot}{J}                          % rotational quantum number
 \newcommand{\Brot}{B}                           % rotational constant
+\newcommand{\tHe}{\ce{^3He} }
+\newcommand{\fHe}{\ce{^4He} }
+
+\newcommand{\OCS}{\ce{OCS}\textsuperscript{\ref{tab:ocs-params} }}
+\newcommand{\CSS}{\ce{CS2}\textsuperscript{\ref{tab:cs2-params} }}
+\newcommand{\NOD}{\ce{(NO)2}\textsuperscript{\ref{tab:no2-params} }}
 
 %--- Units frequently used (siunitx) --------------------------
 \DeclareSIUnit{\wavenumber}{\per\centi\meter}   % cm^-1
