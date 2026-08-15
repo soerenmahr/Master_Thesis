@@ -167,6 +167,12 @@
 \newcommand{\eqnref}[1]{%
   \hyperref[#1]{\textcolor{accent2}{(\ref*{#1})}}%
 }
+
+\newcommand{\supref}[1]{%
+  \textsuperscript{%
+    \hyperref[#1]{\textcolor{accent}{\ref*{#1}}}%
+  }%
+}
 %--- Coloured equation numbers --------------------------------
 \makeatletter
 \renewcommand{\tagform@}[1]{%

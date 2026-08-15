@@ -20,12 +20,20 @@
         "--output-directory=%OUTDIR%",
         "%DOCFILE%"
       ]
+    },
+    {
+      "name": "makeglossaries",
+      "command": "makeglossaries",
+      "args": [
+        "-d", "%OUTDIR%",
+        "%DOCFILE%"
+      ]
     }
   ],
   "latex-workshop.latex.recipes": [
     {
-      "name": "pdflatex → biber → pdflatex*2",
-      "tools": ["pdflatex", "biber", "pdflatex", "pdflatex"]
+      "name": "pdflatex → biber → makeglossaries → pdflatex*2",
+      "tools": ["pdflatex", "biber", "makeglossaries", "pdflatex", "pdflatex"]
     }
   ]
 }
