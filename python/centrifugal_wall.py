@@ -18,12 +18,14 @@ import matplotlib.pyplot as plt
 
 E_ROTON = 179.9          # GHz  (6 cm^-1)
 JMAX_PLOT = 18
+STEP = 2                 # Raman selection rule: J -> J+2; only the even-J ladder is shown
 
-# even_only: CS2 (S=C=S, centrosymmetric, I=0 for 32S) populates only even J.
-# OCS is not centrosymmetric, so all J are allowed.
+# CS2 (S=C=S, centrosymmetric, I=0 for 32S) only populates even J.
+# OCS is not centrosymmetric and populates all J, but only the even-J ladder
+# (0 -> 2 -> 4 -> ...) is shown here.
 MOLECULES = {
-    "OCS":    dict(B=2.180, D=0.0095, color="#7c5cd6", Jkick=5,  even_only=False),
-    "CS$_2$": dict(B=0.730, D=0.0012, color="#d62246", Jkick=10, even_only=True),
+    "OCS":    dict(B=2.180, D=0.0095, color="#7c5cd6", Jkick=5),
+    "CS$_2$": dict(B=0.730, D=0.0012, color="#d62246", Jkick=10),
 }
 
 
@@ -42,23 +44,22 @@ fig, axL = plt.subplots(figsize=(6.8, 4.8))
 axR = axL.twinx()
 
 for name, p in MOLECULES.items():
-    step = 2 if p["even_only"] else 1
-    J = np.arange(0, JMAX_PLOT + 1, step)
+    J = np.arange(0, JMAX_PLOT + 1, STEP)
     f = dE(J, p["B"], p["D"])
     e = E(J, p["B"], p["D"])
 
-    # ---- left axis: step plot, plateau from J to J+1 --------------------
-    ax_J = np.append(J, J[-1] + step)
+    # ---- left axis: step plot, plateau from J to J+2 --------------------
+    ax_J = np.append(J, J[-1] + STEP)
     ax_f = np.append(f, f[-1])
     axL.step(ax_J, ax_f, where="post", color=p["color"], lw=1.9, zorder=3)
 
     # centrifugal wall = maximum of the transition frequency
     iw = int(np.argmax(f))
-    axL.plot(J[iw] + step/2, f[iw], "o", color=p["color"], ms=7,
+    axL.plot(J[iw] + STEP/2, f[iw], "o", color=p["color"], ms=7,
              mec="white", mew=1.3, zorder=5)
     axL.annotate(rf"wall: $J={J[iw]}\rightarrow{J[iw]+2}$, {f[iw]:.1f} GHz"
                  "\n" rf"$f_\mathrm{{CFG}}={f[iw]/2:.1f}$ GHz",
-                 xy=(J[iw] + step/2, f[iw]), xytext=(J[iw] + 1.8, f[iw] + 3),
+                 xy=(J[iw] + STEP/2, f[iw]), xytext=(J[iw] + 1.8, f[iw] + 3),
                  color=p["color"], fontsize=8.5,
                  arrowprops=dict(arrowstyle="->", color=p["color"], lw=1))
 
@@ -96,7 +97,7 @@ fig.savefig("python/cfg_wall_roton.png", dpi=200)
 
 # ---- console summary --------------------------------------------------------
 for name, p in MOLECULES.items():
-    J = np.arange(0, 40, 2 if p["even_only"] else 1)
+    J = np.arange(0, 40, STEP)
     f, e = dE(J, p["B"], p["D"]), E(J, p["B"], p["D"])
     iw, ie = int(np.argmax(f)), int(np.argmax(e))
     print(f"{name.replace('$_2$','2')}:")
