@@ -210,7 +210,7 @@ With these questions raised, let's look at what happens to a molecule when it is
     \hat H = \hat H^{(0)} + \hat H^{(1)}
     \label{eq:hamiltonian_split}
 \end{equation}
-where $\hat H^{(0)}$ describes the unperturbed dynamics and $\hat H^{(1)} = -\hat{\vec\mu}\cdot\vec\varepsilon$ with the electric dipole moment operator $\hat{\vec\mu} = \sum_a q_a \hat{\vec r}_a$ and the electric field vector $\vec\varepsilon$ implements the classical perturbation. Note that this coupling is exactly linear in the field: the Hamiltonian contains no term of higher order in $\vec\varepsilon$. Nonlinear dependency of the energy on the field must therefore come from the wavefunction dependence on the electric field. The energy of the system can be expanded in a Taylor series about the field-free case, where summation over repeated Cartesian indices $i,j,k \in \{x,y,z\}$ is implied:
+where $\hat H^{(0)}$ describes the unperturbed dynamics and $\hat H^{(1)} = -\hat{\vec\mu}\cdot\vec\varepsilon$, with the electric dipole moment operator $\hat{\vec\mu} = \sum_a q_a \hat{\vec r}_a$ and the electric field vector $\vec\varepsilon$, implements the classical perturbation. Note that this coupling is exactly linear in the field: the Hamiltonian contains no term of higher order in $\vec\varepsilon$. Nonlinear dependency of the energy on the field must therefore come from the wavefunction dependence on the electric field. The energy of the system can be expanded in a Taylor series about the field-free case, where summation over repeated Cartesian indices $i,j,k \in \{x,y,z\}$ is implied:
 \begin{equation}
     E(\vec\varepsilon) = E(0) + \left(\frac{\partial E}{\partial\varepsilon_i}\right)_{\!0}\varepsilon_i + \frac{1}{2}\left(\frac{\partial^2 E}{\partial\varepsilon_i\,\partial\varepsilon_j}\right)_{\!0}\varepsilon_i\varepsilon_j + \frac{1}{6}\left(\frac{\partial^3 E}{\partial\varepsilon_i\,\partial\varepsilon_j\,\partial\varepsilon_k}\right)_{\!0}\varepsilon_i\varepsilon_j\varepsilon_k + \cdots
     \label{eq:energy_expansion}
@@ -232,36 +232,45 @@ gives rise to the dipole expression
 \end{equation}
 with the permanent dipole moment $\mu_{0i}$, the polarizability $\alpha_{ij}$ and the hyperpolarizability $\beta_{ijk}$, of rank one, two and three respectively.
 
-All of these factors can be calculated by perturbation theory with the Hamiltonian in equation \ref{eq:hamiltonian_split}. Normally each state (labeled by rotational, vibrational and electronic quantum number) has its own energy shift; given the energy of optical photons, the electronic contribution is the main drive for the energy shift, therefore the polarizability \cite{kremsMoleculesElectromagneticFields2019} chapter 4.6. Consequently, the molecule frame properties $\alpha_\perp$ and $\alpha_\parallel$ (with respect to the molecules axis) are constant for all the rotational levels that we are interested in. The dependence of the interaction on the rotational state enters not through $\alpha$ itself, but through the orientation of the molecular axis relative to the field.
+All of these factors can be calculated by perturbation theory with the Hamiltonian in equation \eqnref{eq:hamiltonian_split}. Normally each state (labeled by rotational, vibrational and electronic quantum number) has its own energy shift; given the energy of optical photons, the electronic contribution is the main drive for the energy shift, therefore the polarizability \cite{kremsMoleculesElectromagneticFields2019} chapter 4.6. Consequently, the molecule frame properties $\alpha_\perp$ and $\alpha_\parallel$ (with respect to the molecules axis) are constant for all the rotational levels that we are interested in. The dependence of the interaction on the rotational state enters not through $\alpha$ itself, but through the orientation of the molecular axis relative to the field.
 
 For the next steps we disregard $\mathcal{O}(\varepsilon^4)$ in $E$. The effective potential energy surface induced by the electric field can be written as
 \begin{equation}
     U(\vec\varepsilon) = E(\vec\varepsilon) - E(0) = -\mu_{0i}\varepsilon_i - \tfrac{1}{2}\alpha_{ij}\varepsilon_i\varepsilon_j - \tfrac{1}{6}\beta_{ijk}\varepsilon_i\varepsilon_j\varepsilon_k
     \label{eq:potential_static}
 \end{equation}
-The expressions above were obtained for a static field. For a monochromatic non-resonant field, time-dependent perturbation theory yields an energy shift of the same functional form, with the coefficients evaluated at the driving frequency. For a linearly polarized pulse with a slowly varying envelope, we insert $\vec\varepsilon(t) = \varepsilon_0(t)\cos(\omega t)\,\hat e_{\mathrm{pol}}$. Since the optical frequency also greatly exceeds both the rotational frequencies and the inverse pulse duration, $\omega\gg\omega_{\mathrm{rot}},\tau^{-1}$, the rotational motion experiences only the potential averaged over one carrier period. Averaging, knowing that $\langle\cos^{2n+1}(\omega t)\rangle = 0$ for $n \in \mathbb{N}_0$ and $\langle\cos^{2}(\omega t)\rangle = \tfrac12$, removes all terms of odd order in the field and leaves
+The expressions above were obtained for a static field. For a monochromatic non-resonant field, time-dependent perturbation theory yields an energy shift of the same functional form, with the coefficients evaluated at the driving frequency. For a linearly polarized pulse with a slowly varying envelope, we insert $\vec\varepsilon(t) = \varepsilon_0(t)\cos(\omega t)\,\vec e_{\mathrm{pol}}$, where $| \vec e_{\mathrm{pol}} | = 1$. Since the optical frequency also greatly exceeds both the rotational frequencies and the inverse pulse duration, $\omega\gg\omega_{\mathrm{rot}},\tau^{-1}$, the rotational motion experiences only the potential averaged over one carrier period. Averaging, knowing that $\langle\cos^{2n+1}(\omega t)\rangle = 0$ for $n \in \mathbb{N}_0$ and $\langle\cos^{2}(\omega t)\rangle = \tfrac12$, removes all terms of odd order in the field and leaves
 \begin{equation}
-    U(t) = -\frac{1}{4}\varepsilon_0^2(t)\;\hat e_{\mathrm{pol}}\cdot\boldsymbol\alpha\cdot\hat e_{\mathrm{pol}}
+    U(t) = -\frac{1}{4}\varepsilon_0^2(t)\;\vec e_{\mathrm{pol}}^{\,\mathrm{T}}\boldsymbol\alpha^{\mathrm{lab}}\vec e_{\mathrm{pol}}.\footnote{Matrix notation $\vec e_{\mathrm{pol}}^{\,\mathrm{T}}\boldsymbol\alpha\vec e_{\mathrm{pol}}$ equals the index notation $\sum_{i,j} \alpha_{ij}\,e_i\,e_j$}
     \label{eq:potential_cycle_averaged}
 \end{equation}
 In the molecule-fixed frame the polarizability tensor for a linear molecule is diagonal and can be written as $\boldsymbol\alpha^{\mathrm{mol}} = \mathrm{diag}(\alpha_\perp, \alpha_\perp, \alpha_\parallel)$ with $\alpha_\parallel$ being the polarizability along the axis of the molecule. The orientation of the molecule axis in the laboratory frame, where $\theta$ is the polar angle measured from the laboratory $z$-axis and $\varphi$ the azimuth angle in the $x$--$y$ plane, is given by
 \begin{equation}
-    \vec n = \begin{pmatrix} \sin\theta\cos\varphi \\ \sin\theta\sin\varphi \\ \cos\theta \end{pmatrix}
+    \vec n = \begin{pmatrix} \sin\theta\cos\varphi \\ \sin\theta\sin\varphi \\ \cos\theta \end{pmatrix}.
     \label{eq:molecular_axis}
 \end{equation}
-and with $\Delta\alpha = \alpha_\parallel - \alpha_\perp$, the polarizability tensor can be written as
+With $\Delta\alpha = \alpha_\parallel - \alpha_\perp$ we get $
+    \boldsymbol{\alpha}^{\mathrm{mol}}
+    =
+    \alpha_\perp \mathbf{I}
+    +
+    \Delta\alpha\,
+    \vec e_{z'}\vec e_{z'}^{\,\mathsf{T}}$, where $\vec e_{z'}$ is the $z$-unit vector in the molecule frame. Using the rotational transformation $R$ (explained in \cite{zareAngularMomentumUnderstanding1989}), the polarizability tensor in the lab frame can be written as
 \begin{equation}
-    \boldsymbol{\alpha}^{\mathrm{lab}} = \alpha_{\perp}\mathbf{I} + \Delta\alpha\, \vec{n}\left(\vec{n}\right)^{\mathrm{T}}
+    \boldsymbol{\alpha}^{\mathrm{lab}} = 
+\mathbf{R}\,
+\boldsymbol{\alpha}^{\mathrm{mol}}\,
+\mathbf{R}^{\mathsf{T}} = \alpha_{\perp}\mathbf{I} + \Delta\alpha\, \vec{n}\left(\vec{n}\right)^{\mathrm{T}}. \footnote{Disclaimer: Derivation done with the help of AI (see appendix \ref{sec:ai})}
     \label{eq:polarizability_lab}
 \end{equation}
-Using the effective polarizability, i.e. the projection of the tensor onto the polarization axis $\hat e_{\mathrm{pol}}$, we end up with the following expression for the potential
+Using the effective polarizability, i.e. the projection of the tensor onto the polarization axis $\vec e_{\mathrm{pol}}$, we end up with the following expression for the potential
 \begin{equation}
-    U(t) = -\frac{1}{4}{\varepsilon}_0(t)^2 \left[ \alpha_{\perp} + \Delta\alpha\,(\vec n\cdot \hat e_{\mathrm{pol}})^2 \right].
+    U(t) = -\frac{1}{4}{\varepsilon}_0(t)^2 \left[ \alpha_{\perp} + \Delta\alpha\,(\vec n\cdot \vec e_{\mathrm{pol}})^2 \right].
     \label{eq:potential_effective}
 \end{equation}
-Note that $U$ depends only on the angle between the molecular axis and the \emph{instantaneous} polarization direction. The choice of quantization axis is therefore free and is made purely for convenience. Since the experiments described in this work use a polarization that rotates in a plane, it is natural to take $\vec e_z$ along the rotation axis and let the polarization lie in the $x$--$y$ plane at azimuth $\Phi$,
+Note that $U$, besides the intensity envelope, only depends on the angle between the molecular axis and the instantaneous polarization direction. Since the experiments described in this work use a polarization that rotates in a plane, it is natural to take $\vec e_z$ along the rotation axis and let the polarization lie in the $x$--$y$ plane at azimuth $\Phi$,
 \begin{equation}
-    \hat e_{\mathrm{pol}}(t) = \begin{pmatrix} \cos\Phi(t) \\ \sin\Phi(t) \\ 0 \end{pmatrix},
+    \vec e_{\mathrm{pol}}(t) = \begin{pmatrix} \cos\Phi(t) \\ \sin\Phi(t) \\ 0 \end{pmatrix},
     \label{eq:polarization_vector}
 \end{equation}
 which gives
@@ -273,19 +282,20 @@ and we can define $U_0 = \frac{\varepsilon_0^2 \Delta \alpha}{4}$.
 
 \subsubsection{Pendular States}
 
-Now that we have the interaction potential for a linear molecule in a non-resonant electric field, the part missing is the description of the rotor. As shown in sec. \ldots we can use the rigid rotor Hamiltonian $\hat H_{\mathrm{rot}}$ to describe free rotation. The in-field system follows the time-dependent Schrödinger equation with $\hat{H}_{\mathrm{field\,dressed}} = \hat{H}_{\mathrm{rot}} + U$,
+Now that we have the interaction potential for a linear molecule in a non-resonant electric field, the part missing is the description of the rotor. As shown earlier in this section we can use the rigid rotor Hamiltonian $\hat H_{\mathrm{rot}}$ \eqnref{eq:rigid_rotor_se} to describe free rotation. The in-field system follows the time-dependent Schrödinger equation with $\hat{H}_{\mathrm{field\,dressed}} = \hat{H}_{\mathrm{rot}} + U$,
 \begin{equation}
-    i\hbar \frac{\partial \Psi_{\mathrm{rot}}(t)}{\partial t} = \left( B\hat{J}^{2} - \frac{\varepsilon_{0}^{2}(t)}{4}\left[ \alpha_{\perp} + \Delta\alpha\,\sin^{2}\theta\,\cos^{2}(\varphi - \Phi) \right] \right) \Psi_{\mathrm{rot}}(t).
+    i\hbar \frac{\partial \Psi_{\mathrm{rot}}(t)}{\partial t} = \left( B\hat{J}^{2} - \frac{\varepsilon_{0}^{2}(t)}{4}\left[ \alpha_{\perp} + \Delta\alpha\,\sin^{2}\theta\,\cos^{2}(\varphi - \Phi) \right] \right) \Psi_{\mathrm{rot}}(t),
     \label{eq:tdse_field_dressed}
 \end{equation}
+where the time dependence of $U$ only lives in the envelope, i.e. the polarization direction $\vec e_{\mathrm{pol}}$ is constant.
 Taking a closer look at the Hamiltonian, the only part that is not diagonal in the basis of spherical harmonics is the angular factor of the polarizability term. Rewriting it gives (similar to \cite{larsenLaserInducedAlignment})
 \begin{equation}
-    \sin^{2}\theta\,\cos^{2}(\varphi-\Phi) = \sqrt{\frac{4\pi}{9}}\,Y_{00} \;-\; \frac{1}{2}\sqrt{\frac{16\pi}{45}}\,Y_{20} \;+\; \frac{1}{4}\sqrt{\frac{32\pi}{15}}\left[ Y_{22}\,e^{-2i\Phi} + Y_{2,-2}\,e^{+2i\Phi} \right].
+    \sin^{2}\theta\,\cos^{2}(\varphi-\Phi) = \sqrt{\frac{4\pi}{9}}\,Y_{00} \;-\; \frac{1}{2}\sqrt{\frac{16\pi}{45}}\,Y_{20} \;+\; \frac{1}{4}\sqrt{\frac{32\pi}{15}}\left[ Y_{22}\,e^{-2i\Phi} + Y_{2,-2}\,e^{+2i\Phi} \right]. \footnote{Disclaimer: Calculation done by AI (see appendix \ref{sec:ai})}
     \label{eq:angular_factor_expansion}
 \end{equation}
-Using this to calculate the coupling $\langle J'M' \rvert \sin^2\theta\cos^2(\varphi-\Phi) \lvert JM\rangle$ imposes the selection rules $\Delta J = 0, \pm2$ and $\Delta M = 0, \pm2$. These are exactly the selection rules of a two-photon Raman transition, which is no coincidence, since the interaction is second order in the field. Though it is to say, that imagining the pendular states as a two photon process is not trivial.
+Using this to calculate the coupling $\langle J'M' \rvert \sin^2\theta\cos^2(\varphi-\Phi) \lvert JM\rangle$ imposes the selection rules $\Delta J = 0, \pm2$ and $\Delta M = 0, \pm2$ \todo{look intp Zare: does he write about gaunt coefficients/ wigner 3j}. These are exactly the selection rules of a two-photon Raman transition, which is no coincidence, since the interaction is second order in the field. Though it is to say, that imagining the pendular states as a two photon process is not trivial.
 
-The current eigenbasis of the Hamiltonian $\Psi_{\mathrm{rot}}(t) = \sum_n c_n(t)\,|n(t)\rangle$, can either change adiabatically or non-adiabatically. Under a slowly varying Hamiltonian, the population of the instantaneous states will not change in time $|c_n(t)|^2 = |c_n(-\infty)|^2$. Either way, the eigenstates can be written in the field-free rotor basis so that (following \cite{nielsenLaserInducedAlignmentMolecules2022}
+The wavefunction can be expanded in the instantaneous eigenbasis of the field dressed Hamiltonian, giving $\Psi_{\mathrm{rot}}(t) = \sum_n c_n(t)\,|n(t)\rangle$, where the system can either change adiabatically or non-adiabatically. Under a slowly varying Hamiltonian, the population of the instantaneous states will not change in time $|c_n(t)|^2 = |c_n(-\infty)|^2$. Either way, the eigenstates can be written in the field-free rotor basis (following \cite{nielsenLaserInducedAlignmentMolecules2022}) so that 
 \begin{equation}
     \Psi_{\mathrm{rot}}(t) = \sum_n c_n(t)\,\sum_{J,M} d^{(n)}_{JM}(t)\,\lvert J M\rangle .
     \label{eq:eigenstate_expansion}
@@ -304,53 +314,45 @@ Whether the evolution follows a single branch is decided by comparing the rate o
     \eta = \frac{\left|\langle m \left| \partial \hat H/\partial t \right| n\rangle\right|}{(E_m - E_n)^2} = \frac{\Delta\alpha}{4}\,\left|\dot\varepsilon_0^2(t)\right|\, \frac{ \left|\langle m|\sin^2\theta\,\cos^2(\varphi-\Phi)|n\rangle\right| }{ \left(E_m-E_n\right)^2 } \ll 1,
     \label{eq:adiabaticity_criterion}
 \end{equation}
-so the adiabaticity scales with the polarizability anisotropy, the intensity slope and the moment of intertia which enters through the energy difference.
+so the adiabaticity scales with the polarizability anisotropy, the intensity slope and the moment of inertia which enters through the energy difference.
 
-Ortigoso et al. quantified this by solving the pendular problem numerically for a Gaussian envelope, identifying two limiting regimes. In the short-pulse limit, $\sigma\lesssim\hbar/B$, the interaction is non-adiabatic and the pulse leaves behind a rotational wave packet that realigns in field-free revivals. In the long-pulse limit, $\sigma\gtrsim10\,\hbar/B$, the evolution is truly adiabatic, the alignment follows the pulse envelope, and the initial state is recovered after the pulse.
-With the effective in-droplet rotational constants for OCS and CS2, one finds $\hbar/B=73\ \mathrm{ps}$ and $218\ \mathrm{ps}$. Adiabatic behaviour would thus require $\sigma\gtrsim0.7\ \mathrm{ns}$ for OCS and $\sigma\gtrsim2.2\ \mathrm{ns}$ for CS$_2$. Our pulse, $\tau_{\mathrm{FWHM}}=320\ \mathrm{ps}$ ($\sigma\approx192\ \mathrm{ps}$), falls well short of both. In addition, their calculations only demonstrated adiabatic following up to $\Delta\omega=\Delta\alpha\,\varepsilon_{0}^{2}/2B=900$, whereas at a peak intensity of $1\times10^{12}\ \mathrm{W/cm^{2}}$ we reach $\Delta\omega\approx1.1\times10^{3}$ for OCS and $\approx7.9\times10^{3}$ for CS$_2$.
+Ortigoso et al. quantified this by solving the pendular problem numerically for a Gaussian envelope, identifying two limiting regimes. In the short-pulse limit, $\sigma\lesssim\hbar/B$, the interaction is non-adiabatic and the pulse leaves behind a rotational wave packet that shows field-free revivals. In the long-pulse limit, $\sigma\gtrsim10\,\hbar/B$, the evolution is truly adiabatic, the alignment follows the pulse envelope, and the initial state is recovered after the pulse.
+With the effective in-droplet rotational constants for \OCS and \CSS, one finds $\hbar/B=73\ \mathrm{ps}$ and $218\ \mathrm{ps}$. Adiabatic behavior would thus require $\sigma\gtrsim0.7\ \mathrm{ns}$ for \OCS and $\sigma\gtrsim2.2\ \mathrm{ns}$ for \CSS. Our pulse, $\tau_{\mathrm{FWHM}}=320\ \mathrm{ps}$ ($\sigma\approx192\ \mathrm{ps}$), falls well short of both. In addition, their calculations only demonstrated adiabatic following up to $\Delta\omega=\Delta\alpha\,\varepsilon_{0}^{2}/2B=900$, whereas at a peak intensity of $1\times10^{12}\ \mathrm{W/cm^{2}}$ we reach $\Delta\omega\approx1.1\times10^{3}$ for \OCS and $\approx7.9\times10^{3}$ for \CSS.
 
 We should therefore not expect our system to behave perfectly adiabatically.
 
 \subsubsection{Rotational Ladder climbing}
 
-As stated in the paragraph above, a long linear polarized alignment pulse doesn't transfer angular momentum to the molecule, causing effectively no excitation of rotational states after the field. Since the goal is to have controlled excitation of molecules to measure state lifetimes and the dissipation into superfluid helium, this is where the optical centrifuge comes into play. The rotating linear polarization makes it possible to ``grab'' the molecule and spin it up to higher frequencies. For a field rotating in the x-y-plane and its azimuth angle $\Phi(t)$, the instantaneous polarization direction is
-\begin{equation}
-    \vec e_{\mathrm{pol}}(t) =\begin{pmatrix} \cos\Phi(t) \\ \sin\Phi (t) \\ 0 \end{pmatrix}
-    \label{eq:polarization_rotating}
-\end{equation}
-and with eq. \ldots
-\begin{equation}
-    U(\theta,\varphi,t) = -\frac{1}{4}\varepsilon_{0}^{2}(t) \left[ \alpha_{\perp} + \Delta\alpha\, \sin^{2}\theta\, \cos^{2}\left(\varphi-\Phi(t)\right) \right]
-    \label{eq:potential_centrifuge}
-\end{equation}
-Transforming into the frame co-rotating with the polarization, gives the rotating-frame Hamiltonian \todo{citation missing}
+As stated in the paragraph above, a long linear polarized alignment pulse doesn't transfer angular momentum to the molecule, causing effectively no excitation of rotational states after the field. Since the goal is to have controlled excitation of molecules to measure state lifetimes and the dissipation into superfluid helium, this is where the optical centrifuge comes into play. The rotating linear polarization makes it possible to ``grab'' the molecule and spin it up to higher frequencies. 
+
+Transforming the potential $U$ with its time dependent polarization direction \eqnref{eq:potential_rotating} into the frame co-rotating, gives the rotating-frame Hamiltonian
 \begin{equation}
     \hat{\tilde H}(t) = B\hat J^{2} - \hbar\Omega(t)\hat J_{z} - \frac{\varepsilon_0^2(t)}{4}\left[\alpha_\perp + \Delta\alpha,\sin^2\theta\cos^2\varphi\right], \qquad \Omega=\dot\Phi .
     \label{eq:rotating_frame_hamiltonian}
 \end{equation}
-The polarization is now static, at the price of the inertial term $-\hbar\Omega\hat J_z$. For constant $\Omega$ the Hamiltonian is time-independent, so its eigenstates are the rotating analogues of the pendular states.
-With no rotation the in-field Hamiltonian was diagonal in the pendular state basis. The term $-\hbar\Omega\hat J_z$ now generates coupling of the different branches. As $\Omega$ grows, states of large $M$ are pulled down linearly and sweep through the manifold. The diabatic energies of $|J,M\rangle$ and $|J{+}2,M{+}2\rangle$ become degenerate at
+The polarization is now static, at the price of the term $-\hbar\Omega\hat J_z$. For constant $\Omega$ the Hamiltonian is time-independent, so its eigenstates are the rotating analogs of the pendular states.
+With no rotation the in-field Hamiltonian was diagonal in the pendular state basis. The term $-\hbar\Omega\hat J_z$ now generates coupling of the different branches. As $\Omega$ grows, states of large $M$ are pulled down and their energies cross those of the lower $J$ states. The energies of $|J,M\rangle$ and $|J{+}2,M{+}2\rangle$ become degenerate at
 \begin{equation}
     \hbar\Omega_{J,J+2} = B(2J+3),
     \label{eq:crossing_condition}
 \end{equation}
-i.e. at $t_{J,J+2}=B(2J+3)/\hbar\beta$ for a linear chirp $\Omega=\beta t$ (explained in detail in sec. \ldots). The coupling $V_{J,J+2}\propto\Delta\alpha\varepsilon_0^2$ turns each degeneracy into an avoided crossing. The rotational excitation is thus a chain of real two-photon Raman crossings encountered one after another \cite{vitanovAdiabaticExcitationRotational2004}. Only here does the adiabatic branch change character: following it means climbing the ladder $|0,0\rangle\to|2,2\rangle\to|4,4\rangle\to\dots$. Simulating the dynamics of the hamiltonian in eq\ldots yields a good insight into the ladder climbing mechanism, mainly showing that population transfer only happens if the cfg frequency exceeds a level crossing.
+i.e. at $t_{J,J+2}=B(2J+3)/\hbar\beta$ for a linear chirp $\Omega=\beta t$ (explained in detail in sec. \ref{sec:optical_centrifuge}). The coupling $V_{J,J+2}\propto\Delta\alpha\varepsilon_0^2$ turns each degeneracy into an avoided crossing. The rotational excitation is thus a chain of real two-photon Raman crossings encountered one after another \cite{vitanovAdiabaticExcitationRotational2004}. Only here does the adiabatic branch change character: following it means climbing the ladder $|0,0\rangle\to|2,2\rangle\to|4,4\rangle\to\dots$. Simulating the dynamics of the Hamiltonian in eq. \eqnref{eq:rotating_frame_hamiltonian} yields a good insight into the ladder climbing mechanism, mainly showing that population transfer only happens if the centrifuge frequency exceeds a level crossing (compare \figref{fig:ladder_climbing_simulation}).
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260805095511.png}
-    \caption{}
+    \caption{Simulation \footnote{Disclaimer: Simulation created with the help of AI (see appendix \ref{sec:ai})} of the $J$ state distribution, under an electromagnetic field with $320\, \mathrm{ps}$ FWHM Gaussian envelope and $10^{12}\,\mathrm{W}/\mathrm{cm}^2$ maximum intensity.}
     \label{fig:ladder_climbing_simulation}
 \end{figure}
 
-Once the intensity has reached its plateau, the rate of change of $\hat{\tilde H}$ is dominated by the chirp, $\partial\hat{\tilde H}/\partial t \simeq -\hbar\dot\Omega\hat J_z$, and the criterion of eq. (\ldots) becomes
+Once the intensity has reached its plateau, the rate of change of $\hat{\tilde H}$ is dominated by the chirp, $\partial\hat{\tilde H}/\partial t \simeq -\hbar\dot\Omega\hat J_z$, and the criterion of eq. \eqnref{eq:adiabaticity_criterion} becomes
 \begin{equation}
     \eta = \frac{\hbar|\dot\Omega|\left|\langle m|\hat J_z|n\rangle\right|}{\left(E_m-E_n\right)^2} \ll 1 .
     \label{eq:adiabaticity_chirp}
 \end{equation}
-This is noticable in the simulation, where for higher accelerations the rippels on the surface get more pronounced, displaying the branch hopping/ non-adiabaticity.
+This is noticable in the simulation, where for higher accelerations the rippels on the surface get more pronounced, displaying the branch hopping/ non-adiabaticity (\figref{fig:ladder_climbing_simulation}).
 
-Whether the excitation really proceeds as the step-by-step ladder and if the criterion in eq \ldots is a valid measure, depends on how well the individual crossings are separated. Armon and Friedland
+Whether the excitation really proceeds as the step-by-step ladder and if the criterion in equation \eqnref{eq:adiabaticity_chirp} is a valid measure, depends on how well the individual crossings are separated in time. Armon and Friedland
 \cite{armonQuantumClassicalDynamics2017} cast this into two dimensionless parameters built from the sweep time $t_s=1/\sqrt{\beta}$, the drive time $t_d=\hbar/\epsilon$ (with $\epsilon=\Delta\alpha\,\varepsilon_0^2/4$) and the rotational time $t_c=I/\hbar$:
 \begin{equation}
     P_1=\frac{\epsilon}{\hbar\sqrt{\beta}},\qquad
