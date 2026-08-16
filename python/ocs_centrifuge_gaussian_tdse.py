@@ -62,7 +62,7 @@ OUTPUT
 ------
 The script saves:
 
-    ocs_gaussian_fan.png
+    ocs_gaussian_fan.png / ocs_gaussian_fan.pdf
         3-D fan: time, instantaneous centrifuge frequency, and <J>, drawn as
         one connected surface mesh across every final-frequency sweep.
         Surface color is the actual standard deviation sigma_J.
@@ -839,70 +839,87 @@ def plot_fan(results: list[SimulationResult], output: Path) -> None:
     interval is still visible as a thin sheet; it never changes z, and it
     fades out the instant the real chirp fraction takes over.
     """
-    fig = plt.figure(figsize=(10.2, 7.6))
-    ax = fig.add_subplot(111, projection="3d")
+    # Same styling as the other thesis figures (dispersion curve, density of
+    # states, centrifugal wall), scoped to this plot only.
+    with plt.rc_context({
+        "font.size": 14,
+        "axes.labelsize": 14,
+        "xtick.labelsize": 13,
+        "ytick.labelsize": 13,
+        "legend.fontsize": 12,
+        "mathtext.fontset": "cm",
+    }):
+        fig = plt.figure(figsize=(10.2, 7.6))
+        ax = fig.add_subplot(111, projection="3d")
 
-    # The full propagation extends farther into the Gaussian tails. For the
-    # fan, keep only the user-requested display window. All
-    # results share the same time grid, so this mask applies to every case.
-    visible = (
-        (results[0].time_ps >= PLOT_TIME_MIN_PS)
-        & (results[0].time_ps <= PLOT_TIME_MAX_PS)
-    )
-    time_visible = results[0].time_ps[visible]
+        # The full propagation extends farther into the Gaussian tails. For the
+        # fan, keep only the user-requested display window. All
+        # results share the same time grid, so this mask applies to every case.
+        visible = (
+            (results[0].time_ps >= PLOT_TIME_MIN_PS)
+            & (results[0].time_ps <= PLOT_TIME_MAX_PS)
+        )
+        time_visible = results[0].time_ps[visible]
 
-    n_cases = len(results)
-    n_time = int(np.sum(visible))
+        n_cases = len(results)
+        n_time = int(np.sum(visible))
 
-    # The true sweep fraction is common to every case; only its scale (each
-    # case's final frequency) differs. Flooring it before scaling keeps the
-    # visual offset proportional to each row's own final frequency.
-    visual_fraction = np.maximum(
-        chirp_fraction(time_visible), FAN_PRERAMP_VISUAL_FLOOR
-    )
+        # The true sweep fraction is common to every case; only its scale (each
+        # case's final frequency) differs. Flooring it before scaling keeps the
+        # visual offset proportional to each row's own final frequency.
+        visual_fraction = np.maximum(
+            chirp_fraction(time_visible), FAN_PRERAMP_VISUAL_FLOOR
+        )
 
-    x = np.tile(time_visible, (n_cases, 1))
-    y = np.empty((n_cases, n_time))
-    z = np.empty((n_cases, n_time))
-    sigma = np.empty((n_cases, n_time))
-    for row, result in enumerate(results):
-        y[row] = result.final_frequency_ghz * visual_fraction
-        z[row] = result.mean_j[visible]
-        sigma[row] = result.sigma_j[visible]
+        x = np.tile(time_visible, (n_cases, 1))
+        y = np.empty((n_cases, n_time))
+        z = np.empty((n_cases, n_time))
+        sigma = np.empty((n_cases, n_time))
+        for row, result in enumerate(results):
+            y[row] = result.final_frequency_ghz * visual_fraction
+            z[row] = result.mean_j[visible]
+            sigma[row] = result.sigma_j[visible]
 
-    norm = plt.Normalize(vmin=float(sigma.min()), vmax=float(sigma.max()))
-    face_colors = plt.cm.viridis(norm(sigma))
+        norm = plt.Normalize(vmin=float(sigma.min()), vmax=float(sigma.max()))
+        face_colors = plt.cm.viridis(norm(sigma))
 
-    # rstride=1 keeps every final-frequency sweep connected to its neighbors.
-    # cstride only thins the time axis, purely to keep the polygon count
-    # (and therefore render time) manageable.
-    ax.plot_surface(
-        x,
-        y,
-        z,
-        rstride=1,
-        cstride=FAN_TIME_STRIDE,
-        facecolors=face_colors,
-        linewidth=0.0,
-        antialiased=False,
-        shade=False,
-    )
+        # rstride=1 keeps every final-frequency sweep connected to its neighbors.
+        # cstride only thins the time axis, purely to keep the polygon count
+        # (and therefore render time) manageable. With rstride=1 the mesh has
+        # tens of thousands of individual quads, so it is rasterized: drawn as
+        # vector polygons, adjacent quads each get their own edge
+        # anti-aliasing and leave visible seams between them.
+        surface = ax.plot_surface(
+            x,
+            y,
+            z,
+            rstride=1,
+            cstride=FAN_TIME_STRIDE,
+            facecolors=face_colors,
+            linewidth=0.0,
+            antialiased=False,
+            shade=False,
+        )
+        surface.set_rasterized(True)
 
-    mappable = plt.cm.ScalarMappable(norm=norm, cmap="viridis")
-    mappable.set_array(sigma)
-    fig.colorbar(mappable, ax=ax, shrink=0.6, pad=0.08, label=r"$\sigma_J$")
+        mappable = plt.cm.ScalarMappable(norm=norm, cmap="viridis")
+        mappable.set_array(sigma)
+        fig.colorbar(mappable, ax=ax, shrink=0.6, pad=0.08, label=r"$\sigma_J$")
 
-    ax.set_xlabel("pulse time (ps)")
-    ax.set_ylabel("instantaneous centrifuge frequency (GHz)")
-    ax.set_zlabel(r"$\langle J\rangle$")
-    ax.set_title(f"OCS optical centrifuge: Gaussian FWHM {GAUSSIAN_FWHM_PS:.0f} ps")
-    ax.view_init(elev=21, azim=-127)
-    ax.set_box_aspect((1.0, 1.05, 0.75))
+        ax.set_xlabel("pulse time (ps)", labelpad=12)
+        ax.set_ylabel("instantaneous centrifuge frequency (GHz)", labelpad=12)
+        ax.set_zlabel(r"$\langle J\rangle$", labelpad=10)
+        ax.view_init(elev=21, azim=-127)
+        ax.set_box_aspect((1.0, 1.05, 0.75))
 
-    fig.tight_layout()
-    fig.savefig(output, dpi=220)
-    if not SHOW_PLOTS:
-        plt.close(fig)
+        fig.tight_layout()
+        fig.savefig(output, dpi=220)
+        # bbox_inches="tight" is deliberately not used here: mplot3d's tight-
+        # bbox calculation underestimates the extent of the rotated 3-D axis
+        # labels and clips them.
+        fig.savefig(output.with_suffix(".pdf"), dpi=220)
+        if not SHOW_PLOTS:
+            plt.close(fig)
 
 
 # =============================================================================
@@ -1035,6 +1052,7 @@ def main() -> None:
     elapsed = wall_time.perf_counter() - start_time
     print(f"\nFinished in {elapsed:.1f} s")
     print(f"Saved {fan_path.name}")
+    print(f"Saved {fan_path.with_suffix('.pdf').name}")
     print(f"Saved {final_map_path.name}")
     print(f"Saved {trajectory_path.name}")
     print(f"Saved {data_path.name}")
