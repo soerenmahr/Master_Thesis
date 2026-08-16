@@ -341,10 +341,10 @@ i.e. at $t_{J,J+2}=B(2J+3)/\hbar\beta$ for a linear chirp $\Omega=\beta t$ (expl
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=1\textwidth]{02_theory/ocs_gaussian_fan.pdf}
-    \caption[]{Simulation\protect\footnotemark ~of the $J$ state distribution of gas-phase \OCS starting in $\vert 0\, 0\rangle$, under an electromagnetic field with $320\, \mathrm{ps}$ FWHM Gaussian envelope and $10^{11}\,\mathrm{W}/\mathrm{cm}^2$ maximum intensity. Different accelerations (ranging from $0 \rightarrow 0 \, \mathrm{GHz}$ to $0 \rightarrow 100 \, \mathrm{GHz}$) during the high intensity part, map out the surface. As expected, for no rotation, the field creates pendular states, i.e. $\langle J \rangle > 0$, stays on the instantaneous branch and returns to the initial state after the field. Only if the rotation frequency exceeded the first transition, the molecule stays in $J = 2$ after the field.}
+    \caption[]{Simulation\protect\footnotemark ~of the $J$ state distribution of gas-phase \OCS starting in $\vert 0\, 0\rangle$, under an electromagnetic field with $320\, \mathrm{ps}$ FWHM Gaussian envelope and $10^{11}\,\mathrm{W}/\mathrm{cm}^2$ maximum intensity. $\sigma_J$ is standard deviation of the rotational distribution. Different accelerations (ranging from $0 \rightarrow 0 \, \mathrm{GHz}$ to $0 \rightarrow 100 \, \mathrm{GHz}$) during the high intensity part, map out the surface. As expected, for no rotation, the field creates pendular states, i.e. $\langle J \rangle > 0$, stays on the instantaneous branch and returns to the initial state after the field. Only if the rotation frequency exceeded the first transition, the molecule stays in $J = 2$ after the field.}
     \label{fig:ladder_climbing_simulation}
 \end{figure}
-\footnotetext{Disclaimer: Simulation created with the help of AI (see appendix \ref{sec:ai})}
+\footnotetext{Disclaimer: Simulation created with the help of AI (see appendix \ref{sec:ai-cfg})}
 
 Once the intensity has reached its plateau, the rate of change of $\hat{\tilde H}$ is dominated by the chirp, $\partial\hat{\tilde H}/\partial t \simeq -\hbar\dot\Omega\hat J_z$, and the criterion of eq. \eqnref{eq:adiabaticity_criterion} becomes
 \begin{equation}
@@ -395,7 +395,7 @@ We can label the two pulses by $j\in\{R,L\}$, with propagation distances $z_R$ a
     u_j(t,z_j)=t-\frac{z_j}{c}.
     \label{eq:retarded_time}
 \end{equation}
-At the detection plane, the phase of each chirped pulse can be written as
+At the detection plane, the temporal phase of each chirped pulse can be written as
 \begin{equation}
     \Phi_j(t,z_j) = \omega_{j0}u_j(t,z_j) + \frac{1}{2}\beta_j u_j^2(t,z_j) + \varphi_{j0}.
     \label{eq:time_phase}
