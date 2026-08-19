@@ -34,7 +34,18 @@ from matplotlib.colors import LinearSegmentedColormap
 DARK = False                     # True -> dunkler Hintergrund
 LANG_X, LANG_Y = "Time", "Optical Frequency"
 
-plt.rcParams.update({"font.family": "serif", "mathtext.fontset": "cm"})
+# Same font sizing as the other full-textwidth figures (e.g. cfg_wall_roton.pdf),
+# so all thesis figures share one typographic scale.
+FIGSIZE = (9.0, 3.8)
+plt.rcParams.update({
+    "font.family": "serif",
+    "mathtext.fontset": "cm",
+    "font.size": 14,
+    "axes.labelsize": 14,
+    "xtick.labelsize": 13,
+    "ytick.labelsize": 13,
+    "legend.fontsize": 12,
+})
 
 if DARK:
     BG, FG, FRAME, ACCENT = "#2b3040", "#e8e8ee", "#b8bcc8", "#7fb3d5"
@@ -61,7 +72,7 @@ WIDTH = 0.30        # halbe Banddicke (senkrecht zur Chirp-Linie)
 TAPER = 2.1          # F_SPAN / sigma der Gauss-Einhuellenden
 TAIL = 0.60         # Laenge der gestrichelten Verlaengerung (Zeiteinheiten)
 
-DT = 1.60           # Delta t zwischen den Armen (Panels b, c)
+DT = 3.20           # Delta t zwischen den Armen (Panels b, c)
 DBETA = 0.50        # Steigungsdifferenz 2*d_beta (Panel c)
 
 
@@ -140,7 +151,7 @@ def double_arrow(ax, p0, p1, label, offset=(0.0, 0.0), **kw):
                                 shrinkA=0, shrinkB=0), zorder=7)
     mid = (0.5 * (p0[0] + p1[0]) + offset[0], 0.5 * (p0[1] + p1[1]) + offset[1])
     ax.text(*mid, label, color=FG, ha="center", va="center",
-            fontsize=13, zorder=8,
+            fontsize=14, zorder=8,
             bbox=dict(facecolor=BG, edgecolor="none", pad=1.5), **kw)
 
 
@@ -153,7 +164,7 @@ def style_axes(ax, label):
         s.set_color(FRAME)
         s.set_linewidth(1.2)
     ax.set_facecolor(BG)
-    ax.set_xlabel(LANG_X, color=ACCENT, fontsize=13, labelpad=6)
+    ax.set_xlabel(LANG_X, color=ACCENT, labelpad=6)
     ax.text(0.05, 0.93, label, transform=ax.transAxes, color=FG,
             fontsize=15, fontweight="bold", va="top")
 
@@ -174,13 +185,24 @@ def panel_a(ax):
     ax.text(e_dn[0] + 0.55, e_dn[1] + 0.15, r"$-\beta$", color=FG,
             fontsize=14, ha="left", va="center")
     diamond(ax, t0, f0, filled=False)
-    ax.text(0.30, 0.05, r"$\Omega(t)=2\beta t$", transform=ax.transAxes,
+
+    # 2*Omega: vertikaler Abstand der beiden Arme, hier an einer Stelle
+    # abseits vom gemeinsamen Ursprung ausgewertet, da der Abstand mit t waechst.
+    t_a = t0 + 0.65 * (F_SPAN / SLOPE)
+    f_hi = f0 + SLOPE * (t_a - t0)
+    f_lo = f0 - SLOPE * (t_a - t0)
+    double_arrow(ax, (t_a, f_lo + 0.35), (t_a, f_hi - 0.35), r"$2\Omega_{\mathrm{cfg}}$",
+                 offset=(0.95, 0.0))
+
+    ax.text(0.30, 0.05, r"$\Omega_{\mathrm{cfg}}(t)=2\beta t$", transform=ax.transAxes,
             color=FG, fontsize=12, ha="center")
 
 
 def panel_b(ax):
     """cfCFG: gleicher Chirp, Verzoegerung dt -> Omega = beta_0*dt."""
-    t1, f1 = 3.2, 4.6
+    # Shift the pulse pair to the right so the full two-pulse structure,
+    # including the dashed tails, is centered in the panel and not clipped.
+    t1, f1 = 3.10, 4.6
     cn1 = (f1 - F_SPAN, f1 + F_SPAN)
     e1 = chirped_band(ax, t1, f1, SLOPE, cnorm=cn1)            # frueher Arm
     e2 = chirped_band(ax, t1 + DT, f1, SLOPE, cnorm=cn1)       # spaeterer Arm
@@ -189,22 +211,14 @@ def panel_b(ax):
     diamond(ax, t1, f1, filled=False)
     diamond(ax, t1 + DT, f1, filled=True)
 
-    # 2*Omega: vertikaler Abstand der Momentanfrequenzen bei fester Zeit
-    t_a = t1 + DT / 2
-    f_lo = f1 + SLOPE * (t_a - (t1 + DT))
-    f_hi = f1 + SLOPE * (t_a - t1)
-    double_arrow(ax, (t_a, f_lo + 0.35), (t_a, f_hi - 0.35), r"$2\Omega$",
-                 offset=(0.50, 0.58))
-
     # Delta t: horizontaler Abstand der beiden Pulszentren (Rauten)
-    double_arrow(ax, (t1 + 0.35, f1), (t1 + DT - 0.35, f1), r"$\Delta t$",
-                 offset=(-0.20, -0.58))
+    double_arrow(ax, (t1 + 0.35, f1), (t1 + DT - 0.35, f1), r"$\Delta t$")
 
     ax.text(e1[0] - 0.15, e1[1] + 0.45, r"$\beta_0$", color=FG, fontsize=14,
             ha="center")
     ax.text(e2[0] - 0.15, e2[1] + 0.45, r"$\beta_0$", color=FG, fontsize=14,
             ha="center")
-    ax.text(0.52, 0.05, r"$\Omega=\beta_0\Delta t=$ const.",
+    ax.text(0.52, 0.05, r"$\Omega_{\mathrm{cfg}}=\beta_0\Delta t=$ const.",
             transform=ax.transAxes, color=FG, fontsize=12, ha="center")
 
 
@@ -224,17 +238,18 @@ def panel_c(ax):
     diamond(ax, t_L, f_c, filled=False)
     diamond(ax, t_R, f_c, filled=True)
 
-    ax.text(e1[0] - 0.35, e1[1] + 0.45, r"$\beta_0+\Delta\beta$", color=FG,
-            fontsize=13, ha="center")
-    ax.text(e2[0] + 0.05, e2[1] + 0.45, r"$\beta_0$", color=FG, fontsize=14,
+    ax.text(e1[0] - 0.35, e1[1] + 0.4, r"$\beta_0+\Delta\beta$", color=FG,
+            fontsize=14, ha="center")
+    ax.text(e2[0] + 0.05, e2[1] + 0.4, r"$\beta_0$", color=FG, fontsize=14,
             ha="center")
-    ax.text(0.52, 0.05, r"$\Omega(t)=\Delta\beta\,t$",
+    ax.text(0.52, 0.05, r"$\Omega_{\mathrm{cfg}}(t)=\Delta\beta\,t$",
             transform=ax.transAxes, color=FG, fontsize=12, ha="center")
+
 
 
 # ----------------------------------------------------------------------
 def main():
-    fig, axes = plt.subplots(1, 3, figsize=(12.6, 4.6))
+    fig, axes = plt.subplots(1, 3, figsize=FIGSIZE)
     fig.patch.set_facecolor(BG)
 
     for ax, lab, fn in zip(axes, ["(a)", "(b)", "(c)"],
@@ -242,7 +257,7 @@ def main():
         style_axes(ax, lab)
         fn(ax)
 
-    axes[0].set_ylabel(LANG_Y, color=ACCENT, fontsize=13, labelpad=8)
+    axes[0].set_ylabel(LANG_Y, color=ACCENT, labelpad=8)
 
     fig.tight_layout()
     for ext in ("png", "pdf"):

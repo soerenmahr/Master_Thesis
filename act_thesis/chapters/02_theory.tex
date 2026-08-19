@@ -77,7 +77,7 @@ which for macroscopic objects ($M \rightarrow \infty$ ) gives this gives an ener
     V_c = \min_{p} \frac{\varepsilon(p)}{p}.
     \label{eq:landau_velocity}
 \end{equation}
-He formulated that there is no viscosity for objects moving slower than $V_c$ because for an object moving at velocity $V < V_c$ supplying some momentum $p$ there will never be enough energy $\varepsilon (p)$ to create an elementary excitation. Formula \eqref{eq:landau_velocity} can be displayed as the linear function with the smallest slope touching the dispersion curve (displayed orange in \figref{fig:dispersion_relation}).
+He formulated that there is no viscosity for objects moving slower than $V_c$ because for an object moving at velocity $V < V_c$ supplying some momentum $p$ there will never be enough energy $\varepsilon (p)$ to create an elementary excitation. Formula \eqnref{eq:landau_velocity} can be displayed as the linear function with the smallest slope touching the dispersion curve (displayed orange in \figref{fig:dispersion_relation}).
 
 \begin{figure}
     \centering
@@ -317,7 +317,7 @@ Whether the evolution follows a single branch is decided by comparing the rate o
 so the adiabaticity scales with the polarizability anisotropy, the intensity slope and the moment of inertia which enters through the energy difference.
 
 Ortigoso et al. quantified this by solving the pendular problem numerically for a Gaussian envelope, identifying two limiting regimes. In the short-pulse limit, $\sigma\lesssim\hbar/B$, the interaction is non-adiabatic and the pulse leaves behind a rotational wave packet that shows field-free revivals. In the long-pulse limit, $\sigma\gtrsim10\,\hbar/B$, the evolution is truly adiabatic, the alignment follows the pulse envelope, and the initial state is recovered after the pulse.
-With the effective in-droplet rotational constants for \OCS and \CSS, one finds $\hbar/B=73\ \mathrm{ps}$ and $218\ \mathrm{ps}$. Adiabatic behavior would thus require $\sigma\gtrsim0.7\ \mathrm{ns}$ for \OCS and $\sigma\gtrsim2.2\ \mathrm{ns}$ for \CSS. Our pulse, $\tau_{\mathrm{FWHM}}=320\ \mathrm{ps}$ ($\sigma\approx192\ \mathrm{ps}$), falls well short of both. In addition, their calculations only demonstrated adiabatic following up to $\Delta\omega=\Delta\alpha\,\varepsilon_{0}^{2}/2B=900$, whereas at a peak intensity of $1\times10^{12}\ \mathrm{W/cm^{2}}$ we reach $\Delta\omega\approx1.1\times10^{3}$ for \OCS and $\approx7.9\times10^{3}$ for \CSS.
+With the effective in-droplet rotational constants for \OCS and \CSS, one finds $\hbar/B=73\ \mathrm{ps}$ and $218\ \mathrm{ps}$. Adiabatic behavior would thus require $\sigma\gtrsim0.7\ \mathrm{ns}$ for \OCS and $\sigma\gtrsim2.2\ \mathrm{ns}$ for \CSS. Our pulse with \gls{fwhm} duration, $\tau_{\mathrm{FWHM}}=320\ \mathrm{ps}$ ($\sigma\approx192\ \mathrm{ps}$), falls well short of both. In addition, their calculations only demonstrated adiabatic following up to $\Delta\omega=\Delta\alpha\,\varepsilon_{0}^{2}/2B=900$, whereas at a peak intensity of $1\times10^{12}\ \mathrm{W/cm^{2}}$ we reach $\Delta\omega\approx1.1\times10^{3}$ for \OCS and $\approx7.9\times10^{3}$ for \CSS.
 
 We should therefore not expect our system to behave perfectly adiabatically.
 
@@ -379,12 +379,12 @@ The optical centrifuge was proposed theoretically in 1999 by Karczmarek, Wright,
 \begin{aside}{Chirped pulses}
 An ultrashort laser pulse has a finite spectral bandwidth $\Delta\omega$. For a given spectral amplitude, the pulse is called transform limited when its spectral phase contains no nonlinear frequency dependence. In the time domain, this means that all frequency components have the same group delay and therefore overlap optimally in time. The spectral phase can be expanded in a Taylor series around the central frequency $\omega_0$:
 \begin{equation}
-    \phi(\omega) = \phi_0 + \phi_1(\omega-\omega_0) + \frac{\phi_2}{2}(\omega-\omega_0)^2 + \frac{\phi_3}{6}(\omega-\omega_0)^3 +\cdots .
+    \phi(\omega) = \phi_0 + \phi'(\omega-\omega_0) + \frac{\phi''}{2}(\omega-\omega_0)^2 + \frac{\phi'''}{6}(\omega-\omega_0)^3 +\cdots .
     \label{eq:spectral_phase_taylor}
 \end{equation}
-Here, $\phi_0$ is the constant phase, $\phi_1$ is the group delay at the central frequency, and $\phi_2$ is the group-delay dispersion, or GDD. The linear phase term $\phi_1$ shifts the entire pulse in time without changing its temporal shape. The quadratic phase term $\phi_2$, however, makes the group delay frequency dependent:
+Here, $\phi_0$ is the constant phase, $\phi_1$ is the group delay at the central frequency, and $\phi_2$ is the \gls{gdd}. The linear phase term $\phi_1$ shifts the entire pulse in time without changing its temporal shape. The quadratic phase term $\phi_2$, however, makes the group delay frequency dependent:
 \begin{equation}
-    \tau_g(\omega) = \frac{d\phi}{d\omega} \approx \phi_1+\phi_2(\omega-\omega_0).
+    \tau_g(\omega) = \frac{d\phi}{d\omega} \approx \phi'+\phi''(\omega-\omega_0).
     \label{eq:group_delay}
 \end{equation}
 Consequently, different frequency components are localized at different times. This produces a linear chirp and broadens the pulse relative to its transform-limited duration.
@@ -395,7 +395,7 @@ We can label the two pulses by $j\in\{R,L\}$, with propagation distances $z_R$ a
     u_j(t,z_j)=t-\frac{z_j}{c}.
     \label{eq:retarded_time}
 \end{equation}
-At the detection plane, the temporal phase of each chirped pulse can be written as
+The temporal phase of each propagating chirped pulse can be written as
 \begin{equation}
     \Phi_j(t,z_j) = \omega_{j0}u_j(t,z_j) + \frac{1}{2}\beta_j u_j^2(t,z_j) + \varphi_{j0}.
     \label{eq:time_phase}
@@ -413,7 +413,7 @@ the two circular pulses can be written as
 \end{equation}
 giving $\vec E(t, z_R, z_L) = \vec E_R + \vec E_L$, the linear polarized field vector. This vector is rotating with frequency of
 \begin{equation}
-    2\pi f_{\mathrm{cfg}} = \frac{1}{2}[\omega_{R}(t) - \omega_{L}(t)].
+    \Omega_{\mathrm{cfg}}=2\pi f_{\mathrm{cfg}} = \frac{1}{2}[\omega_{R}(t) - \omega_{L}(t)].
     \label{eq:fcfg}
 \end{equation}
 
@@ -421,24 +421,25 @@ giving $\vec E(t, z_R, z_L) = \vec E_R + \vec E_L$, the linear polarized field v
 \label{sec:different_centrifuge_types}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260731172118.png}
-    \caption{}
+    \includegraphics[width=\textwidth]{02_theory/centrifuge_spectrograms.pdf}
+    \caption[Different variations of the centrifuge principle using two circular polarized, chirped laser pulses. \textbf{(a)} displays the original \acrshort{cfg} design, achieved by taking a chirped pulse and forming it with a 4f-pulse shaper \cite{macphail-bartleyLaserControlMolecular2020}. A \acrshort{cf} with no angular acceleration, generated by splitting a pulse into a Michelson interferometer and delaying one arm, is seen in \textbf{(b)} \cite{wangOpticalCentrifugeZero2025a}. The \acrshort{us} used in this work is shown in \textbf{(c)}. Additionally to the delay, in this case the other interferometer arm adds chirp to the pulse, yielding slow acceleration \cite{wangUltraslowOpticalCentrifuge2026}.]{Different variations of the centrifuge principle using two circular polarized, chirped laser pulses. \textbf{(a)} displays the original \gls{cfg} design, achieved by taking a chirped pulse and forming it with a 4f-pulse shaper \cite{macphail-bartleyLaserControlMolecular2020}. A \gls{cf} with no angular acceleration, generated by splitting a pulse into a Michelson interferometer and delaying one arm, is seen in \textbf{(b)} \cite{wangOpticalCentrifugeZero2025a}. The \gls{us} used in this work is shown in \textbf{(c)}. Additionally to the delay, in this case the other interferometer arm adds chirp to the pulse, yielding slow acceleration \cite{wangUltraslowOpticalCentrifuge2026}.}
     \label{fig:centrifuge_types}
 \end{figure}
 
-With the prerequisite of using oppositely circular polarized, chirped pulses one now can think of various designs. The three most most useful variations are shown in figure \ldots, where a) resembles the initial design of the optical centrifuge \cite{karczmarekOpticalCentrifugeMolecules1999} with $\beta_R = -\beta_L$. For our research, the interesting regime is around $0-180\, \mathrm{GHz}$. A centrifuge of type a), depending on the laser used, commonly has a frequency range up to terahertz \cite{korobenkoThesis}, therefore our region of interest occupies only a small portion of the pulse. Decreasing the acceleration in the original centrifuge design is solely possible by decreasing the chirp. This entails, that because of the longer pulse duration, the peak intensity also drops, giving a shallower potential and less alignment to the field, causing the signal to noise ratio to drop. Additionally, the physical implementation is restricted by optical components like gratings \cite{macphail-bartleyLaserControlMolecular2020}. Therefore, the Milner research group came up with a new centrifuge design. Take a streched pulse and use a $50/50$ polarizing beam splitter to send the vertical and horizantal polarized parts into two michelson interferometer arms. Delay one of them and you will get the constant frequency centrifuge with zero rotational acceleration (described in detail in \cite{wangOpticalCentrifugeZero2025a}). If you now add a mechanism to slightly change the chirp of one arm, you can tweak the starting and end frequency almost completely independent of the intensity profile. The rotation dynamics of this ultraslow centrifuge (describe in the paper \cite{wangUltraslowOpticalCentrifuge2026} and later in section \ldots), with the initial chirp $\beta_0$, the additional chirp $\Delta \beta$ and the delay between the two arms $\Delta t$, is described by 
+With the prerequisite of using oppositely circular polarized, chirped pulses one now can think of various designs. The three most useful variations are shown in \figref{fig:centrifuge_types}, where \textbf{(a)} resembles the initial design of the optical centrifuge \cite{karczmarekOpticalCentrifugeMolecules1999} with $\beta_R = -\beta_L$. For our research, the interesting regime is around $0-180\, \mathrm{GHz}$. A centrifuge of type \textbf{(a)}, depending on the laser used, commonly has a frequency range up to terahertz \cite{korobenkoThesis}, therefore our region of interest occupies only a small portion of the pulse. Decreasing the acceleration in the original centrifuge design is solely possible by decreasing the chirp. This entails, that because of the longer pulse duration, the peak intensity also drops, giving a shallower potential and less alignment to the field, causing the signal-to-noise ratio of the data to drop. Additionally, the physical implementation is restricted by optical components like gratings \cite{macphail-bartleyLaserControlMolecular2020}. Therefore, the Milner research group came up with a new centrifuge design. Take a stretched pulse and use a polarizing beam splitter to send the vertical and horizontal polarized parts into two Michelson interferometer arms. Delay one of them, and you will get the constant frequency centrifuge with zero rotational acceleration (described in detail in \cite{wangOpticalCentrifugeZero2025a}). If you now add a mechanism to slightly change the chirp of one arm, you can tweak the starting and end frequency almost completely independent of the intensity profile. The rotation dynamics of this ultraslow centrifuge (describe in the paper \cite{wangUltraslowOpticalCentrifuge2026} and later in section \ref{sec:usCFG_design}), with the initial chirp $\beta_0$, the additional chirp $\Delta \beta$ and the delay between the two arms $\Delta t$, is described by 
 
 \begin{equation}f_{\mathrm{cfg}}(t) = f_0 + \Delta \beta t / 4 \pi
-    \label{eq:f_cfg}
+    \label{eq:f_uscfg}
 \end{equation}
-with the central frequency $f_0= \beta_0 \Delta t / 4 \pi$. To fully describe the centrifuge pulse, the addition "bandwidth" property $\Delta f_{\mathrm{FWHM}}$ (later defined in section ...) is used.
+with the central frequency $f_0= \beta_0 \Delta t / 4 \pi$. To fully describe the centrifuge pulse, the additional "bandwidth" property $\Delta f_{\mathrm{FWHM}}$ (defined later in section \ref{sec:centrifuge_characterization}) is used.
 
 \subsection{Characterizing the centrifuge}
+\label{sec:centrifuge_characterization}
 
-There are multiple ways to characterize the field alignment behavoir of sid optical tool. The most common way, is cross-correlation. For cross- or x-correlation one first has to project the field, that is rotation in the x-y-plane, onto a fixed axis, take the x-axis for example. Using a linear and also x-polarized reference pulse, with a way shorter puls duration and focussing both on a type-I nonlinear crystal (in our case barium borat, BBO), gives sum-frequency generation (SFG) (setup explained in \cite{wangUltraslowOpticalCentrifuge2026}). The signal intensity scales with the square of the centrifuge field.
-Similar to our actual experimental pump-probe setup, which will be explaint later in sec. \ldots, we scan the delay of the short reference pulse to gain information about the field orientation in time. The measured signal oscillates with twice $f_{\mathrm{cfg}}$ due to the indistinguishable nature of the two x-aligned positions of the field vector per roation periode.
+There are multiple ways to characterize the field alignment behavior of this optical tool. The most common way is cross-correlation. For cross- or x-correlation one first has to project the field, that is rotation in the x-y-plane, onto a fixed axis, take the x-axis for example. Using a linear and also x-polarized reference pulse, with a way shorter pulse duration and focussing both on a type-I nonlinear crystal (in our case barium borat, BBO), gives \gls{sfg} (setup explained in \cite{wangUltraslowOpticalCentrifuge2026}). The signal intensity scales with the square of the centrifuge field.
+Similar to our actual experimental pump-probe setup, which will be explained later in section \ref{sec:detection}, we scan the delay of the short reference pulse to gain information about the field orientation in time. The measured signal oscillates with twice $f_{\mathrm{cfg}}$ due to the indistinguishable nature of the two x-aligned positions of the field vector per rotation period.
 
-A second, new way to characterize the pulse was developed within the scope of this work. Later we use this method to phase-stabilize the centrifuge (explained in sec. \ldots). Here, the math is presented to underline what can be done using a spectrometer signal of an also x-projected centrifuge. For each arm, the projected field is
+A second, new way to characterize the pulse was developed within the scope of this work. Later we use this method to phase-stabilize the centrifuge (explained in section \ref{sec:detection}). Here, the math is presented to underline what can be done using a spectrometer signal of a likewise x-projected centrifuge. For each arm, the projected field is
 \begin{equation}
     E_j(t,z_j) = \frac{A_0}{\sqrt{2}} \exp\left[ -\frac{u_j^2(t,z_j)}{2T_j^2} \right] e^{i\Phi_j(t,z_j)}.
     \label{eq:projected_field}
@@ -489,7 +490,7 @@ Defining $D_j=\frac{1}{T_j^4}+\beta_j^2$ lets us write the constant, linear, and
 
 \subsubsection{Common transform-limited pulse}
 
-In our case both arms originate from the same transform-limited Gaussian pulse with carrier frequency $\omega_{R0}=\omega_{L0}=\omega_0$ and bandwidth $\Delta\lambda_\mathrm{FWHM}$. Group delay dispersion (GDD) only alters the spectral phase and not the amplitude, so both arms share the same Gaussian envelope $|\tilde E(\Omega)|$ and differ at most by an overall scale set by the beam-splitter ratio. Writing $|\tilde E_R|^2=R\,|\tilde E|^2$ and $|\tilde E_L|^2=L\,|\tilde E|^2$, the spectral intensity becomes
+In our case both arms originate from the same transform-limited Gaussian pulse with carrier frequency $\omega_{R0}=\omega_{L0}=\omega_0$ and bandwidth $\Delta\lambda_\mathrm{FWHM}$. \gls{gdd} only alters the spectral phase and not the amplitude, so both arms share the same Gaussian envelope $|\tilde E(\Omega)|$ and differ at most by an overall scale set by the beam-splitter ratio. Writing $|\tilde E_R|^2=R\,|\tilde E|^2$ and $|\tilde E_L|^2=L\,|\tilde E|^2$, the spectral intensity becomes
 \begin{equation}
     I_x(\Omega)=(R+L)\,|\tilde E(\Omega)|^2\big[\,1+V\cos\Theta(\Omega)\,\big],
     \label{eq:spectral_intensity_common}
@@ -500,7 +501,7 @@ with the fringe visibility $V$
     \label{eq:visibility}
 \end{equation}
 For balanced arms ($R=L$, i.e. $V=1$) this reduces to $4|\tilde E|^2\cos^2(\Theta/2)$; an imbalance lowers $V$, so the fringe minima no longer reach the background but instead follow a second, lower Gaussian envelope $(R+L)(1-V)|\tilde E|^2$.
-With a common carrier frequency, the three coefficients of Eq.~\eqref{eq:spectrum_phase} combine, so that with the detuning $\Omega\equiv\omega-\omega_0$, the spectral phase reduces to
+With a common carrier frequency, the three coefficients of Eq.~\eqnref{eq:spectrum_phase} combine, so that with the detuning $\Omega\equiv\omega-\omega_0$, the spectral phase reduces to
 \begin{equation}
     \Theta(\Omega) = \Theta_0' - \tau\,\Omega + \frac{1}{2}(\phi''_R - \phi''_L)\,\Omega^2 ,
     \label{eq:spectrum_phase_common}
@@ -528,55 +529,82 @@ gives the stretched duration and the temporal chirp rate,
     \beta_j = -\,\mathrm{Im}(q_j) = -\frac{\phi''_j}{a^2+\phi''^2_j}.
     \label{eq:beta_gdd}
 \end{equation}
-Converting Eq.~\eqref{eq:duration} to an intensity FWHM via $T_{j,\mathrm{FWHM}}^2 = 4\ln 2\,T_j^2 = 4\ln 2\,(a^2+\phi''^2_j)/a$ and using $4\ln 2/a = \Delta\omega_\mathrm{FWHM}^2$,
+Converting Eq.~\eqnref{eq:duration} to an intensity FWHM via $T_{j,\mathrm{FWHM}}^2 = 4\ln 2\,T_j^2 = 4\ln 2\,(a^2+\phi''^2_j)/a$ and using $4\ln 2/a = \Delta\omega_\mathrm{FWHM}^2$,
 \begin{equation}
-    T_{j,\mathrm{FWHM}}^2 = \Delta\omega_\mathrm{FWHM}^2\,(a^2 + \phi''^2_j) = T_{0,\mathrm{FWHM}}^2 + \big(\phi''_j\,\Delta\omega_\mathrm{FWHM}\big)^2,
+    T_{j,\mathrm{FWHM}}^2 = \Delta\omega_\mathrm{FWHM}^2\,(a^2 + \phi''^2_j) = T_{\mathrm{TL},\mathrm{FWHM}}^2 + \big(\phi''_j\,\Delta\omega_\mathrm{FWHM}\big)^2,
     \label{eq:B}
 \end{equation}
-with the transform-limited duration $T_{\mathrm{TL},\mathrm{FWHM}} = 4\ln 2/\Delta\omega_\mathrm{FWHM}$. Equation~\eqref{eq:B} solved for the dispersion reads
+with the transform-limited duration $T_{\mathrm{TL},\mathrm{FWHM}} = 4\ln 2/\Delta\omega_\mathrm{FWHM}$. Equation~\eqnref{eq:B} solved for the dispersion reads
 \begin{equation}
     |\phi''_j| = \frac{\sqrt{T_{j,\mathrm{FWHM}}^2 - T_{\mathrm{TL},\mathrm{FWHM}}^2}}{\Delta\omega_\mathrm{FWHM}}.
     \label{eq:phi}
 \end{equation}
-Equation~\eqref{eq:B} also yields the denominator of Eq.~\eqref{eq:beta_gdd} directly, $a^2 + \phi''^2_j = T_{j,\mathrm{FWHM}}^2/\Delta\omega_\mathrm{FWHM}^2$, so that inserting Eq.~\eqref{eq:phi} into Eq.~\eqref{eq:beta_gdd} gives the chirp rate purely in terms of the two measured widths,
+Equation~\eqnref{eq:B} also yields the denominator of Eq.~\eqnref{eq:beta_gdd} directly, $a^2 + \phi''^2_j = T_{j,\mathrm{FWHM}}^2/\Delta\omega_\mathrm{FWHM}^2$, so that inserting Eq.~\eqnref{eq:phi} into Eq.~\eqnref{eq:beta_gdd} gives the chirp rate purely in terms of the two measured widths,
 \begin{equation}
     |\beta_j| = \Delta\omega_\mathrm{FWHM}\, \frac{\sqrt{T_{j,\mathrm{FWHM}}^2 - T_{\mathrm{TL},\mathrm{FWHM}}^2}}{T_{j,\mathrm{FWHM}}^2}
     \label{eq:chirp_from_widths}
 \end{equation}
 where $\Delta\omega_\mathrm{FWHM}$ follows from the spectrum and $T_{j,\mathrm{FWHM}}$ from the cross-correlation of arm $j$.
-As already seen the chirp rates and arm delay fixes the rotation frequency $f_{\mathrm{cfg}}(t)$. Furthermore, reconstructing this depends on the centrifuge type (see Table. \ldots)
+As already seen the chirp rates and arm delay fixes the rotation frequency $f_{\mathrm{cfg}}(t)$ (Eq. \eqnref{eq:fcfg}). Furthermore, reconstructing depends on the centrifuge type (see \tabref{tab:cfg_reconstruction}).
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{02_theory/Pasted image 20260806115957.png}
-    \caption{}
-    \label{fig:centrifuge_reconstruction_table}
-\end{figure}
+
+\begin{table*}[t]
+\centering
+\renewcommand{\arraystretch}{1.6}
+
+\begin{tabular}{|p{0.12\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|p{0.25\textwidth}|}
+\hline
+& \textbf{CFG} & \textbf{cfCFG} & \textbf{usCFG} \\
+\hline
+
+\textbf{Chirp}
+& $\beta_R=-\beta_L$
+& $\beta_R=\beta_L=\beta_0$
+& \makecell[l]{$\beta_R=\beta_0,$\\$\beta_L=\beta_0+\Delta\beta$} \\
+\hline
+
+\textbf{GDD}
+& $\phi''_{R,L}=\pm\tfrac12\Delta\phi''$
+& \makecell[l]{$\phi''_R=\phi''_L=\phi''_0,$\\$\Delta\phi''=0$}
+& \makecell[l]{$\phi''_R=\phi''_0,$\\$\phi''_L=\phi''_0-\Delta\phi''$}\\
+\hline
+
+\makecell[l]{\textbf{Recon-}\\\textbf{struction}}
+& $\Delta\phi''$ from fit gives $\phi''_{R,L}$; both $\beta_j$ via Eq.~\eqnref{eq:beta_gdd}. No xcorr needed.
+& $\beta_0$ from xcorr of one arm via Eq.~\eqnref{eq:chirp_from_widths}.
+& $\phi''_0$ from xcorr of one arm via Eq.~\eqnref{eq:phi}, then $\phi''_L=\phi''_0-\Delta\phi''$; consequently $\beta_j$ via Eq.~\eqnref{eq:beta_gdd}. \\
+\hline
+
+\end{tabular}
+
+\caption{Chirp configuration and reconstruction route for the three centrifuge types. $\Delta\phi''=\phi''_R-\phi''_L$ is the differential GDD from the spectral fit.} 
+\label{tab:cfg_reconstruction}
+\end{table*}
 
 \subsubsection{FWHM frequency range of the centrifuge}
 
-The chirp rates and Eq.~\eqref{eq:fcfg} fix the instantaneous rotation frequency for all times, but the centrifuge only acts on the molecules while its field is present. The relevant temporal window is not that of the full projected intensity: only the rotating, aligning part contributes. Writing the time-domain projected intensity from the two arm fields $E_j$,
+The chirp rates and Eq.~\eqnref{eq:fcfg} fix the instantaneous rotation frequency for all times, but the centrifuge only acts on the molecules while its field is present. The relevant temporal window is not that of the full projected intensity: only the rotating, aligning part contributes. Writing the time-domain projected intensity from the two arm fields $E_j$,
 \begin{equation}
     |E_x(t)|^2 = |E_R|^2+|E_L|^2 +2\,\mathrm{Re}\!\left[E_R E_L^*\right],
     \label{eq:projected_intensity_time}
 \end{equation}
-the first two terms form a non-rotating background, and only the cross term carries the rotating linear polarization. With the real Gaussian amplitudes $A_j(t,z_j)$ it reads
+the first two terms form a non-rotating background, and only the cross term carries the rotating linear polarization. With the real Gaussian amplitudes $A_j(t,z_j)$ \eqnref{eq:gaussian_envelope} and temporal phase $\Phi_j(t,z_j)$ \ref{eq:time_phase} it reads
 \begin{equation}
-    2\,\mathrm{Re}\!\left[E_R E_L^*\right] = 2A_R A_L\,\cos\!\big(\Phi_R-\Phi_L\big),
+    2\,\mathrm{Re}\!\left[E_R E_L^*\right] = 2A_R A_L\,\cos\!\big(\Phi_R-\Phi_L\big).
     \label{eq:cross_term_time}
 \end{equation}
-with the phase difference taken from Eq.~\eqref{eq:time_phase}. The centrifuge is thus active only where both arms overlap, i.e.\ where the envelope $A_R A_L$ is appreciable.
-The product of two Gaussians is again a Gaussian. With $t_j=z_j/c$ and the arm delay $\tau=t_R-t_L$, completing the square gives
+The centrifuge is thus active only where both arms overlap, i.e.\ where the envelope $A_R A_L$ is appreciable.
+The product of two Gaussians is again a Gaussian. With the relative arm delay $\tau=(z_R-z_L)/c$ completing the square gives
 \begin{equation}
     A_R A_L = \frac{A_0^2}{2} \underbrace{\exp\!\left[-\frac{\tau^2}{2\left(T_R^2+T_L^2\right)}\right]}_{\text{overlap factor}} \exp\!\left[-\frac{(t-t_c)^2}{2T_\mathrm{eff}^2}\right],
     \label{eq:gaussian_product}
 \end{equation}
 with the effective width and the envelope center
 \begin{equation}
-    T_\mathrm{eff}=\frac{T_R T_L}{\sqrt{T_R^2+T_L^2}}, \qquad t_c=\frac{T_L^2\,t_R+T_R^2\,t_L}{T_R^2+T_L^2}.
+    T_\mathrm{eff}=\frac{T_R T_L}{\sqrt{T_R^2+T_L^2}}, \qquad t_c=\frac{T_L^2\,z_R/c+T_R^2\,z_L/c}{T_R^2+T_L^2}.
     \label{eq:teff_tc}
 \end{equation}
-The delay enters only through the center $t_c$ and the overlap factor, which lowers the amplitude and hence the fringe visibility; it does not affect the width. The centrifuge width is therefore set by $T_\mathrm{eff}$ alone. This envelope is a meaningful centrifuge duration only as long as $|\tau|\lesssim\sqrt{T_R^2+T_L^2}$; beyond that the overlap factor suppresses the amplitude and no centrifuge is present.
+The delay enters only through the center $t_c$ and the overlap factor, which lowers the amplitude and hence the fringe visibility, it does not affect the width. The centrifuge width is therefore set by $T_\mathrm{eff}$ alone. This envelope is a meaningful centrifuge duration only as long as $|\tau|\lesssim\sqrt{T_R^2+T_L^2}$; beyond that the overlap factor suppresses the amplitude and no centrifuge is present.
 Since $A_R A_L$ is an intensity-like quantity, its FWHM is the temporal centrifuge duration
 \begin{equation}
     T_\mathrm{FWHM}^\mathrm{cfg} = 2\sqrt{2\ln 2}\;T_\mathrm{eff},
@@ -587,7 +615,7 @@ reached at the half-maximum times $t_\pm=t_c\pm\sqrt{2\ln 2}\,T_\mathrm{eff}$. T
     f_\pm = f_\mathrm{cfg}(t_c) \pm \frac{\beta_R-\beta_L}{4\pi}\,\sqrt{2\ln 2}\;T_\mathrm{eff},
     \label{eq:frequency_bounds}
 \end{equation}
-where the center frequency is obtained by inserting $t_c$ into Eq.~\eqref{eq:fcfg},
+where the center frequency is obtained by inserting $t_c$ into Eq.~\eqnref{eq:fcfg},
 \begin{equation}
     f_\mathrm{cfg}(t_c) = -\frac{\tau\left(\beta_R T_R^2+\beta_L T_L^2\right)}{4\pi\left(T_R^2+T_L^2\right)}.
     \label{eq:center_frequency}
