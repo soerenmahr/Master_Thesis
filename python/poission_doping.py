@@ -65,11 +65,11 @@ scale = 10.0 ** exponent
 # ----------------------------------------------------------------------
 plt.rcParams.update({
     "font.family": "serif",
-    "font.size": 9,
-    "axes.labelsize": 9,
-    "legend.fontsize": 8,
-    "xtick.labelsize": 8,
-    "ytick.labelsize": 8,
+    "font.size": 11,
+    "axes.labelsize": 11,
+    "xtick.labelsize": 10,
+    "ytick.labelsize": 10,
+    "legend.fontsize": 9,
     "axes.linewidth": 0.7,
     "lines.linewidth": 1.4,
 })
@@ -80,12 +80,9 @@ colors = plt.cm.viridis(np.linspace(0.05, 0.8, len(K_VALUES)))
 for color, k in zip(colors, K_VALUES):
     ax.plot(p / scale, poisson(k, lam), color=color, label=f"$k = {k}$")
 
-# working point for single-dopant measurements
+# working point for single-dopant measurements (used in the console summary below)
 lam_work = 0.3
 p_work = lam_work / slope
-ax.axvline(p_work / scale, color="0.4", lw=0.7, ls="--")
-ax.text(p_work / scale * 1.06, 0.39, rf"$\lambda = {lam_work}$",
-        fontsize=8, color="0.3", va="top")
 
 ax.set_xlabel(rf"doping cell pressure $p_\mathrm{{d}}$  "
               rf"($10^{{{exponent}}}\,\mathrm{{{UNIT}}}$)")
@@ -95,15 +92,7 @@ ax.set_ylim(0, 0.4)
 ax.legend(ncol=len(K_VALUES), frameon=False, loc="upper right",
           columnspacing=1.2, handlelength=1.4)
 
-# secondary axis showing lambda directly
-sec = ax.secondary_xaxis(
-    "top",
-    functions=(lambda x: lambda_of_pressure(x * scale),
-               lambda l: l / slope / scale),
-)
-sec.set_xlabel(r"$\lambda$")
-
-ax.tick_params(direction="in", top=False, right=True)
+ax.tick_params(direction="in", top=True, right=True)
 fig.tight_layout(pad=0.3)
 
 fig.savefig(f"{OUTFILE}.pdf")

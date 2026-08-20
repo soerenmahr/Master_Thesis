@@ -6,33 +6,33 @@
   lbl/.style={font=\scriptsize, inner sep=1.5pt},
   lead/.style={draw=black!60, line width=0.3pt},
 ]
- 
+
 %%% chambers %%%
-\draw[chamber] (1.50,-1.30) rectangle (5.00,1.30);
-\draw[chamber] (5.60,-1.30) rectangle (8.70,1.30);
-\draw[chamber] (9.30,-1.30) rectangle (11.60,1.30);
-\draw[chamber] (12.20,-1.30) rectangle (15.10,2.50);
-\foreach \a/\b in {5.00/5.60, 8.70/9.30, 11.60/12.20}{
+\draw[chamber] (2.20,-1.30) rectangle (5.00,1.30);
+\draw[chamber] (5.60,-1.30) rectangle (8.30,1.30);
+\draw[chamber] (8.90,-1.30) rectangle (11.20,1.30);
+\draw[chamber] (11.80,-1.30) rectangle (14.70,2.50);
+\foreach \a/\b in {5.00/5.60, 8.30/8.90, 11.20/11.80}{
   \draw[metal] (\a,-0.38) rectangle (\b,0.38);}
- 
+
 %%% beam envelope %%%
-\fill[cyan!20] (2.82,0) -- (4.50,0.62) -- (4.50,-0.62) -- cycle;
-\fill[cyan!35] (4.50,-0.09) rectangle (13.55,0.09);
- 
+\fill[cyan!20] (2.72,0) -- (4.50,0.62) -- (4.50,-0.62) -- cycle;
+\fill[cyan!35] (4.50,-0.09) rectangle (13.15,0.09);
+
 %%% cryocooler, cold finger, nozzle %%%
-\draw[metal] (0.10,-0.62) rectangle (1.05,0.62);
-\draw[metal] (1.05,-0.22) rectangle (2.60,0.22);
-\fill[black!45] (2.60,-0.20) -- (2.82,-0.09) -- (2.82,0.09) -- (2.60,0.20) -- cycle;
- 
+\draw[metal] (1.70,-0.62) rectangle (2.20,0.62);
+\draw[metal] (2.20,-0.22) rectangle (2.50,0.22);
+\fill[black!45] (2.50,-0.20) -- (2.72,-0.09) -- (2.72,0.09) -- (2.50,0.20) -- cycle;
+
 %%% skimmers %%%
 \newcommand{\skimmer}[1]{%
   \fill[black!45] (#1,0.10) -- (#1+0.46,0.66) -- (#1+0.46,0.82) -- (#1,0.22) -- cycle;
   \fill[black!45] (#1,-0.10) -- (#1+0.46,-0.66) -- (#1+0.46,-0.82) -- (#1,-0.22) -- cycle;}
 \skimmer{4.50}
-\skimmer{11.14}
-\draw[line width=1.2pt] (9.30,0.14) -- (9.30,0.62);
-\draw[line width=1.2pt] (9.30,-0.14) -- (9.30,-0.62);
- 
+\skimmer{10.74}
+\draw[line width=1.2pt] (8.90,0.14) -- (8.90,0.62);
+\draw[line width=1.2pt] (8.90,-0.14) -- (8.90,-0.62);
+
 %%% gate valves %%%
 \newcommand{\gatevalve}[1]{%
   \draw[metal] (#1-0.20,-0.72) rectangle (#1+0.20,0.72);
@@ -40,81 +40,81 @@
   \draw[metal] (#1-0.20,1.62) rectangle (#1+0.20,2.00);
   \draw[line width=0.9pt] (#1-0.13,0.10) -- (#1+0.13,0.62);}
 \gatevalve{5.30}
-\gatevalve{9.00}
- 
+\gatevalve{8.60}
+
 %%% doping cell %%%
 \draw[line width=0.8pt, fill=black!6]
-  (6.35,0.40) -- (7.95,0.40) -- (7.95,0.14) -- (7.85,0.14) -- (7.85,0.30)
-  -- (6.45,0.30) -- (6.45,0.14) -- (6.35,0.14) -- cycle;
+  (6.15,0.40) -- (7.75,0.40) -- (7.75,0.14) -- (7.65,0.14) -- (7.65,0.30)
+  -- (6.25,0.30) -- (6.25,0.14) -- (6.15,0.14) -- cycle;
 \draw[line width=0.8pt, fill=black!6]
-  (6.35,-0.40) -- (7.95,-0.40) -- (7.95,-0.14) -- (7.85,-0.14) -- (7.85,-0.30)
-  -- (6.45,-0.30) -- (6.45,-0.14) -- (6.35,-0.14) -- cycle;
-\draw[line width=0.7pt] (7.15,0.40) -- (7.15,0.95);
-\fill[black!45] (7.02,0.95) -- (7.28,0.95) -- (7.15,1.10) -- cycle;
-\fill[black!45] (7.02,1.25) -- (7.28,1.25) -- (7.15,1.10) -- cycle;
-\draw[line width=0.7pt] (7.15,1.25) -- (7.15,1.60);
- 
+  (6.15,-0.40) -- (7.75,-0.40) -- (7.75,-0.14) -- (7.65,-0.14) -- (7.65,-0.30)
+  -- (6.25,-0.30) -- (6.25,-0.14) -- (6.15,-0.14) -- cycle;
+\draw[line width=0.7pt] (6.95,0.40) -- (6.95,0.95);
+\fill[black!45] (6.82,0.95) -- (7.08,0.95) -- (6.95,1.10) -- cycle;
+\fill[black!45] (6.82,1.25) -- (7.08,1.25) -- (6.95,1.10) -- cycle;
+\draw[line width=0.7pt] (6.95,1.25) -- (6.95,1.60);
+
 %%% pulsed jet valve %%%
-\draw[metal] (9.80,1.30) rectangle (10.20,1.55);
-\draw[metal] (9.65,1.55) rectangle (10.35,2.30);
-\draw[metal] (9.93,0.57) rectangle (10.07,1.30);
-\draw[metal] (9.93,0.43) rectangle (10.55,0.57);
-\fill[black!45] (10.55,0.43) -- (10.55,0.57) -- (10.66,0.545) -- (10.66,0.455) -- cycle;
-\fill[orange!30] (10.66,0.50) -- (11.12,0.74) -- (11.12,0.26) -- cycle;
-\draw[{Latex[length=3pt]}-{Latex[length=3pt]}, black!65] (9.55,0.12) -- (9.55,1.05);
- 
+\draw[metal] (9.40,1.30) rectangle (9.80,1.55);
+\draw[metal] (9.25,1.55) rectangle (9.95,2.30);
+\draw[metal] (9.53,0.57) rectangle (9.67,1.30);
+\draw[metal] (9.53,0.43) rectangle (10.15,0.57);
+\fill[black!45] (10.15,0.43) -- (10.15,0.57) -- (10.26,0.545) -- (10.26,0.455) -- cycle;
+\fill[orange!30] (10.26,0.50) -- (10.72,0.74) -- (10.72,0.26) -- cycle;
+\draw[{Latex[length=3pt]}-{Latex[length=3pt]}, black!65] (9.15,0.12) -- (9.15,1.05);
+
 %%% VMI %%%
-\draw[elec] (12.80,-0.55) -- (14.30,-0.55);
-\draw[elec] (12.80,0.35) -- (13.40,0.35); \draw[elec] (13.70,0.35) -- (14.30,0.35);
-\draw[elec] (12.80,0.85) -- (13.40,0.85); \draw[elec] (13.70,0.85) -- (14.30,0.85);
-\draw[metal] (13.05,0.85) rectangle (13.17,1.95);
-\draw[metal] (13.93,0.85) rectangle (14.05,1.95);
-\draw[fill=black!35] (13.05,1.95) rectangle (14.05,2.10);
-\draw[fill=green!35] (13.05,2.13) rectangle (14.05,2.23);
-\draw[metal] (13.30,2.80) rectangle (13.80,3.20);
-\fill[black!45] (13.43,2.68) -- (13.67,2.68) -- (13.73,2.80) -- (13.37,2.80) -- cycle;
+\draw[elec] (12.40,-0.55) -- (13.90,-0.55);
+\draw[elec] (12.40,0.35) -- (13.00,0.35); \draw[elec] (13.30,0.35) -- (13.90,0.35);
+\draw[elec] (12.40,0.85) -- (13.00,0.85); \draw[elec] (13.30,0.85) -- (13.90,0.85);
+\draw[metal] (12.65,0.85) rectangle (12.77,1.95);
+\draw[metal] (13.53,0.85) rectangle (13.65,1.95);
+\draw[fill=black!35] (12.65,1.95) rectangle (13.65,2.10);
+\draw[fill=green!35] (12.65,2.13) rectangle (13.65,2.23);
+\draw[metal] (12.90,2.80) rectangle (13.40,3.20);
+\fill[black!45] (13.03,2.68) -- (13.27,2.68) -- (13.33,2.80) -- (12.97,2.80) -- cycle;
 \foreach \dx in {-0.20,0,0.20}{
   \draw[-{Latex[length=3pt]}, black!55, line width=0.35pt]
-    (13.55,0) .. controls (13.55+\dx,0.9) .. (13.55+\dx*1.6,1.90);}
-\draw[red, line width=0.6pt] (13.55,0) circle (0.11);
-\fill[red] (13.55,0) circle (0.035);
- 
+    (13.15,0) .. controls (13.15+\dx,0.9) .. (13.15+\dx*1.6,1.90);}
+\draw[red, line width=0.6pt] (13.15,0) circle (0.11);
+\fill[red] (13.15,0) circle (0.035);
+
 %%% pumps %%%
 \newcommand{\pump}[2]{%
   \draw[metal] (#1,-1.30) -- (#1+0.12,-2.00) -- (#2-0.12,-2.00) -- (#2,-1.30);
   \node[lbl] at ({(#1+#2)/2},-1.68) {TMP};}
 \pump{2.90}{4.10}
-\pump{6.65}{7.65}
-\pump{10.05}{10.85}
-\pump{13.05}{14.05}
- 
+\pump{6.45}{7.45}
+\pump{9.55}{10.55}
+\pump{12.65}{13.65}
+
 %%% labels %%%
-\node[lbl, align=center] at (0.58,-1.05) {Cryo-\\cooler};
-\node[lbl] (nzl) at (1.85,-2.40) {Cryogenic nozzle};
-\draw[lead] (nzl.north) -- (2.66,-0.28);
+\node[lbl, align=center] (cc) at (1.95,1.75) {Cryo-\\cooler};
+\draw[lead] (cc.south) -- (1.95,0.62);
+\node[lbl] (nzl) at (2.45,-2.40) {Cryogenic nozzle};
+\draw[lead] (nzl.north) -- (2.56,-0.24);
 \node[lbl] (sk1) at (4.15,1.75) {Skimmer};
 \draw[lead] (sk1.east) -- (4.72,0.74);
 \node[lbl] at (5.30,2.25) {Gate valve};
-\node[lbl] at (9.00,2.25) {Gate valve};
-\node[lbl] (dc) at (6.85,-2.40) {Doping cell};
-\draw[lead] (dc.north) -- (6.55,-0.42);
-\node[lbl, align=center] at (7.15,1.90) {Leak valve\\(dopant)};
-\node[lbl] (ap) at (8.45,-1.95) {Aperture};
-\draw[lead] (ap.east) -- (9.30,-0.64);
-\node[lbl, align=center] at (10.00,2.72) {Pulsed jet valve\\(movable)};
-\node[lbl] (sk2) at (11.30,1.75) {Skimmer};
-\draw[lead] (sk2.south) -- (11.36,0.74);
-\node[lbl, anchor=west, align=left] (ph) at (15.30,2.50) {Phosphor screen};
-\draw[lead] (ph.west) -- (14.10,2.20);
-\node[lbl, anchor=west] (mc) at (15.30,1.75) {MCP};
-\draw[lead] (mc.west) -- (14.10,2.03);
-\node[lbl, anchor=west, align=left] (el) at (15.30,0.35) {Electrostatic\\lens};
-\draw[lead] (el.west) -- (14.32,0.37);
-\node[lbl, anchor=west, red] (la) at (15.30,-0.70) {Laser};
-\draw[lead, red!70] (la.west) -- (13.68,-0.06);
-\node[lbl] at (13.55,3.45) {Camera};
-\node at (3.25,-2.80) {\textbf{Source}};
-\node at (7.15,-2.80) {\textbf{Doping}};
-\node at (10.45,-2.80) {\textbf{Differential}};
-\node at (13.65,-2.80) {\textbf{Detection}};
+\node[lbl] (dc) at (6.00,-2.40) {Doping cell};
+\draw[lead] (dc.north) -- (6.35,-0.42);
+\node[lbl, align=center] at (6.95,1.90) {Leak valve\\(dopant)};
+\node[lbl] (ap) at (8.05,-1.95) {Aperture};
+\draw[lead] (ap.east) -- (8.90,-0.64);
+\node[lbl, align=center] at (9.60,2.72) {Pulsed jet valve\\(movable)};
+\node[lbl] (sk2) at (10.90,1.75) {Skimmer};
+\draw[lead] (sk2.south) -- (10.96,0.74);
+\node[lbl, anchor=west, align=left] (ph) at (14.90,2.50) {Phosphor\\screen};
+\draw[lead] (ph.west) -- (13.70,2.20);
+\node[lbl, anchor=west] (mc) at (14.90,1.75) {MCP};
+\draw[lead] (mc.west) -- (13.70,2.03);
+\node[lbl, anchor=west, align=left] (el) at (14.90,0.35) {Electrostatic\\lens};
+\draw[lead] (el.west) -- (13.92,0.37);
+\node[lbl, anchor=west, red] (la) at (14.90,-0.70) {Laser};
+\draw[lead, red!70] (la.west) -- (13.28,-0.06);
+\node[lbl] at (13.15,3.45) {Camera};
+\node at (3.60,-2.80) {\textbf{Source}};
+\node at (6.95,-2.80) {\textbf{Doping}};
+\node at (10.05,-2.80) {\textbf{Differential}};
+\node at (13.25,-2.80) {\textbf{Detection}};
 \end{tikzpicture}%
