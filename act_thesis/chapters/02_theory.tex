@@ -581,14 +581,15 @@ As already seen the chirp rates and arm delay fixes the rotation frequency $f_{\
 \label{tab:cfg_reconstruction}
 \end{table*}
 
+\todo{This works in theory... for our current setup I believe the measurement uncertainties/ things that can happen to the pulse spectrum or xcorr are way too unpredictable. The reconstruction is based on pretty accurate FWHM measurements. Question now is, should I do any error contemplations here to give intuition when this could work?}
 \subsubsection{FWHM frequency range of the centrifuge}
 
-The chirp rates and Eq.~\eqnref{eq:fcfg} fix the instantaneous rotation frequency for all times, but the centrifuge only acts on the molecules while its field is present. The relevant temporal window is not that of the full projected intensity: only the rotating, aligning part contributes. Writing the time-domain projected intensity from the two arm fields $E_j$,
+The chirp rates and Eq.~\eqnref{eq:fcfg} fix the instantaneous rotation frequency for all times, but the centrifuge only acts on the molecules while its field is present. The relevant temporal window is not that of the full projected intensity: only the rotating, aligning part contributes. Writing the time-domain projected intensity from the two arm fields $E_j$ \eqnref{eq:projected_field},
 \begin{equation}
     |E_x(t)|^2 = |E_R|^2+|E_L|^2 +2\,\mathrm{Re}\!\left[E_R E_L^*\right],
     \label{eq:projected_intensity_time}
 \end{equation}
-the first two terms form a non-rotating background, and only the cross term carries the rotating linear polarization. With the real Gaussian amplitudes $A_j(t,z_j)$ \eqnref{eq:gaussian_envelope} and temporal phase $\Phi_j(t,z_j)$ \ref{eq:time_phase} it reads
+the first two terms form a non-rotating background, and only the cross term carries the rotating linear polarization. With the real Gaussian amplitudes $A_j(t,z_j)$ \eqnref{eq:gaussian_envelope} and temporal phase $\Phi_j(t,z_j)$ \eqnref{eq:time_phase} it reads
 \begin{equation}
     2\,\mathrm{Re}\!\left[E_R E_L^*\right] = 2A_R A_L\,\cos\!\big(\Phi_R-\Phi_L\big).
     \label{eq:cross_term_time}
