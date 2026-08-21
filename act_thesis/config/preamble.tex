@@ -101,15 +101,25 @@
 \usepackage{booktabs}
 \usepackage{xcolor}
 \usepackage{array}
+\usepackage{colortbl}
+\definecolor{repeatbg}{gray}{0.92}
 
 % fixed-width, left-aligned paragraph column
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 % small grey label (incl. citation) top-left, value centered below
 \newcommand{\lab}[1]{{\footnotesize\color{gray}#1}}
+\newsavebox{\pcellbox}
 \newcommand{\pcell}[2]{%
-  \lab{#1}\par\vspace{2pt}%
-  {\centering #2\par}\vspace{1pt}%
+  \sbox{\pcellbox}{%
+    \vbox{%
+      \hbox to \hsize{\lab{#1}\hfil}%
+      \vskip 2pt
+      \hbox to \hsize{\hfil #2\hfil}%
+    }%
+  }%
+  \dp\pcellbox=2pt
+  \usebox{\pcellbox}%
 }
 
 % base grid: 6 equal columns; spans absorb the intervening rules/padding
@@ -118,7 +128,15 @@
 \newlength{\spanIII} \setlength{\spanIII}{\dimexpr 3\basecol + 4\tabcolsep + 2\arrayrulewidth\relax}
 \newlength{\spanVI}  \setlength{\spanVI} {\dimexpr 6\basecol +10\tabcolsep + 5\arrayrulewidth\relax}
 
-\setlength{\extrarowheight}{2pt}
+% base grid: 12 equal columns (same total width as the 6-col grid above),
+% for tables that need quarter/third splits, e.g. the experimental-parameters table
+\newlength{\basecolE}\setlength{\basecolE}{\dimexpr 6\basecol/12\relax}
+\newlength{\espanIII} \setlength{\espanIII}{\dimexpr  3\basecolE +  4\tabcolsep +  2\arrayrulewidth\relax} % quarter
+\newlength{\espanIV}  \setlength{\espanIV} {\dimexpr  4\basecolE +  6\tabcolsep +  3\arrayrulewidth\relax} % third
+\newlength{\espanVI}  \setlength{\espanVI} {\dimexpr  6\basecolE + 10\tabcolsep +  5\arrayrulewidth\relax} % half
+\newlength{\espanXII} \setlength{\espanXII}{\dimexpr 12\basecolE + 22\tabcolsep + 11\arrayrulewidth\relax} % full
+
+\setlength{\extrarowheight}{1pt}
 %--- Layout ---------------------------------------------------
 \usepackage[
     a4paper,

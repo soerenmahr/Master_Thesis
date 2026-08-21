@@ -26,7 +26,8 @@
       "Bash(echo \"exit:$?\")",
       "Bash(rm -rf build)",
       "Bash(grep -n \"makeglossaries\\\\|makeindex\\\\|run_makeglossaries\\\\|cus_dep\\\\|Missing\\\\|glossaries\" /tmp/latexmk3.log | head -60)",
-      "Bash(grep -n \"acr\\\\|\\\\.acn\\\\|Rule\\\\|rerun\\\\|Latexmk:\" /tmp/latexmk3.log | grep -v \"^.*glossaries\" | head -100)"
+      "Bash(grep -n \"acr\\\\|\\\\.acn\\\\|Rule\\\\|rerun\\\\|Latexmk:\" /tmp/latexmk3.log | grep -v \"^.*glossaries\" | head -100)",
+      "Bash(timeout 100 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex)"
     ]
   }
 }
