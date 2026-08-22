@@ -124,104 +124,121 @@ $3.4\,\text{\AA}^3$}} \\
 
 \chapter{Experimental Details}
 
-\begin{table}[htbp]
-  \centering
+\begingroup
+\singlespacing
+\begin{longtable}{|*{12}{c|}}
   \caption{Experimental parameters.}
-  \label{tab:experimental-params}
-  \singlespacing
-  \begin{tabular}{|*{12}{c|}}
-    \hline\noalign{\vskip 2pt}
-    % --- Title (full width) ---
-    \multicolumn{12}{|P{\espanXII}|}{%
-      \pcell{Title}{\dots}} \\
-    \hline\noalign{\vskip 2pt}
-    % --- Molecule / Centrifuge / Environment (thirds) ---
-    \multicolumn{4}{|P{\espanIV}|}{%
-      \pcell{Molecule}{\dots}} &
-    \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Centrifuge $f_\mathrm{FWHM}$}{\dots}} &
-    \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Environment}{\dots}} \\
-    \hline\noalign{\vskip 2pt}
-    % --- VMI / MCP voltages (halves) ---
-    \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{$V_\mathrm{VMI}$}{\dots}} &
-    \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{$V_\mathrm{MCP}$}{\dots}} \\
-    \hline\noalign{\vskip 2pt}
-    % --- Trigger rescaling / MCP-Delay / Camera-Delay (thirds) ---
-    \multicolumn{4}{|P{\espanIV}|}{%
-      \pcell{Trigger rescaling}{\dots}} &
-    \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{MCP-Delay}{\dots}} &
-    \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Camera-Delay}{\dots}} \\
+  \label{tab:experimental-params}\\
+  \hline\noalign{\vskip 2pt}
+  % --- Title (full width) ---
+  \multicolumn{12}{|P{\espanXII}|}{%
+    \pcell{Title}{\dots}} \\*
+  \hline\noalign{\vskip 2pt}
+  % --- Molecule / Centrifuge / Environment (thirds) ---
+  \multicolumn{4}{|P{\espanIV}|}{%
+    \pcell{Molecule}{\CSS}} &
+  \multicolumn{4}{P{\espanIV}|}{%
+    \pcell{Centrifuge $f_\mathrm{FWHM}$}{\dots}} &
+  \multicolumn{4}{P{\espanIV}|}{%
+    \pcell{Environment}{Droplets - \SI{30}{\bar}/\SI{16}{\kelvin}}} \\*
+  \hline\noalign{\vskip 2pt}
+  % --- Pulse Power (halves) ---
+  \multicolumn{6}{|P{\espanVI}|}{%
+    \pcell{Centrifuge energy}{\SI{3}{\milli \joule}}} &
+  \multicolumn{6}{P{\espanVI}|}{%
+    \pcell{Probe energy}{\SI{650}{\micro \joule}}} \\*
+  \hline\noalign{\vskip 2pt}
+  % --- VMI / MCP voltages (halves) ---
+  \multicolumn{6}{|P{\espanVI}|}{%
+    \pcell{$V_\mathrm{Repeller/ Extractor}$}{\SI{6}{\kilo \volt}/ \SI{3.9}{\kilo \volt}}} &
+  \multicolumn{6}{P{\espanVI}|}{%
+    \pcell{$V_\mathrm{Phosphor/ MCP}$}{\SI{4}{\kilo \volt}/ \SI{1.05}{\kilo \volt}}} \\*
+  \hline\noalign{\vskip 2pt}
+  % --- Trigger rescaling / MCP-Delay / Camera-Delay (thirds) ---
+  \multicolumn{4}{|P{\espanIV}|}{%
+    \pcell{Trigger rescaling}{1}} &
+  \multicolumn{4}{P{\espanIV}|}{%
+    \pcell{MCP-Delay}{\SI{3747}{\nano \second}/ \SI{60}{\nano \second}}} &
+  \multicolumn{4}{P{\espanIV}|}{%
+    \pcell{Camera-Delay}{\SI{0.8}{\milli \second}/ \SI{0.1}{\milli \second}}} \\
+  \endfirsthead
+  % ---- repeated on every page after the first --------------
+  \multicolumn{12}{|P{\espanXII}|}{\textit{Table \thetable{} -- continued from previous page}} \\
+  \hline
+  \endhead
+  % ---- repeated at the bottom of every page but the last ---m \s
+  \hline
+  \multicolumn{12}{|P{\espanXII}|}{\hfill\textit{continued on next page}} \\
+  \endfoot
+  % ---- shown once, at the very end of the table -------------
+  \hline
+  \endlastfoot
     % ==== repeat this block once per scan ====================
     \hline\hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     % --- Scan Name (full width) ---
     \multicolumn{12}{|P{\espanXII}|}{%
-      \pcell{Scan Name}{20251212/Scan4}} \\
+      \pcell{Scan Name}{20251212/Scan4}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     % --- Center / Angle / Radial gate (thirds) ---
     \multicolumn{4}{|P{\espanIV}|}{%
-      \pcell{Center}{$(194,\,204)\,$px}} &
+      \pcell{Center}{(\num{194}, \num{204})\,\si{\pixel}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Angle}{$12^\circ$}} &
+      \pcell{Angle}{\SI{12}{\degree}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Radial gate}{$[60,\,120]\,$px}} \\
+      \pcell{Radial gate}{\SIrange{60}{120}{\pixel}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     % --- Delay-Center / Transform parameter (halves) ---
-    \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Delay-Center}{$85.55\,$mm}} &
+    \multicolumn{6}{|P{\espanVI}|}{%.
+      \pcell{Delay-Center}{\SI{85.55}{\milli\meter}}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Transform parameter}{0.79}} \\
+      \pcell{Transform parameter}{\num{0.79}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     % --- Camera Setting / Ions per Frame range (halves) ---
     \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Camera Setting}{\dots}} &
+      \pcell{Camera Setting}{\SI{25}{\decibel}, \SI{10}{\milli \second} untriggered}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Ions/Frame range}{\dots}} \\
+      \pcell{Ions/Frame}{\SI{2}{\ipf}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     % --- Source / Doping / Differential / Detection pressures (quarters) ---
     \multicolumn{3}{|P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Source}$}{\dots}} &
+      \pcell{$p_\mathrm{Source}$}{-}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Doping}$}{\dots}} &
+      \pcell{$p_\mathrm{Doping}$}{-}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Differential}$}{\dots}} &
+      \pcell{$p_\mathrm{Differential}$}{-}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Detection}$}{\dots}} \\
+      \pcell{$p_\mathrm{Detection}$}{\SI{3.92e-9}{\torr}}} \\
     % ==== end repeated block ==================================
     % ==== next scan: copy of the block above ==================
     \hline\hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{12}{|P{\espanXII}|}{%
-      \pcell{Scan Name}{20251213/Scan1}} \\
+      \pcell{Scan Name}{20251213/Scan1}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{4}{|P{\espanIV}|}{%
-      \pcell{Center}{$(194,\,204)\,$px}} &
+      \pcell{Center}{(\num{194}, \num{204})\,\si{\pixel}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Angle}{$12^\circ$}} &
+      \pcell{Angle}{\SI{12}{\degree}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Radial gate}{$[60,\,120]\,$px}} \\
+      \pcell{Radial gate}{\SIrange{60}{120}{\pixel}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Delay-Center}{$85.55\,$mm}} &
+      \pcell{Delay-Center}{\SI{85.55}{\milli\meter}}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Transform parameter}{0.79}} \\
+      \pcell{Transform parameter}{\num{0.79}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
       \pcell{Camera Setting}{\dots}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Ions/Frame range}{\dots}} \\
+      \pcell{Ions/Frame}{\dots}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{3}{|P{\espanIII}|}{%
@@ -237,27 +254,27 @@ $3.4\,\text{\AA}^3$}} \\
     \hline\hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{12}{|P{\espanXII}|}{%
-      \pcell{Scan Name}{20251213/Scan2}} \\
+      \pcell{Scan Name}{20251213/Scan2}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{4}{|P{\espanIV}|}{%
-      \pcell{Center}{$(194,\,204)\,$px}} &
+      \pcell{Center}{(\num{194}, \num{204})\,\si{\pixel}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Angle}{$12^\circ$}} &
+      \pcell{Angle}{\SI{12}{\degree}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Radial gate}{$[60,\,120]\,$px}} \\
+      \pcell{Radial gate}{\SIrange{60}{120}{\pixel}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Delay-Center}{$85.55\,$mm}} &
+      \pcell{Delay-Center}{\SI{85.55}{\milli\meter}}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Transform parameter}{0.79}} \\
+      \pcell{Transform parameter}{\num{0.79}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
       \pcell{Camera Setting}{\dots}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Ions/Frame range}{\dots}} \\
+      \pcell{Ions/Frame}{\dots}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{3}{|P{\espanIII}|}{%
@@ -273,27 +290,27 @@ $3.4\,\text{\AA}^3$}} \\
     \hline\hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{12}{|P{\espanXII}|}{%
-      \pcell{Scan Name}{20251213/Scan3}} \\
+      \pcell{Scan Name}{20251213/Scan3}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{4}{|P{\espanIV}|}{%
-      \pcell{Center}{$(194,\,204)\,$px}} &
+      \pcell{Center}{(\num{194}, \num{204})\,\si{\pixel}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Angle}{$12^\circ$}} &
+      \pcell{Angle}{\SI{12}{\degree}}} &
     \multicolumn{4}{P{\espanIV}|}{%
-      \pcell{Radial gate}{$[60,\,120]\,$px}} \\
+      \pcell{Radial gate}{\SIrange{60}{120}{\pixel}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Delay-Center}{$85.55\,$mm}} &
+      \pcell{Delay-Center}{\SI{85.55}{\milli\meter}}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Transform parameter}{0.79}} \\
+      \pcell{Transform parameter}{\num{0.79}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
       \pcell{Camera Setting}{\dots}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Ions/Frame range}{\dots}} \\
+      \pcell{Ions/Frame}{\dots}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{3}{|P{\espanIII}|}{%
@@ -305,9 +322,8 @@ $3.4\,\text{\AA}^3$}} \\
     \multicolumn{3}{P{\espanIII}|}{%
       \pcell{$p_\mathrm{Detection}$}{\dots}} \\
     % ==== end repeated block ==================================
-    \hline
-  \end{tabular}
-\end{table}
+\end{longtable}
+\endgroup
 
 
 \chapter{Different molecules/ experiments}
