@@ -123,22 +123,49 @@ $3.4\,\text{\AA}^3$}} \\
 \end{table}
 
 \chapter{Experimental Details}
+\section{Centrifuges}
+\begin{table}[htbp]
+  \centering
+  \caption{Centrifuge setting: Highest accelerating centrifuge with starting frequency at around \SI{0}{\giga \hertz} - to capture the molecules from their ground state.}
+  \label{tab:centrifuge-high_acceleration}
+  \singlespacing
+  \begin{tabular}{|*{12}{c|}}
+    \hline\noalign{\vskip 2pt}
+    % --- Description (full width) ---
+    \multicolumn{12}{|P{\espanXII}|}{%
+      \pcell{Description}{Fast accelerating centrifuge starting at \SI{0}{\giga \hertz}}} \\
+    \hline\noalign{\vskip 2pt}
+    % --- Grating arm / Delay arm position (halves) ---
+    \multicolumn{6}{|P{\espanVI}|}{%
+      \pcell{Grating arm position}{\SI{26}{\milli \meter}}} &
+    \multicolumn{6}{P{\espanVI}|}{%
+      \pcell{Delay arm position}{\SI{15.9}{\milli \meter}}} \\
+    \hline\noalign{\vskip 2pt}
+    % --- Expected f_FWHM / Central frequency (halves) ---
+    \multicolumn{6}{|P{\espanVI}|}{%
+      \pcell{Expected $2f_\mathrm{FWHM}$}{\SIrange{10}{90}{\giga \hertz}}} &
+    \multicolumn{6}{P{\espanVI}|}{%
+      \pcell{Central frequency}{\SI{50}{\giga \hertz}}} \\
+    \hline
+  \end{tabular}
+\end{table}
 
+\section{Experiments}
 \begingroup
 \singlespacing
 \begin{longtable}{|*{12}{c|}}
-  \caption{Experimental parameters.}
+  \caption{Experimental parameters for \CSS being accelerated in the helium droplets. }
   \label{tab:experimental-params}\\
   \hline\noalign{\vskip 2pt}
   % --- Title (full width) ---
   \multicolumn{12}{|P{\espanXII}|}{%
-    \pcell{Title}{\dots}} \\*
+    \pcell{Title}{Accelerating \CSS in the superfluid}} \\*
   \hline\noalign{\vskip 2pt}
   % --- Molecule / Centrifuge / Environment (thirds) ---
   \multicolumn{4}{|P{\espanIV}|}{%
     \pcell{Molecule}{\CSS}} &
   \multicolumn{4}{P{\espanIV}|}{%
-    \pcell{Centrifuge $f_\mathrm{FWHM}$}{\dots}} &
+    \pcell{Centrifuge}{\tabref{tab:centrifuge-high_acceleration}}} &
   \multicolumn{4}{P{\espanIV}|}{%
     \pcell{Environment}{Droplets - \SI{30}{\bar}/\SI{16}{\kelvin}}} \\*
   \hline\noalign{\vskip 2pt}
@@ -236,19 +263,19 @@ $3.4\,\text{\AA}^3$}} \\
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Camera Setting}{\dots}} &
+      \pcell{Camera Setting}{\SI{25}{\decibel}, \SI{10}{\milli\second} untriggered}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Ions/Frame}{\dots}} \\*
+      \pcell{Ions/Frame}{\SI{2}{\ipf}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{3}{|P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Source}$}{\dots}} &
+      \pcell{$p_\mathrm{Source}$}{\SI{6.27e-5}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Doping}$}{\dots}} &
+      \pcell{$p_\mathrm{Doping}$}{\SI{3.58e-7}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Differential}$}{\dots}} &
+      \pcell{$p_\mathrm{Differential}$}{\SI{1.89e-8}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Detection}$}{\dots}} \\
+      \pcell{$p_\mathrm{Detection}$}{\SI{4.03e-9}{\torr}}} \\
     % ==== end repeated block ==================================
     % ==== next scan: copy of the block above ==================
     \hline\hline\noalign{\vskip 2pt}
@@ -272,19 +299,19 @@ $3.4\,\text{\AA}^3$}} \\
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Camera Setting}{\dots}} &
+      \pcell{Camera Setting}{\SI{25}{\decibel}, \SI{10}{\milli\second} untriggered}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Ions/Frame}{\dots}} \\*
+      \pcell{Ions/Frame}{\SI{2}{\ipf}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{3}{|P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Source}$}{\dots}} &
+      \pcell{$p_\mathrm{Source}$}{\SI{6.5e-5}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Doping}$}{\dots}} &
+      \pcell{$p_\mathrm{Doping}$}{\SI{3.5e-7}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Differential}$}{\dots}} &
+      \pcell{$p_\mathrm{Differential}$}{\SI{1.86e-8}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Detection}$}{\dots}} \\
+      \pcell{$p_\mathrm{Detection}$}{\SI{3.95e-9}{\torr}}} \\
     % ==== end repeated block ==================================
     % ==== next scan: copy of the block above ==================
     \hline\hline\noalign{\vskip 2pt}
@@ -308,19 +335,19 @@ $3.4\,\text{\AA}^3$}} \\
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{6}{|P{\espanVI}|}{%
-      \pcell{Camera Setting}{\dots}} &
+      \pcell{Camera Setting}{\SI{25}{\decibel}, \SI{10}{\milli\second} untriggered}} &
     \multicolumn{6}{P{\espanVI}|}{%
-      \pcell{Ions/Frame}{\dots}} \\*
+      \pcell{Ions/Frame}{\SI{2}{\ipf}}} \\*
     \hline\noalign{\vskip 2pt}
     \rowcolor{repeatbg}
     \multicolumn{3}{|P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Source}$}{\dots}} &
+      \pcell{$p_\mathrm{Source}$}{\SI{6.81e-5}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Doping}$}{\dots}} &
+      \pcell{$p_\mathrm{Doping}$}{\SI{3.54e-7}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Differential}$}{\dots}} &
+      \pcell{$p_\mathrm{Differential}$}{\SI{1.85e-8}{\torr}}} &
     \multicolumn{3}{P{\espanIII}|}{%
-      \pcell{$p_\mathrm{Detection}$}{\dots}} \\
+      \pcell{$p_\mathrm{Detection}$}{\SI{3.96e-9}{\torr}}} \\
     % ==== end repeated block ==================================
 \end{longtable}
 \endgroup
